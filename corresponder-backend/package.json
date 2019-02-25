@@ -5,11 +5,16 @@
   "main": "server.js",
   "dependencies": {
     "dotenv": "^6.2.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0"
+  },
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon --exec babel-node ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nikodem Lorenz",
