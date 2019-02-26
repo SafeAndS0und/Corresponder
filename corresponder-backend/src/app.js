@@ -3,8 +3,10 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import Router from './routes/index'
+import './db.js'
 
 const app = express()
+
 
 app.use(cors()) // takes care of local development problems
 
