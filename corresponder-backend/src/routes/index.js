@@ -1,5 +1,6 @@
 const Router = require('express').Router()
+import userController from '../controllers/user'
 
-Router.get('*', (req, res) => res.send('Hello, look further!'))
+Router.get('*', userController.sayHi)
 
 export default Router
