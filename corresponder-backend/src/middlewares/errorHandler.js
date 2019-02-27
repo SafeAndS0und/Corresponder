@@ -12,7 +12,7 @@ module.exports = {
    },
 
    catchErr(err, req, res, next){
-      res.send({error: err})
+      res.status(500).send({error: err})
    }
 
 }
