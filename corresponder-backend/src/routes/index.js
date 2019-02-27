@@ -1,6 +1,12 @@
+import userRouter from './user'
+import errorHandler from '../middlewares/errorHandler'
 const Router = require('express').Router()
-import userController from '../controllers/user'
 
-Router.get('*', userController.sayHi)
+// Mix mini-routers into the main one
+Router.use('/user', userRouter)
+
+
+// deal with errors
+Router.use(errorHandler.catchAsyncErr)
 
 export default Router

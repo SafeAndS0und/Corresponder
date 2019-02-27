@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import {username, password} from '../config/db'
 
-mongoose.connect(`mongodb+srv://${username}:${password}@storage-lkdyw.gcp.mongodb.net/admin`, {useNewUrlParser: true})
+mongoose.connect(`mongodb+srv://${username}:${password}@storage-lkdyw.gcp.mongodb.net/corresponder`, {useNewUrlParser: true})
 
 const connection = mongoose.connection
 
