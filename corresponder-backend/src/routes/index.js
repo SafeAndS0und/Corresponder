@@ -6,7 +6,8 @@ const Router = require('express').Router()
 Router.use('/user', userRouter)
 
 
-// deal with errors
-Router.use(errorHandler.catchAsyncErr)
+// Deal with errors by a router-level error handler
+Router.use(errorHandler.logError)
+Router.use(errorHandler.catchErr)
 
 export default Router
