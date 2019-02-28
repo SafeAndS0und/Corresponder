@@ -3,6 +3,8 @@ import User from '../../models/User'
 
 
 export default {
+
+
    async register(req, res, next){
 
       // TODO: Bcrypt the password
@@ -25,6 +27,7 @@ export default {
 
    },
 
+
    async login(req, res, next){
 
       // TODO: Assign token
@@ -36,6 +39,7 @@ export default {
          ? res.send('Logged in')
          : res.status(404).send('Wrong credentials')
    },
+
 
    async update(req, res, next){
 
@@ -62,8 +66,6 @@ export default {
       await User.deleteOne({
          username: req.body.username
       })
-
-      console.log('deleting')
 
       res.sendStatus(204)
    },
