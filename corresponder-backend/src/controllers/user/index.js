@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import User from '../models/User'
+import User from '../../models/User'
 
 
 export default {
@@ -37,16 +37,6 @@ export default {
          : res.status(404).send('Wrong credentials')
    },
 
-   async remove(req, res, next){
-      await User.deleteOne({
-         username: req.body.username
-      })
-
-      console.log('deleting')
-
-      res.sendStatus(204)
-   },
-
    async update(req, res, next){
 
       const rb = req.body
@@ -65,5 +55,16 @@ export default {
       )
 
       res.send('Patched')
-   }
+   },
+
+
+   async remove(req, res, next){
+      await User.deleteOne({
+         username: req.body.username
+      })
+
+      console.log('deleting')
+
+      res.sendStatus(204)
+   },
 }

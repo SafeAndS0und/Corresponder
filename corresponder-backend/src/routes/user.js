@@ -1,4 +1,4 @@
-import userController from '../controllers/user'
+import userController from '../controllers/user/index'
 import {asyncWrapper} from '../middlewares/errorHandler'
 const Router = require('express').Router()
 
