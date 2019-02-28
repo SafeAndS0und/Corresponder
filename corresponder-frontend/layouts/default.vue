@@ -4,7 +4,7 @@
     <Navbar class="navbar"/>
     <Sidebar class="sidebar"/>
 
-    <nuxt/>
+    <nuxt class="content"/>
   </div>
 </template>
 
@@ -18,7 +18,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Questrial');
 
   html {
@@ -31,6 +31,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
   }
   *{
     font-family: 'Questrial', cursive;
@@ -39,6 +40,7 @@
   body{
     margin: 0;
     padding: 0;
+    background-color: #f3f3f3;
   }
 
   *,
@@ -50,6 +52,7 @@
 
 
   div{
+    position: relative;
 
     .sidebar{
       z-index: 1;
@@ -63,6 +66,13 @@
     .navbar{
       position: relative;
       z-index: 12;
+    }
+    .content{
+      position: absolute;
+      left:25%;
+      top: 50px;
+      width: 75%;
+
     }
   }
 

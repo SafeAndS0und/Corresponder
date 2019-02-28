@@ -6,7 +6,7 @@
     <p>Simple Real-Time-Communication app
     </p>
 
-    <nuxt-link to="#">
+    <nuxt-link to="/SignUp">
       Sign up
     </nuxt-link>
   </nav>
@@ -19,6 +19,8 @@
 </script>
 
 <style scoped lang="scss">
+
+  @import '../assets/css/variables.scss';
 
   nav {
     height: 50px;
@@ -34,7 +36,7 @@
       margin: 0;
 
       span {
-        color: #6DDC60;
+        color: $basicLightGreen;
       }
     }
 
@@ -43,16 +45,17 @@
       padding: 0 15px;
       font-size: 0.85em;
       color: #bcbcbc;
+
     }
 
     a{
       padding: 12px 30px;
       position: absolute;
       right: 25px;
-      top:10px;
+      top:15px;
       font-weight: 400;
       color: white;
-      background-color: #69CF5D;
+      background-color: $basicLightGreen;
       text-decoration: none;
       border-radius: 35px;
 
