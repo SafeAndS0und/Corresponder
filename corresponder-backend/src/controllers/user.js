@@ -5,6 +5,8 @@ import User from '../models/User'
 export default {
    async register(req, res, next){
 
+      // TODO: Bcrypt the password
+
       const rb = req.body
 
       const user = await new User({
@@ -24,6 +26,8 @@ export default {
    },
 
    async login(req, res, next){
+
+      // TODO: Assign token
 
       const user = await User.findOne({
          username: req.body.username, password:req.body.password

@@ -1,6 +1,6 @@
 import userController from '../controllers/user'
-const Router = require('express').Router()
 import {asyncWrapper} from '../middlewares/errorHandler'
+const Router = require('express').Router()
 
 Router.post('/', asyncWrapper(userController.register))
 Router.post('/login', asyncWrapper(userController.login))
