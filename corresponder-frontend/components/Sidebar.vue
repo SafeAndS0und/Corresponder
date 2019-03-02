@@ -24,7 +24,6 @@
   section{
     background-color: #323437;
 
-
     h2{
       box-sizing: border-box;
       width: 100%;
@@ -38,7 +37,7 @@
 
       color: white;
       font-weight: 400;
-      font-size: 1.2em;
+      font-size: 1.1em;
 
       a{
         color: $prettyBlue;

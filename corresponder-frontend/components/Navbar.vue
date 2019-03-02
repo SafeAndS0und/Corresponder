@@ -3,7 +3,8 @@
     <h1>
       Cor<span>respond</span>er
     </h1>
-    <p>Simple Real-Time-Communication app
+    <p>
+      Simple Real-Time-Communication app
     </p>
 
     <nuxt-link to="/SignUp">

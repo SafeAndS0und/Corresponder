@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link to="/">Home</nuxt-link>
+    <br/><br/><br/><br/><br/><br/>
     <br/>
     Sign up page
   </div>
