@@ -2,18 +2,33 @@
   <div>
 
     <Navbar class="navbar"/>
-    <Sidebar class="sidebar"/>
+    <Sidebar class="sidebar"
+             :class="{folded}"
+             @fold="forwardFold"/>
 
-    <nuxt class="content"/>
+    <nuxt
+      class="content"
+      :class="{fullscreen: folded}"
+    />
   </div>
 </template>
 
 <script>
   import Navbar from '../components/Navbar.vue'
-  import Sidebar from '../components/Sidebar.vue'
+  import Sidebar from '../components/sidebar/Sidebar.vue'
 
   export default {
-    components: {Navbar, Sidebar}
+    components: {Navbar, Sidebar},
+    data(){
+      return {
+        folded: false
+      }
+    },
+    methods:{
+      forwardFold(){
+        this.folded = !this.folded
+      }
+    }
 
   }
 </script>
@@ -61,6 +76,7 @@
       top: 0;
       height: 100vh;
       width: 25%;
+      transition: 0.5s;
     }
 
     .navbar{
@@ -72,8 +88,18 @@
       left:25%;
       top: 50px;
       width: 75%;
+      transition: 0.5s;
 
     }
+  }
+
+  .folded{
+    width: 55px !important;
+  }
+
+  .fullscreen{
+    width: 90% !important;
+    left: 10% !important;
   }
 
 </style>
