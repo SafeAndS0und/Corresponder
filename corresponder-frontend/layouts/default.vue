@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <Navbar class="navbar"/>
+    <Navbar class="navbar" :folded="folded"/>
     <Sidebar class="sidebar"
              :class="{folded}"
              @fold="forwardFold"/>
@@ -98,8 +98,8 @@
   }
 
   .fullscreen{
-    width: 90% !important;
-    left: 10% !important;
+    width: 95% !important;
+    left: 5% !important;
   }
 
 </style>

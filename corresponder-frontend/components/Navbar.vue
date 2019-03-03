@@ -1,9 +1,9 @@
 <template>
   <nav>
-    <h1>
+    <h1 :class="{invisible: folded}">
       Cor<span>respond</span>er
     </h1>
-    <p>
+    <p :class="{invisible: folded}">
       Simple Real-Time-Communication app
     </p>
 
@@ -15,6 +15,7 @@
 
 <script>
   export default {
+    props: ["folded"],
     name: "navbar"
   }
 </script>
@@ -49,6 +50,10 @@
 
     }
 
+    h1, p{
+      transition: .5s;
+    }
+
     a{
       padding: 12px 30px;
       position: absolute;
@@ -70,6 +75,10 @@
         background-color: #5bc35b;
       }
     }
+  }
+
+  .invisible{
+    opacity: 0;
   }
 
 </style>
