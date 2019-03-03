@@ -17,17 +17,18 @@
     </h2>
 
     <Rooms v-if="isLogged && !folded" class="rooms"/>
-
+    <Friends v-if="isLogged && !folded" class="friends"/>
 
   </section>
 </template>
 
 <script>
   import Rooms from './Rooms.vue'
+  import Friends from './Friends.vue'
 
   export default {
     name: "Sidebar",
-    components: {Rooms},
+    components: {Rooms, Friends},
     data(){
       return {
         isLogged: true,
@@ -48,7 +49,7 @@
   @import '../../assets/css/variables';
 
   section {
-    background-color: #323437;
+    background-color: $s_mainGrey;
     position: relative;
 
     .arrow{
@@ -85,7 +86,7 @@
     }
 
     .rooms{
-      margin-top: 100px;
+      margin-top: 90px;
     }
   }
 

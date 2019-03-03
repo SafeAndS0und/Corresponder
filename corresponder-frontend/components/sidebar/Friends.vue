@@ -1,18 +1,17 @@
 <template>
-  <div class="rooms">
+  <div class="friends">
     <header>
-      <h3 class="name" @click="expandRoomList = !expandRoomList">Rooms</h3>
+      <h3 class="name" @click="expandFriendList = !expandFriendList">Friends</h3>
 
       <div class="options">
-        <v-icon name="plus-square" class="option"/>
         <v-icon name="search" class="option"/>
       </div>
     </header>
 
-    <div class="room-list"  v-if="expandRoomList">
-      <article v-for="room of rooms">
-        <h3 class="room-name">{{room.name}}</h3>
-        <v-icon name="times" class="leave" scale="1.4" />
+    <div class="friends-list" v-if="expandFriendList">
+      <article v-for="friend of friends">
+        <h3 class="friend-name">{{friend.name}}</h3>
+        <v-icon name="ellipsis-h" class="interact" scale="1.3"/>
       </article>
     </div>
 
@@ -22,14 +21,16 @@
 
 <script>
   export default {
-    name: "Rooms",
+    name: "Friends",
     data(){
       return {
-        expandRoomList: true,
-        rooms: [
-          {name: 'Tesla Lovers'},
-          {name: 'Memes'},
-          {name: 'GAMES *.*'},
+        expandFriendList: true,
+        friends: [
+          {name: 'Ericka'},
+          {name: 'Michael Toyd'},
+          {name: 'John Redneck'},
+          {name: 'Stancy'},
+          {name: 'Peter Grunt'},
         ]
       }
     }
@@ -40,14 +41,14 @@
 
   @import '../../assets/css/variables';
 
-  .rooms {
+  .friends {
 
     header {
       width: 100%;
       padding: 12px 4px;
       background-color: $s_titleGrey;
       display: grid;
-      grid-template-columns: 2fr 0.52fr;
+      grid-template-columns: 2fr 0.25fr;
       align-items: center;
       color: #d7d7d7;
 
@@ -60,7 +61,7 @@
         cursor: pointer;
         transition: 0.2s;
 
-        &:hover{
+        &:hover {
           color: #75df60;
         }
       }
@@ -69,7 +70,6 @@
         display: grid;
         height: 100%;
         align-items: center;
-        grid-auto-flow: column;
 
         .option {
           font-size: 0.80em;
@@ -82,8 +82,8 @@
       }
     }
 
-    .room-list {
-      article{
+    .friends-list {
+      article {
         position: relative;
         padding: 10px 15px;
         background-color: $s_articleGrey;
@@ -92,30 +92,32 @@
         border-bottom: 1px solid #2c2d30;
         transition: 0.15s;
 
-        &:hover{
+        &:hover {
           background-color: #26252f;
         }
 
-        .room-name {
+        .friend-name {
           font-weight: 300;
           font-size: 0.8em;
           letter-spacing: 3px;
         }
 
-        .leave{
+        .interact{
           position: absolute;
-          right: 24px;
+          right: 20px;
           top: 50%;
           transform: translateY(-50%);
-          color: #72191e;
+          color: #595b60;
 
           &:hover{
-            color: #d42338;;
+            color: white;
           }
         }
       }
+
     }
 
   }
+
 
 </style>

@@ -7,6 +7,11 @@
       Simple Real-Time-Communication app
     </p>
 
+    <v-icon :class="{invisible: folded}"
+            name="regular/moon"
+            class="moon"
+            scale="1.6"/>
+
     <nuxt-link to="/SignUp">
       Sign up
     </nuxt-link>
@@ -27,6 +32,7 @@
   nav {
     height: 50px;
     width: 100%;
+    position: relative;
 
     h1 {
       line-height: 50px;
@@ -48,6 +54,19 @@
       font-size: 0.85em;
       color: #bcbcbc;
 
+    }
+
+    .moon{
+      position: absolute;
+      top: 25px;
+      left: 22%;
+      color: #69747d;
+      cursor: pointer;
+      transition: 1.5s;
+
+      &:hover{
+        color: #fff;
+      }
     }
 
     h1, p{
@@ -79,6 +98,7 @@
 
   .invisible{
     opacity: 0;
+    transition: 0.2s !important;
   }
 
 </style>
