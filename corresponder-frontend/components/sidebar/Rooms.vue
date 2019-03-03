@@ -10,7 +10,7 @@
     </header>
 
     <div class="room-list"  v-if="expandRoomList">
-      <article v-for="room of rooms">
+      <article v-for="room of rooms" @click="switchRoom(room)">
         <h3 class="room-name">{{room.name}}</h3>
         <v-icon name="times" class="leave" scale="1.4" />
       </article>
@@ -27,10 +27,20 @@
       return {
         expandRoomList: true,
         rooms: [
-          {name: 'Tesla Lovers'},
-          {name: 'Memes'},
-          {name: 'GAMES *.*'},
+          {name: 'Tesla Lovers', description: "For every tesla owner... and the future ones, too!"},
+          {name: 'Memes', description: "Super funny memes omg"},
+          {name: 'GAMES *.*', description: "Join only if you're true gamer. No girls allowed!"},
         ]
+      }
+    },
+    methods: {
+      switchRoom(room){
+        this.$store.dispatch('chat/switchChat', {
+          name: room.name,
+          description: room.description,
+          chatType: 'room',
+          chatId: 1
+        })
       }
     }
   }

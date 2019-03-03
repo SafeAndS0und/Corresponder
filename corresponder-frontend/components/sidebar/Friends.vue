@@ -9,7 +9,7 @@
     </header>
 
     <div class="friends-list" v-if="expandFriendList">
-      <article v-for="friend of friends">
+      <article v-for="friend of friends" @click="switchFriend(friend)">
         <h3 class="friend-name">{{friend.name}}</h3>
         <v-icon name="ellipsis-h" class="interact" scale="1.3"/>
       </article>
@@ -32,6 +32,15 @@
           {name: 'Stancy'},
           {name: 'Peter Grunt'},
         ]
+      }
+    },
+    methods: {
+      switchFriend(friend){
+        this.$store.dispatch('chat/switchChat', {
+          name: friend.name,
+          chatType: 'friend',
+          chatId: 1
+        })
       }
     }
   }

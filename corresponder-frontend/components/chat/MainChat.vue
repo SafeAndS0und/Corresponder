@@ -1,8 +1,8 @@
 <template>
     <section class="chat">
       <div class="room-window">
-        <h3>Tesla Lovers</h3>
-        <p>21 members, 3 active</p>
+        <h3>{{$store.state.chat.name}}</h3>
+        <p>{{$store.state.chat.description}}</p>
 
         <section class="messages">
           <h4>Here will be your messages</h4>

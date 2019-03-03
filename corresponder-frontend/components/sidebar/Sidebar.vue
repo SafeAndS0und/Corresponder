@@ -4,7 +4,7 @@
     <v-icon :name="folded ? 'arrow-right' : 'arrow-left'"
             @click.native="emitFold"
             class="arrow"
-            scale="1.9" />
+            scale="1.9"/>
 
     <h2 v-if="!isLogged && !folded">
       Hi, I will be your navigation sidebar.
@@ -16,8 +16,13 @@
       first!
     </h2>
 
-    <Rooms v-if="isLogged && !folded" class="rooms"/>
-    <Friends v-if="isLogged && !folded" class="friends"/>
+    <keep-alive>
+      <Rooms v-if="isLogged && !folded" class="rooms"/>
+    </keep-alive>
+
+    <keep-alive>
+      <Friends v-if="isLogged && !folded" class="friends"/>
+    </keep-alive>
 
   </section>
 </template>
@@ -35,7 +40,7 @@
         folded: false
       }
     },
-    methods:{
+    methods: {
       emitFold(){
         this.$emit('fold')
         this.folded = !this.folded
@@ -52,7 +57,7 @@
     background-color: $s_mainGrey;
     position: relative;
 
-    .arrow{
+    .arrow {
       position: absolute;
       bottom: 15px;
       right: 15px;
@@ -60,7 +65,7 @@
       cursor: pointer;
       z-index: 100;
 
-      &:hover{
+      &:hover {
         color: #ccc7cd;
       }
     }
@@ -85,7 +90,7 @@
       }
     }
 
-    .rooms{
+    .rooms {
       margin-top: 90px;
     }
   }
