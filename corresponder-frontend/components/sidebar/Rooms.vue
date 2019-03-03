@@ -29,7 +29,7 @@
         rooms: [
           {name: 'Tesla Lovers', description: "For every tesla owner... and the future ones, too!"},
           {name: 'Memes', description: "Super funny memes omg"},
-          {name: 'GAMES *.*', description: "Join only if you're true gamer. No girls allowed!"},
+          {name: 'GAMES *.*', description: "Join only if you're a true gamer. No girls allowed!"},
         ]
       }
     },

@@ -56,6 +56,7 @@
     margin: 0;
     padding: 0;
     background-color: #f3f3f3;
+    transition: background-color 0.5s;
   }
 
   *,

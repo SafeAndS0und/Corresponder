@@ -7,12 +7,14 @@
       Simple Real-Time-Communication app
     </p>
 
-    <v-icon :class="{invisible: folded}"
-            name="regular/moon"
-            class="moon"
-            scale="1.6"/>
+    <div class="moon" @click="switchThemeColor">
+      <v-icon :class="{invisible: folded}"
+              name="regular/moon"
+              scale="1.6"
+      />
+    </div>
 
-    <nuxt-link to="/SignUp">
+    <nuxt-link to="/SignUp" :class="{dark: $store.state.appThemeColor === 'dark'}">
       Sign up
     </nuxt-link>
   </nav>
@@ -21,7 +23,22 @@
 <script>
   export default {
     props: ["folded"],
-    name: "navbar"
+    name: "navbar",
+    data(){
+      return {
+        body: ''
+      }
+    },
+    beforeMount(){
+      this.body = document.body
+    },
+    methods: {
+      switchThemeColor(){
+        this.$store.dispatch('switchThemeColor')
+        this.body.classList.toggle('dark')
+        console.log(this.body.className)
+      }
+    }
   }
 </script>
 
@@ -48,7 +65,7 @@
       }
     }
 
-    p{
+    p {
       margin: 0;
       padding: 0 15px;
       font-size: 0.85em;
@@ -56,7 +73,7 @@
 
     }
 
-    .moon{
+    .moon {
       position: absolute;
       top: 25px;
       left: 22%;
@@ -64,41 +81,49 @@
       cursor: pointer;
       transition: 1.5s;
 
-      &:hover{
+      &:hover {
         color: #fff;
       }
     }
 
-    h1, p{
+    h1, p {
       transition: .5s;
     }
 
-    a{
+    a {
       padding: 12px 30px;
       position: absolute;
       right: 25px;
-      top:15px;
+      top: 15px;
       font-weight: 400;
       color: white;
       background-color: $basicLightGreen;
       text-decoration: none;
       border-radius: 35px;
 
-      -webkit-box-shadow: 3px 3px 5px 0 rgba(173,173,173,1);
-      -moz-box-shadow: 3px 3px 5px 0 rgba(173,173,173,1);
-      box-shadow: 3px 3px 5px 0 rgba(173,173,173,1);
+      -webkit-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
+      -moz-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
+      box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
 
       transition: 0.2s;
 
-      &:hover{
+      &:hover {
         background-color: #5bc35b;
       }
     }
   }
 
-  .invisible{
+  .invisible {
     opacity: 0;
     transition: 0.2s !important;
   }
 
+</style>
+<style>
+  .dark{
+    background-color: #1f2023 !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+  }
 </style>

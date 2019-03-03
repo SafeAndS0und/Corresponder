@@ -4,7 +4,7 @@
         <h3>{{$store.state.chat.name}}</h3>
         <p>{{$store.state.chat.description}}</p>
 
-        <section class="messages">
+        <section class="messages" :class="{dark: $store.state.appThemeColor === 'dark'}">
           <h4>Here will be your messages</h4>
         </section>
 
@@ -51,11 +51,21 @@
         -moz-box-shadow: 3px 3px 5px 0 rgba(173,173,173,1);
         box-shadow: 3px 3px 5px 0 rgba(173,173,173,1);
 
+        transition: 0.5s;
+
         h4{
           text-align: center;
           font-weight: 400;
           color: #525252;
           padding: 150px 0;
+        }
+      }
+
+      .dark{
+        background-color: #28292d !important;
+
+        h4{
+          color: #9b9b9b !important;
         }
       }
     }
