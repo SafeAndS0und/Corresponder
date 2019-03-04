@@ -14,8 +14,15 @@
       />
     </div>
 
-    <nuxt-link to="/SignUp" :class="{dark: $store.state.appThemeColor === 'dark'}">
+    <nuxt-link to="/SignUp"
+               v-if="!loggedIn"
+               :class="{dark: $store.state.appThemeColor === 'dark'}">
       Sign up
+    </nuxt-link>
+    <nuxt-link to="/SignUp"
+               v-if="loggedIn"
+               :class="{dark: $store.state.appThemeColor === 'dark'}">
+      Logout
     </nuxt-link>
   </nav>
 </template>
@@ -37,6 +44,13 @@
         this.$store.dispatch('switchThemeColor')
         this.body.classList.toggle('dark')
         console.log(this.body.className)
+      }
+    },
+    computed: {
+      loggedIn(){
+        if(process.client){
+          return this.$store.getters['user/isLoggedIn']
+        }
       }
     }
   }

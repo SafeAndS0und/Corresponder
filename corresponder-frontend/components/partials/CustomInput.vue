@@ -25,7 +25,7 @@
 
     &:active, &:focus{
       outline: none;
-      background-color: #51914f;
+      background-color: #2659a0;
     }
   }
 

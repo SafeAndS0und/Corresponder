@@ -6,22 +6,20 @@
             class="arrow"
             scale="1.9"/>
 
-    <h2 v-if="!isLogged && !folded">
+    <h2 v-if="!loggedIn && !folded">
       Hi, I will be your navigation sidebar.
       <br/>
       Just
       <nuxt-link to="/SignUp">Sign up</nuxt-link>
-      or
-      <nuxt-link to="#">Login</nuxt-link>
-      first!
+      or Login first!
     </h2>
 
     <keep-alive>
-      <Rooms v-if="isLogged && !folded" class="rooms"/>
+      <Rooms v-if="loggedIn && !folded" class="rooms"/>
     </keep-alive>
 
     <keep-alive>
-      <Friends v-if="isLogged && !folded" class="friends"/>
+      <Friends v-if="loggedIn && !folded" class="friends"/>
     </keep-alive>
 
   </section>
@@ -36,7 +34,6 @@
     components: {Rooms, Friends},
     data(){
       return {
-        isLogged: true,
         folded: false
       }
     },
@@ -44,6 +41,13 @@
       emitFold(){
         this.$emit('fold')
         this.folded = !this.folded
+      }
+    },
+    computed: {
+      loggedIn(){
+        if(process.client){
+          return this.$store.getters['user/isLoggedIn']
+        }
       }
     }
   }
