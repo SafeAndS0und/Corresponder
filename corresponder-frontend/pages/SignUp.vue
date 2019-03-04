@@ -5,17 +5,17 @@
       <article>
         <h4>Username</h4>
         <CustomInput v-model="user.username"/>
-        <p class="error"></p>
+        <p class="error">{{errors.username}}</p>
       </article>
       <article>
         <h4>Password</h4>
         <CustomInput v-model="user.password"/>
-        <p class="error"></p>
+        <p class="error">{{errors.password}}</p>
       </article>
       <article>
         <h4>Repeat Password</h4>
-        <CustomInput/>
-        <p class="error"></p>
+        <CustomInput v-model="user.rptPswd"/>
+        <p class="error">{{errors.rptPswd}}</p>
       </article>
       <article>
         <h4>Firstname</h4>
@@ -45,8 +45,14 @@
         user: {
           username: '',
           password: '',
+          rptPswd: '',
           firstname: '',
           surname: ''
+        },
+        errors: {
+          username: '',
+          password: '',
+          rptPswd: ''
         }
       }
     },
@@ -58,8 +64,25 @@
           firstname,
           surname
         })
-          .then(res => console.log(res))
-          .catch(err => console.log(err.response))
+          .then(res => {
+            // TODO: Assign token
+            this.$router.push('/')
+          })
+          .catch(err =>{
+            const errs = err.response.data.errors
+
+            this.errors.rptPswd =
+              this.user.password === this.user.rptPswd
+                ? ''
+                : 'Password are not identical'
+
+            this.errors.username = ''
+            this.errors.password = ''
+
+            errs.forEach(err =>{
+              this.errors[err.param] = err.msg
+            })
+          })
       }
     }
   }
@@ -102,6 +125,13 @@
           align-self: center;
           font-weight: 300;
           color: #41434b;
+        }
+
+        .error {
+          font-size: 13px;
+          color: #d10000;
+          grid-column: 2;
+          padding: 5px 0;
         }
       }
 
