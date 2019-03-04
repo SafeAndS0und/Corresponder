@@ -35,6 +35,7 @@ module.exports = {
   */
   plugins: [
     { src: '~plugins/vue-awesome', ssr: false },
+    { src: '~plugins/vue-axios', ssr: false },
   ],
 
   /*
