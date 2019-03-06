@@ -30,7 +30,8 @@
           password: this.password
         })
           .then(res => {
-            this.success = res.data
+            console.log(res.data)
+            this.success = res.data.msg
             this.$store.dispatch('user/login', {username: this.username})
           })
           .catch(err => this.err = err.response.data)

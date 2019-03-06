@@ -8,4 +8,6 @@ Router.post('/login', asyncWrapper(userController.login))
 Router.delete('/', asyncWrapper(userController.remove))
 Router.patch('/', asyncWrapper(userController.update))
 
+Router.get('/token/:token', asyncWrapper(userController.verifyToken))
+
 export default Router

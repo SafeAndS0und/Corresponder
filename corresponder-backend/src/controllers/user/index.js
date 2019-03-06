@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import User from '../../models/User'
 import conController from '../connection/index'
+import jwt from 'jsonwebtoken'
 
 
 export default {
@@ -36,10 +37,23 @@ export default {
       // TODO: Assign token
 
       const user = await User.findOne({
-         username: req.body.username, password:req.body.password
+         username: req.body.username, password: req.body.password
       })
+
+      const token = await jwt.sign(
+         {
+            _id: user._id
+         },
+         'superPrivate', // TODO: ekhm
+         {
+            expiresIn: 60 * 5
+         }
+      )
       user
-         ? res.send('Logged in')
+         ? res.status(200).send({
+            msg: "Logged in",
+            token
+         })
          : res.status(404).send('Wrong credentials')
    },
 
@@ -72,4 +86,10 @@ export default {
 
       res.sendStatus(204)
    },
+
+
+   async verifyToken(req, res, next){
+      const decoded = await jwt.verify(req.params.token, 'superPrivate')
+      res.status(200).send({verified: true, expiresAt: decoded.exp})
+   }
 }
