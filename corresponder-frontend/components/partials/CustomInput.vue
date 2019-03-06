@@ -25,7 +25,11 @@
 
     &:active, &:focus{
       outline: none;
-      background-color: #2659a0;
+      background-color: #2c5db9;
+
+      &::placeholder{
+        color: #b4b4b4;
+      }
     }
   }
 
