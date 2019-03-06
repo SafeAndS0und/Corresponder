@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import User from '../../models/User'
+import conController from '../connection/index'
 
 
 export default {
@@ -19,6 +20,8 @@ export default {
          password: rb.password,
          profilePic: rb.profilePic = ""
       }).save()
+
+      await conController.registerUser(user._id)
 
       res.json({
          msg: 'Registered successfully',

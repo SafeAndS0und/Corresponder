@@ -9,7 +9,7 @@ const connectionSchema = new Schema({
       friends: [Schema.Types.ObjectId]
    },
    {
-      timestamps: true
+      timestamps: false
    })
 
 const Connection = mongoose.model('Connection', connectionSchema)

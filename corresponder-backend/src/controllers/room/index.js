@@ -20,7 +20,7 @@ export default {
          uniqueHref: rb.uniqueHref
       }).save()
 
-      await conController.addNewRoom(req, res, next)
+      await conController.addNewRoom(room, "5c80193539247a02e80f86d4")
 
       res.json({
          msg: 'Successfully added new room',
