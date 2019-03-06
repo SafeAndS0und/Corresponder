@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import Room from '../../models/Room'
-import User from "../../models/User"
-
+import conController from '../connection/index'
 
 export default {
 
@@ -20,6 +19,8 @@ export default {
          themeColor: rb.themeColor,
          uniqueHref: rb.uniqueHref
       }).save()
+
+      await conController.addNewRoom(req, res, next)
 
       res.json({
          msg: 'Successfully added new room',

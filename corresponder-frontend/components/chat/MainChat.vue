@@ -38,10 +38,12 @@
 
   .chat {
 
+    margin: 0 0 80px 0;
+
     .room-window {
       margin: 0 120px 0 80px;
       padding: 5px 20px;
-      color: #404040;
+      color: #555555;
 
       h3 {
         font-size: 26px;
@@ -70,7 +72,7 @@
           text-align: center;
           font-weight: 400;
           color: #525252;
-          padding: 180px 0;
+          padding: 160px 0;
         }
       }
 
@@ -81,18 +83,18 @@
           color: #9b9b9b !important;
         }
 
-        &:active, &:focus{
+        &:active, &:focus {
           color: #cdbdc9;
           background-color: #24262f !important;
         }
 
       }
 
-      .darkBtn{
-        background-color: #222a41 !important;
+      .darkBtn {
+        background-color: #24262f !important;
 
-        &:hover{
-          background-color: #1f2537 !important;
+        &:hover {
+          background-color: #1c202c !important;
         }
       }
 
@@ -118,7 +120,7 @@
           background-color: #4067cf;
         }
 
-        span{
+        span {
           display: block;
           font-size: 0.8em;
           color: #d7d7d7;

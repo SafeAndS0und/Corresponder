@@ -19,6 +19,7 @@
     background-color: #3e3e41;
     color: #ffffff;
     font-weight: 300;
+    font-size: .95em;
     height: 25px;
     padding: 5px 8px;
     transition: 0.3s;
@@ -28,7 +29,7 @@
       background-color: #2c5db9;
 
       &::placeholder{
-        color: #b4b4b4;
+        color: #e1e1e1;
       }
     }
   }
