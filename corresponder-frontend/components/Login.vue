@@ -29,10 +29,11 @@
           username: this.username,
           password: this.password
         })
-          .then(res => {
-            console.log(res.data)
+          .then(res =>{
             this.success = res.data.msg
-            this.$store.dispatch('user/login', {username: this.username})
+            this.$store.dispatch('user/login', {
+              username: this.username, token: res.data.token
+            })
           })
           .catch(err => this.err = err.response.data)
       }
@@ -89,10 +90,10 @@
       font-size: 0.9em;
     }
 
-    .errMsg{
+    .errMsg {
       color: #ad0000;
     }
-    .success{
+    .success {
       color: #3b8239;
     }
   }

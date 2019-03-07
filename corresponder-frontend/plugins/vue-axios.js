@@ -1,8 +1,14 @@
 import Vue from 'vue'
 import axios from 'axios'
+import onPageRefresh from '../assets/js/onPageRefresh'
 
-const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3001/'
-})
+export default ({ app: { store } }) => {
 
-Vue.prototype.axios= axiosInstance
+  const axiosInstance = axios.create({
+    baseURL: 'http://localhost:3001/'
+  })
+
+  onPageRefresh(axiosInstance, store)
+
+  Vue.prototype.axios = axiosInstance
+}

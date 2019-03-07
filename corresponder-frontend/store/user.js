@@ -1,10 +1,16 @@
+
 export const state = () => ({
-  username: ''
+  username: '',
+  token: ''
 })
 
 export const mutations = {
   login(state, payload){
     state.username = payload.username
+    state.token = payload.token
+
+    localStorage.setItem('token', state.token)
+    localStorage.setItem('username', state.username)
   }
 }
 
@@ -17,6 +23,6 @@ export const actions = {
 
 export const getters = {
   isLoggedIn(state){
-    return state.username !== ''
+    return state.token !== ''
   }
 }
