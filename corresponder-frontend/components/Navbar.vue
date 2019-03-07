@@ -45,7 +45,6 @@
       switchThemeColor(){
         this.$store.dispatch('switchThemeColor')
         this.body.classList.toggle('dark')
-        console.log(this.body.className)
       },
       logout(){
         this.$store.dispatch('user/logout')

@@ -1,15 +1,33 @@
 <template>
   <div>
+    <transition name="fade">
+      <div class="page" v-if="!isLoading">
 
-    <Navbar class="navbar" :folded="folded"/>
-    <Sidebar class="sidebar"
-             :class="{folded}"
-             @fold="forwardFold"/>
+        <Navbar class="navbar" :folded="folded"/>
+        <Sidebar class="sidebar"
+                 :class="{folded}"
+                 @fold="forwardFold"/>
 
-    <nuxt
-      class="content"
-      :class="{fullscreen: folded}"
-    />
+        <nuxt
+          class="content"
+          :class="{fullscreen: folded}"
+        />
+      </div>
+    </transition>
+
+    <transition name="fadeL">
+      <div class="loading" v-if="isLoading">
+
+        <h1>HOLD ON A SECOND</h1>
+
+        <div class="circles">
+          <div name="circle" class="circle c1"></div>
+          <div name="circle" class="circle c2"></div>
+          <div name="circle" class="circle c3"></div>
+        </div>
+      </div>
+    </transition>
+
   </div>
 </template>
 
@@ -24,9 +42,14 @@
         folded: false
       }
     },
-    methods:{
+    methods: {
       forwardFold(){
         this.folded = !this.folded
+      }
+    },
+    computed: {
+      isLoading(){
+        return this.$store.state.loading
       }
     }
 
@@ -48,11 +71,12 @@
     padding: 0;
 
   }
-  *{
+
+  * {
     font-family: 'Questrial', cursive;
   }
 
-  body{
+  body {
     margin: 0;
     padding: 0;
     background-color: #f3f3f3;
@@ -66,41 +90,119 @@
     margin: 0;
   }
 
-
-  div{
-    position: relative;
-
-    .sidebar{
-      z-index: 1;
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      width: 25%;
-      transition: 0.5s;
-    }
-
-    .navbar{
-      position: relative;
-      z-index: 12;
-    }
-    .content{
-      position: absolute;
-      left:25%;
-      top: 50px;
-      width: 75%;
-      transition: 0.5s;
-
-    }
-  }
-
-  .folded{
+  .folded {
     width: 55px !important;
   }
 
-  .fullscreen{
+  .fullscreen {
     width: 95% !important;
     left: 5% !important;
   }
+
+  div {
+
+    .page {
+
+
+      .sidebar {
+        z-index: 1;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 25%;
+        transition: 0.5s;
+      }
+
+      .navbar {
+        position: relative;
+        z-index: 12;
+      }
+      .content {
+        position: absolute;
+        left: 25%;
+        top:50px;
+        width: 75%;
+        transition: 0.5s;
+
+      }
+    }
+
+    .loading {
+      display: grid;
+      height: 100vh;
+      grid-gap: 20px;
+
+      h1 {
+        align-self: end;
+        text-align: center;
+        font-weight: 400;
+        font-size: 2em;
+        color: #353137;
+        margin-bottom: 50px;
+        letter-spacing: 6px;
+      }
+
+      .circles {
+        align-self: start;
+        justify-self: center;
+
+        .circle {
+          padding: 7px;
+          margin: 10px;
+          border-radius: 50%;
+          display: inline-block;
+          animation: load .5s infinite alternate ease-out;
+        }
+
+        .c1 {
+          animation-delay: 0s;
+        }
+
+        .c2 {
+          animation-delay: 0.15s;
+        }
+        .c3 {
+          animation-delay: 0.30s;
+        }
+      }
+    }
+  }
+
+  /* Loading animation */
+
+  @keyframes load {
+    from {
+      transform: translateY(8px);
+      background-color: #3f7efc;
+    }
+    to {
+      transform: translateY(-12px);
+      background-color: #305bb5;
+    }
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.61s;
+    transition-delay: 0.5s;
+    opacity: 1;
+  }
+
+  .fade-enter, .fade-leave-to {
+
+    opacity: 0;
+  }
+
+
+  .fadeL-enter-active, .fadeL-leave-active {
+    transition: all 0.5s;
+    opacity: 1;
+  }
+
+  .fadeL-enter, .fadeL-leave-to {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+
 
 </style>
