@@ -44,7 +44,7 @@ export default {
          },
          'superPrivate', // TODO: ekhm
          {
-            expiresIn: 60 * 5
+            expiresIn: 3600 * 2
          }
       )
       user

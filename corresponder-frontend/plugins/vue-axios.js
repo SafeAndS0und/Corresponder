@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import onPageRefresh from '../assets/js/onPageRefresh'
 
-export default ({ app: { store } }) => {
+export default ({app: {store}}) =>{
 
   const axiosInstance = axios.create({
     baseURL: 'http://localhost:3001/'

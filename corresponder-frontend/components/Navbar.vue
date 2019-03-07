@@ -19,11 +19,13 @@
                :class="{dark: $store.state.appThemeColor === 'dark'}">
       Sign up
     </nuxt-link>
-    <nuxt-link to="/SignUp"
-               v-if="loggedIn"
-               :class="{dark: $store.state.appThemeColor === 'dark'}">
+    <button
+      v-if="loggedIn"
+      class="logout"
+      @click="logout"
+      :class="{dark: $store.state.appThemeColor === 'dark'}">
       Logout
-    </nuxt-link>
+    </button>
   </nav>
 </template>
 
@@ -44,6 +46,9 @@
         this.$store.dispatch('switchThemeColor')
         this.body.classList.toggle('dark')
         console.log(this.body.className)
+      },
+      logout(){
+        this.$store.dispatch('user/logout')
       }
     },
     computed: {
@@ -104,7 +109,7 @@
       transition: .5s;
     }
 
-    a {
+    a, .logout {
       padding: 12px 30px;
       position: absolute;
       right: 25px;
@@ -113,7 +118,11 @@
       color: white;
       background-color: $basicLightGreen;
       text-decoration: none;
+      cursor: pointer;
+      border: none;
       border-radius: 35px;
+
+      font-size: 0.9em;
 
       -webkit-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
       -moz-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
@@ -134,7 +143,7 @@
 
 </style>
 <style>
-  .dark{
+  .dark {
     background-color: #1f2023 !important;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;

@@ -2,7 +2,7 @@
   <section class="login">
     <h2 class="title">Please login to browse the Corresponder content</h2>
     <CustomInput v-model="username" placeholder="Username"/>
-    <CustomInput v-model="password" placeholder="Password"/>
+    <CustomInput v-model="password" type="password" placeholder="Password"/>
     <p class="errMsg">{{err}}</p>
     <p class="success">{{success}}</p>
     <button @click="login">Login</button>

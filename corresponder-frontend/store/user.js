@@ -1,4 +1,3 @@
-
 export const state = () => ({
   username: '',
   token: ''
@@ -11,12 +10,20 @@ export const mutations = {
 
     localStorage.setItem('token', state.token)
     localStorage.setItem('username', state.username)
+  },
+  logout(state){
+    localStorage.clear()
+    state.username = ''
+    state.token = ''
   }
 }
 
 export const actions = {
   login({commit}, payload){
     commit('login', payload)
+  },
+  logout({commit}){
+    commit('logout')
   }
 }
 

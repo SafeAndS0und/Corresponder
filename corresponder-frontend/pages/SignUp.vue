@@ -9,12 +9,12 @@
       </article>
       <article>
         <h4>Password</h4>
-        <CustomInput v-model="user.password"/>
+        <CustomInput type="password" v-model="user.password"/>
         <p class="error">{{errors.password}}</p>
       </article>
       <article>
         <h4>Repeat Password</h4>
-        <CustomInput v-model="user.rptPswd"/>
+        <CustomInput type="password" v-model="user.rptPswd"/>
         <p class="error">{{errors.rptPswd}}</p>
       </article>
       <article>
@@ -66,6 +66,10 @@
         })
           .then(res => {
             // TODO: Assign token
+            this.$store.dispatch('user/login', {
+              username: this.username,
+              password: this.password
+            })
             this.$router.push('/')
           })
           .catch(err =>{
