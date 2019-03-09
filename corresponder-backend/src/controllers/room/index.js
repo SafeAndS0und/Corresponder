@@ -11,17 +11,19 @@ export default {
 
       const rb = req.body
 
+      const {_id} = jwt.decode(req.headers.authorization) // decoded token to get the id
+
       const room = await new Room({
          _id: new mongoose.Types.ObjectId,
          name: rb.name,
          description: rb.description,
-         owner: rb.owner,
+         owner: _id,
          password: rb.password,
          themeColor: rb.themeColor,
          uniqueHref: rb.uniqueHref
       }).save()
 
-      await conController.addNewRoom(room, "5c80193539247a02e80f86d4")
+      await conController.addNewRoom(room, _id)
 
       res.json({
          msg: 'Successfully added new room',

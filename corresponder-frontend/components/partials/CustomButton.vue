@@ -15,7 +15,7 @@
   button {
     display: block;
     margin: 20px auto 0 auto;
-    width: 75%;
+    width: 100%;
     border: none;
     background-color: $prettyBlue;
     padding: 10px 0;

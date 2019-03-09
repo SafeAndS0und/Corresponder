@@ -13,6 +13,7 @@
       <h3>Room creation</h3>
       <CustomInput placeholder="Your room name"/>
       <CustomInput placeholder="Short description"/>
+      <CustomButton @click.native="createNewRoom" class="btn">Create</CustomButton>
     </div>
 
     <div class="room-list" v-if="expandRoomList">
@@ -28,10 +29,11 @@
 
 <script>
   import CustomInput from '../partials/CustomInput.vue'
+  import CustomButton from '../partials/CustomButton.vue'
 
   export default {
     name: "Rooms",
-    components: {CustomInput},
+    components: {CustomInput, CustomButton},
     data(){
       return {
         expandRoomList: true,
@@ -56,7 +58,14 @@
           chatType: 'room',
           chatId: 1
         })
+      },
+      createNewRoom(){
+        this.axios.post('/rooms', {
+          name: "Testowo",
+          description: "wohohoo"
+        })
       }
+
     }
   }
 </script>
@@ -123,6 +132,12 @@
         height: 30px;
         width: 75%;
         font-size: 0.8em;
+      }
+
+      .btn {
+        margin-top: 10px;
+        width: 75%;
+        font-size: .9em;
       }
     }
 

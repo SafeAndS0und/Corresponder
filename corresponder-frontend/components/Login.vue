@@ -5,7 +5,7 @@
     <CustomInput v-model="password" type="password" placeholder="Password"/>
     <p class="errMsg">{{err}}</p>
     <p class="success">{{success}}</p>
-    <CustomButton @click.native="login">Login</CustomButton>
+    <CustomButton @click.native="login" class="btn">Login</CustomButton>
 
   </section>
 </template>
@@ -68,6 +68,10 @@
       margin: 10px auto;
       display: block;
       height: 30px;
+      width: 75%;
+    }
+
+    .btn{
       width: 75%;
     }
 
