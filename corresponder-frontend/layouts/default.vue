@@ -103,7 +103,6 @@
 
     .page {
 
-
       .sidebar {
         z-index: 1;
         position: fixed;
@@ -121,7 +120,7 @@
       .content {
         position: absolute;
         left: 25%;
-        top:50px;
+        top: 50px;
         width: 75%;
         transition: 0.5s;
 
@@ -153,6 +152,7 @@
           border-radius: 50%;
           display: inline-block;
           animation: load .5s infinite alternate ease-out;
+          background-color: #477ffc;
         }
 
         .c1 {
@@ -174,11 +174,9 @@
   @keyframes load {
     from {
       transform: translateY(8px);
-      background-color: #3f7efc;
     }
     to {
       transform: translateY(-12px);
-      background-color: #305bb5;
     }
   }
 
@@ -192,7 +190,6 @@
 
     opacity: 0;
   }
-
 
   .fadeL-enter-active, .fadeL-leave-active {
     transition: all 0.5s;

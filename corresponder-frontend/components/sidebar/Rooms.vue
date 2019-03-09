@@ -4,15 +4,21 @@
       <h3 class="name" @click="expandRoomList = !expandRoomList">Rooms</h3>
 
       <div class="options">
-        <v-icon name="plus-square" class="option"/>
+        <v-icon name="plus-square" @click.native="showCreation = !showCreation" class="option"/>
         <v-icon name="search" class="option"/>
       </div>
     </header>
 
-    <div class="room-list"  v-if="expandRoomList">
+    <div class="creation" v-if="showCreation">
+      <h3>Room creation</h3>
+      <CustomInput placeholder="Your room name"/>
+      <CustomInput placeholder="Short description"/>
+    </div>
+
+    <div class="room-list" v-if="expandRoomList">
       <article v-for="room of rooms" @click="switchRoom(room)">
         <h3 class="room-name">{{room.name}}</h3>
-        <v-icon name="times" class="leave" scale="1.4" />
+        <v-icon name="times" class="leave" scale="1.4"/>
       </article>
     </div>
 
@@ -21,17 +27,24 @@
 </template>
 
 <script>
+  import CustomInput from '../partials/CustomInput.vue'
+
   export default {
     name: "Rooms",
+    components: {CustomInput},
     data(){
       return {
         expandRoomList: true,
-        rooms: [
-          {name: 'Tesla Lovers', description: "For every tesla owner... and the future ones, too!"},
-          {name: 'Memes', description: "Super funny memes omg"},
-          {name: 'GAMES *.*', description: "Join only if you're a true gamer. No girls allowed!"},
-        ]
+        rooms: [],
+        showCreation: false
       }
+    },
+    created(){
+      this.axios.get('/rooms/list')
+        .then(res =>{
+          this.rooms = res.data.roomList
+        })
+        .catch(err => console.log(err))
     },
     methods: {
       switchRoom(room){
@@ -70,7 +83,7 @@
         cursor: pointer;
         transition: 0.2s;
 
-        &:hover{
+        &:hover {
           color: #75df60;
         }
       }
@@ -92,8 +105,27 @@
       }
     }
 
+    .creation {
+      padding: 12px 4px;
+
+      h3 {
+        text-align: center;
+        color: #999999;
+        font-weight: 300;
+        font-size: 1em;
+      }
+
+      input {
+        margin: 10px auto;
+        display: block;
+        height: 30px;
+        width: 75%;
+        font-size: 0.8em;
+      }
+    }
+
     .room-list {
-      article{
+      article {
         position: relative;
         padding: 10px 15px;
         background-color: $s_articleGrey;
@@ -102,7 +134,7 @@
         border-bottom: 1px solid #2c2d30;
         transition: 0.15s;
 
-        &:hover{
+        &:hover {
           background-color: #26252f;
         }
 
@@ -112,14 +144,14 @@
           letter-spacing: 3px;
         }
 
-        .leave{
+        .leave {
           position: absolute;
           right: 24px;
           top: 50%;
           transform: translateY(-50%);
           color: #72191e;
 
-          &:hover{
+          &:hover {
             color: #d42338;;
           }
         }

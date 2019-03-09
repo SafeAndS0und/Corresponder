@@ -11,7 +11,9 @@ export default function(axios, store){
 
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('token') // assign the token to every axios request
 
+
         store.dispatch('switchLoading')
+
         // save the data in store
         store.dispatch('user/login', {
           username: localStorage.getItem('username'), token
@@ -25,11 +27,10 @@ export default function(axios, store){
       })
   }
   else{
-    console.log('asd')
     localStorage.clear()
     setTimeout(() => {
       store.dispatch('switchLoading')
-    }, 200)
+    }, 300)
 
   }
 

@@ -5,16 +5,18 @@
     <CustomInput v-model="password" type="password" placeholder="Password"/>
     <p class="errMsg">{{err}}</p>
     <p class="success">{{success}}</p>
-    <button @click="login">Login</button>
+    <CustomButton>Login</CustomButton>
+
   </section>
 </template>
 
 <script>
+  import CustomButton from './partials/CustomButton.vue'
   import CustomInput from './partials/CustomInput.vue'
 
   export default {
     name: "Login",
-    components: {CustomInput},
+    components: {CustomInput, CustomButton},
     data(){
       return {
         username: '',
@@ -66,23 +68,6 @@
       display: block;
       height: 30px;
       width: 75%;
-    }
-
-    button {
-      display: block;
-      margin: 20px auto 0 auto;
-      width: 75%;
-      border: none;
-      background-color: $prettyBlue;
-      padding: 10px 0;
-      color: white;
-      font-size: 1em;
-      transition: 0.3s;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #4067cf;
-      }
     }
 
     .errMsg, .success {

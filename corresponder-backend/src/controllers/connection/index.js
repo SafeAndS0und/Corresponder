@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import Connection from '../../models/Connection'
 
+
 export default {
 
    async registerUser(id){
@@ -14,6 +15,16 @@ export default {
       const con = await Connection.findOne({userId: id}) // find which user we're talking about - from the token
       con.rooms.push(room._id) // push chosen room id to the array
       con.save()
+   },
+
+   async addFriend(friend, id){
+      const con = await Connection.findOne({userId: id}) // find which user we're talking about - from the token
+      con.friends.push(friend._id) // push chosen room id to the array
+      con.save()
+   },
+
+   async findByUserId(id){
+      return await Connection.findOne({userId: id})
    }
 
 }

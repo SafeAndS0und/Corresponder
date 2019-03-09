@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import Room from '../../models/Room'
 import conController from '../connection/index'
+import jwt from 'jsonwebtoken'
 
 export default {
 
@@ -40,8 +41,11 @@ export default {
    },
 
    async getList(req, res, next){
-      const rooms = await Room.find({}) // returns all the rooms TODO: what for?
-      res.json({rooms})
+      const decoded = jwt.decode(req.headers.authorization) // decoded token to get the id
+      const connection = await conController.findByUserId(decoded._id)
+
+      const roomList = await Room.find({_id: connection.rooms}) // returns all the rooms for the specific user
+      res.json({roomList})
    },
 
    async update(req, res, next){
