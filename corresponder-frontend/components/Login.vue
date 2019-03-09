@@ -37,6 +37,7 @@
             this.$store.dispatch('user/login', {
               username: this.username, token: res.data.token
             })
+            console.log('I changed the token')
           })
           .catch(err => this.err = err.response.data)
       }

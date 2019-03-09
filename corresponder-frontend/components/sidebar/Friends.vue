@@ -10,7 +10,7 @@
 
     <div class="friends-list" v-if="expandFriendList">
       <article v-for="friend of friends" @click="switchFriend(friend)">
-        <h3 class="friend-name">{{friend.name}}</h3>
+        <h3 class="friend-name">{{friend.firstname}} {{friend.surname}}</h3>
         <v-icon name="ellipsis-h" class="interact" scale="1.3"/>
       </article>
     </div>
@@ -25,19 +25,19 @@
     data(){
       return {
         expandFriendList: true,
-        friends: [
-          {name: 'Ericka'},
-          {name: 'Michael Toyd'},
-          {name: 'John Redneck'},
-          {name: 'Stancy'},
-          {name: 'Peter Grunt'},
-        ]
+        friends: []
       }
+    },
+    created(){
+      console.log('loading friends')
+      this.axios.get('/friends')
+        .then(res => this.friends = res.data)
+        .catch(err => console.error(err.response))
     },
     methods: {
       switchFriend(friend){
         this.$store.dispatch('chat/switchChat', {
-          name: friend.name,
+          name: friend.firstname + ' ' + friend.surname ,
           chatType: 'friend',
           chatId: 1
         })

@@ -11,8 +11,8 @@
 
     <div class="creation" v-if="showCreation">
       <h3>Room creation</h3>
-      <CustomInput placeholder="Your room name"/>
-      <CustomInput placeholder="Short description"/>
+      <CustomInput v-model="newRoomName" placeholder="Your room name"/>
+      <CustomInput v-model="newRoomDesc"placeholder="Short description"/>
       <CustomButton @click.native="createNewRoom" class="btn">Create</CustomButton>
     </div>
 
@@ -38,15 +38,16 @@
       return {
         expandRoomList: true,
         rooms: [],
-        showCreation: false
+        showCreation: false,
+
+        newRoomName: '',
+        newRoomDesc: ''
       }
     },
     created(){
-      console.log('rooms')
-      this.axios.get('/rooms/list')
+      this.axios.get('/rooms')
         .then(res =>{
           this.rooms = res.data.roomList
-          console.log(this.rooms)
         })
         .catch(err => console.log(err.response))
     },
@@ -61,9 +62,12 @@
       },
       createNewRoom(){
         this.axios.post('/rooms', {
-          name: "Testowo",
-          description: "wohohoo"
+          name: this.newRoomName,
+          description: this.newRoomDesc,
+          uniqueHref: this.newRoomName.toLowerCase()
         })
+          .then(res => this.rooms.push(res.data.room))
+          .catch(err => console.log(err.response))
       }
 
     }

@@ -7,7 +7,7 @@ Router.post('/', asyncWrapper(roomController.createNew))
 
 // Router.get('/:name', asyncWrapper(roomController.getOne))
 
-Router.get('/list', asyncWrapper(roomController.getList))
+Router.get('/', asyncWrapper(roomController.getList))
 
 Router.patch('/', asyncWrapper(roomController.update))
 

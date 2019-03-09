@@ -14,13 +14,8 @@
       or Login first!
     </h2>
 
-    <keep-alive>
-      <Rooms v-if="loggedIn && !folded" class="rooms"/>
-    </keep-alive>
-
-    <keep-alive>
-      <Friends v-if="loggedIn && !folded" class="friends"/>
-    </keep-alive>
+    <Rooms v-if="loggedIn && !folded" class="rooms"/>
+    <Friends v-if="loggedIn && !folded" class="friends"/>
 
   </section>
 </template>

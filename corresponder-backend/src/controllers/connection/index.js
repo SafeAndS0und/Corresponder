@@ -17,7 +17,7 @@ export default {
       con.save()
    },
 
-   async addFriend(friend, id){
+   async addFriend(req, res, next ){
       const con = await Connection.findOne({userId: id}) // find which user we're talking about - from the token
       con.friends.push(friend._id) // push chosen room id to the array
       con.save()
