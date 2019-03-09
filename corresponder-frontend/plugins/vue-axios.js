@@ -10,5 +10,7 @@ export default async({app: {store}}) =>{
 
   await onPageRefresh(axiosInstance, store)
 
+  axiosInstance.defaults.headers.common['Authorization'] = localStorage.getItem('token') // assign the token to every axios request
+
   Vue.prototype.axios = axiosInstance
 }

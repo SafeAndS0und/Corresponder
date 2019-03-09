@@ -40,11 +40,13 @@
       }
     },
     created(){
+      console.log('rooms')
       this.axios.get('/rooms/list')
         .then(res =>{
           this.rooms = res.data.roomList
+          console.log(this.rooms)
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response))
     },
     methods: {
       switchRoom(room){

@@ -5,7 +5,7 @@
     <CustomInput v-model="password" type="password" placeholder="Password"/>
     <p class="errMsg">{{err}}</p>
     <p class="success">{{success}}</p>
-    <CustomButton>Login</CustomButton>
+    <CustomButton @click.native="login">Login</CustomButton>
 
   </section>
 </template>
@@ -32,6 +32,7 @@
           password: this.password
         })
           .then(res =>{
+            this.axios.defaults.headers.common['Authorization'] = res.data.token // assign the token to every axios request
             this.success = res.data.msg
             this.$store.dispatch('user/login', {
               username: this.username, token: res.data.token
