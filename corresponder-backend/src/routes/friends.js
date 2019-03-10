@@ -5,6 +5,8 @@ const Router = require('express').Router()
 
 Router.get('/', asyncWrapper(friendsController.getList))
 
+Router.get('/:name', asyncWrapper(friendsController.search))
+
 Router.post('/', asyncWrapper(friendsController.addFriend))
 
 Router.delete('/', asyncWrapper(friendsController.remove))

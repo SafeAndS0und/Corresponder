@@ -32,14 +32,13 @@ export default {
 
    },
 
-   async getOne(req, res, next){
+   async search(req, res, next){
+      // const fixedStr = req.params.name.replace('_', ' ') // Tesla_Lovers => Tesla Lovers (as in database)
+      const rooms = await Room.find({
+         name: new RegExp(`${req.params.name}`, 'i')
+      }, 'name description owner themeColor uniqueHref _id')
 
-      const fixedStr = req.params.name.replace('_', ' ') // Tesla_Lovers => Tesla Lovers (as in database)
-
-      const room = await Room.findOne({
-         name: fixedStr
-      })
-      res.json({room})
+      res.json({rooms})
    },
 
    async getList(req, res, next){

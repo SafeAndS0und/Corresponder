@@ -5,7 +5,7 @@ const Router = require('express').Router()
 
 Router.post('/', asyncWrapper(roomController.createNew))
 
-// Router.get('/:name', asyncWrapper(roomController.getOne))
+Router.get('/:name', asyncWrapper(roomController.search))
 
 Router.get('/', asyncWrapper(roomController.getList))
 
