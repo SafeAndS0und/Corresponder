@@ -4,8 +4,8 @@
       <h3 class="name" @click="expandRoomList = !expandRoomList">Rooms</h3>
 
       <div class="options">
-        <v-icon name="plus-square" @click.native="showCreation = !showCreation" class="option"/>
-        <v-icon name="search" class="option"/>
+        <v-icon name="plus-square" @click.native="togglePopups('creation')" class="option"/>
+        <v-icon name="search"  @click.native="togglePopups" class="option"/>
       </div>
     </header>
 
@@ -15,6 +15,8 @@
       <CustomInput v-model="newRoomDesc"placeholder="Short description"/>
       <CustomButton @click.native="createNewRoom" class="btn">Create</CustomButton>
     </div>
+
+    <Searching forWhat="rooms" v-if="showSearching"/>
 
     <div class="room-list" v-if="expandRoomList">
       <article v-for="room of rooms" @click="switchRoom(room)">
@@ -30,18 +32,21 @@
 <script>
   import CustomInput from '../partials/CustomInput.vue'
   import CustomButton from '../partials/CustomButton.vue'
+  import Searching from './Searching.vue'
 
   export default {
     name: "Rooms",
-    components: {CustomInput, CustomButton},
+    components: {CustomInput, CustomButton, Searching},
     data(){
       return {
         expandRoomList: true,
         rooms: [],
         showCreation: false,
+        showSearching: false,
 
         newRoomName: '',
-        newRoomDesc: ''
+        newRoomDesc: '',
+
       }
     },
     created(){
@@ -68,8 +73,16 @@
         })
           .then(res => this.rooms.push(res.data.room))
           .catch(err => console.log(err.response))
+      },
+      togglePopups(popupName){
+        if(popupName === 'creation'){
+          this.showCreation = !this.showCreation
+          this.showSearching = false
+        }else{
+          this.showSearching = !this.showSearching
+          this.showCreation = false
+        }
       }
-
     }
   }
 </script>
@@ -144,6 +157,7 @@
         font-size: .9em;
       }
     }
+
 
     .room-list {
       article {

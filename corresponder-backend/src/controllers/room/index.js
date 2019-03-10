@@ -36,7 +36,7 @@ export default {
       // const fixedStr = req.params.name.replace('_', ' ') // Tesla_Lovers => Tesla Lovers (as in database)
       const rooms = await Room.find({
          name: new RegExp(`${req.params.name}`, 'i')
-      }, 'name description owner themeColor uniqueHref _id')
+      }, 'name description owner themeColor uniqueHref _id').limit(10)
 
       res.json({rooms})
    },

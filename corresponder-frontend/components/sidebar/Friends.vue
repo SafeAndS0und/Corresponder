@@ -4,9 +4,11 @@
       <h3 class="name" @click="expandFriendList = !expandFriendList">Friends</h3>
 
       <div class="options">
-        <v-icon name="search" class="option"/>
+        <v-icon name="search" @click.native="showSearching = !showSearching" class="option"/>
       </div>
     </header>
+
+    <Searching forWhat="friends" v-if="showSearching"/>
 
     <div class="friends-list" v-if="expandFriendList">
       <article v-for="friend of friends" @click="switchFriend(friend)">
@@ -20,12 +22,17 @@
 </template>
 
 <script>
+  import Searching from './Searching.vue'
+
   export default {
     name: "Friends",
+    components: {Searching},
     data(){
       return {
         expandFriendList: true,
-        friends: []
+        friends: [],
+
+        showSearching: false,
       }
     },
     created(){

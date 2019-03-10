@@ -20,11 +20,11 @@ export default {
 
    async search(req, res, next){
 
-      const users = await User.find(
+      const friends = await User.find(
          {username: new RegExp(`${req.params.name}`, 'i')},
          'username firstname surname profilePic _id')
 
-      res.json({users})
+      res.json({friends})
    },
 
    async remove(req, res, next){
