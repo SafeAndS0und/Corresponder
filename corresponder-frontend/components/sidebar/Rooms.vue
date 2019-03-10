@@ -21,7 +21,7 @@
     <div class="room-list" v-if="expandRoomList">
       <article v-for="room of rooms" @click="switchRoom(room)">
         <h3 class="room-name">{{room.name}}</h3>
-        <v-icon name="times" class="leave" scale="1.4"/>
+        <v-icon name="times" @click.native="removeFromTheList(room._id)" class="leave" scale="1.4"/>
       </article>
     </div>
 
@@ -66,7 +66,7 @@
         })
       },
       createNewRoom(){
-        this.axios.post('/rooms', {
+        this.axios.post('/rooms/new', {
           name: this.newRoomName,
           description: this.newRoomDesc,
           uniqueHref: this.newRoomName.toLowerCase()
@@ -82,6 +82,13 @@
           this.showSearching = !this.showSearching
           this.showCreation = false
         }
+      },
+      removeFromTheList(id){
+        this.axios.delete('/rooms/fromList', {
+          id
+        })
+          .then() // update the list
+          .catch(err => console.log(err))
       }
     }
   }

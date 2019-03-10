@@ -3,7 +3,7 @@
     <CustomInput v-model="searchedValue" @keyup.enter.native="search" placeholder="I look for..."/>
 
     <section class="results">
-      <article class="result" v-for="result of results">
+      <article class="result" v-for="result of results" @click="addToTheList(result._id)">
         {{result[forWhat === 'rooms' ? 'name' : 'username']}}
         <span v-if="forWhat === 'friends'">({{result.firstname}} {{result.surname}})</span>
       </article>
@@ -28,10 +28,17 @@
       search(){
         this.axios.get(`/${this.forWhat}/${this.searchedValue}`)
           .then(res => {
-            console.log(res.data)
             this.results = res.data[this.forWhat]
           })
           .catch(err => console.log(err))
+      },
+      addToTheList(id){
+        this.axios.post(`/${this.forWhat}`, {
+          id
+        })
+          .then() // TODO: add it to the list in Friends/Rooms .vue
+          .catch(err => console.error(err))
+
       }
     }
   }
@@ -40,7 +47,7 @@
 <style scoped lang="scss">
 
   .searching{
-    padding: 12px 0 0 0;
+    padding: 12px 0 12px 0;
 
     input {
       margin: 10px auto;

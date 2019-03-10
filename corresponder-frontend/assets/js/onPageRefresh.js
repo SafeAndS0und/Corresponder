@@ -8,7 +8,6 @@ export default function(axios, store){
   if(token){
     axios.get(`user/token/${token}`) // check if the token's still valid
       .then(res => {
-
         store.dispatch('switchLoading')
 
         // save the data in store

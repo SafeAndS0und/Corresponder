@@ -25,6 +25,13 @@ export default {
 
    async findByUserId(id){
       return await Connection.findOne({userId: id})
+   },
+
+   async remove(userId, objId, property){
+      const user = await Connection.findOne({userId})
+      const index = user[property].indexOf(objId)
+      user[property].splice(index, 1)
+      await user.save()
    }
 
 }

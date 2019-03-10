@@ -7,7 +7,7 @@ Router.get('/', asyncWrapper(friendsController.getList))
 
 Router.get('/:name', asyncWrapper(friendsController.search))
 
-Router.post('/', asyncWrapper(friendsController.addFriend))
+Router.post('/', asyncWrapper(friendsController.add))
 
 Router.delete('/', asyncWrapper(friendsController.remove))
 

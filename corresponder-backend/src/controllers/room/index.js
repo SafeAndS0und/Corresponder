@@ -29,7 +29,16 @@ export default {
          msg: 'Successfully added new room',
          room
       })
+   },
 
+   async add(req, res, next){
+      const decoded = jwt.decode(req.headers.authorization) // decoded token to get the id
+      const connection = await conController.findByUserId(decoded._id)
+
+      connection.rooms.push(new mongoose.Types.ObjectId(req.body.id))
+      await connection.save()
+
+      res.sendStatus(204)
    },
 
    async search(req, res, next){
@@ -75,7 +84,13 @@ export default {
       })
 
       res.sendStatus(204)
+   },
 
+   async removeFromTheList(req, res, next){
+      const decoded = jwt.decode(req.headers.authorization) // decoded token to get the id TODO: EXTRACT IT
+
+      await conController.remove(decoded._id, req.body.id, 'rooms')
+      res.json(204)
    }
 
 }

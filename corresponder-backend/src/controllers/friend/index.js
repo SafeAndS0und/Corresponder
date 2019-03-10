@@ -10,6 +10,16 @@ export default {
 
    },
 
+   async add(req, res, next){
+      const decoded = jwt.decode(req.headers.authorization) // decoded token to get the id
+      const connection = await conController.findByUserId(decoded._id)
+
+      connection.friends.push(new mongoose.Types.ObjectId(req.body.id))
+      await connection.save()
+
+      res.sendStatus(204)
+   },
+
    async getList(req, res, next){
       const decoded = jwt.decode(req.headers.authorization) // decoded token to get the id
       const connection = await conController.findByUserId(decoded._id)

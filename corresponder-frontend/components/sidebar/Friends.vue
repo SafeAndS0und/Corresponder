@@ -36,7 +36,6 @@
       }
     },
     created(){
-      console.log('loading friends')
       this.axios.get('/friends')
         .then(res => this.friends = res.data)
         .catch(err => console.error(err.response))
