@@ -16,7 +16,7 @@
       <CustomButton @click.native="createNewRoom" class="btn">Create</CustomButton>
     </div>
 
-    <Searching forWhat="rooms" v-if="showSearching"/>
+    <Searching forWhat="rooms" @addedToList="refreshRoomList" v-if="showSearching"/>
 
     <div class="room-list" v-if="expandRoomList">
       <article v-for="room of rooms" @click="switchRoom(room)">
@@ -87,8 +87,18 @@
         this.axios.delete('/rooms/fromList', {
           id
         })
-          .then() // update the list
+          .then(() => {
+            const index = this.rooms.findIndex(room => room._id === id)
+            console.log(index)
+            this.rooms.splice(index, 1)
+          }) // update the list
           .catch(err => console.log(err))
+      },
+      refreshRoomList({inside}){
+        if(inside !== 'rooms') return
+        this.axios.get('/rooms')
+          .then(res => this.rooms = res.data.roomList)
+          .catch(err => console.error(err.response))
       }
     }
   }

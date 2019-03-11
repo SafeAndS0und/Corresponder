@@ -8,7 +8,7 @@
       </div>
     </header>
 
-    <Searching forWhat="friends" v-if="showSearching"/>
+    <Searching forWhat="friends" @addedToList="refreshFriendList" v-if="showSearching"/>
 
     <div class="friends-list" v-if="expandFriendList">
       <article v-for="friend of friends" @click="switchFriend(friend)">
@@ -47,6 +47,12 @@
           chatType: 'friend',
           chatId: 1
         })
+      },
+      refreshFriendList({inside}){
+        if(inside !== 'friends') return
+        this.axios.get('/friends')
+          .then(res => this.friends = res.data)
+          .catch(err => console.error(err.response))
       }
     }
   }

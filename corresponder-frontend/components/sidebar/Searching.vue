@@ -36,7 +36,7 @@
         this.axios.post(`/${this.forWhat}`, {
           id
         })
-          .then() // TODO: add it to the list in Friends/Rooms .vue
+          .then(() => this.$emit('addedToList', {inside: this.forWhat}))
           .catch(err => console.error(err))
 
       }
