@@ -30,9 +30,17 @@ export default {
 
    async search(req, res, next){
 
-      const friends = await User.find(
-         {username: new RegExp(`${req.params.name}`, 'i')},
-         'username firstname surname profilePic _id')
+      const decoded = jwt.decode(req.headers.authorization) // decoded token to get the id
+      const {friends: userFriendsList} = await conController.findByUserId(decoded._id)
+
+      const userFriendsList_str = userFriendsList.map(id => `${id}`) // WEIRD - needed to cast it to string to filter it later
+
+      const foundUserList = await User.find({
+         username: new RegExp(`${req.params.name}`, 'i')
+      }, 'username firstname surname profilePic _id').limit(10)
+
+      // only return the rooms that user doesn't have in his list already
+      const friends = foundUserList.filter(user => !userFriendsList_str.includes(`${user._id}`))
 
       res.json({friends})
    },

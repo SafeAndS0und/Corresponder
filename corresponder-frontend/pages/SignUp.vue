@@ -65,7 +65,6 @@
           surname
         })
           .then(res => {
-            // TODO: Assign token
             this.$store.dispatch('user/login', {
               username: this.username,
               password: this.password

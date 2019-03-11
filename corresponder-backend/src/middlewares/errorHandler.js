@@ -1,18 +1,18 @@
 module.exports = {
 
-   asyncWrapper(fn){
-      return (req, res, next) =>{
-         fn(req, res, next).catch(next)
+   asyncWrapper(fn){ // Pass it a function
+      return (req, res, next) =>{ //
+         fn(req, res, next).catch(err => next(err))
       }
    },
 
    logError(err, req, res, next){
-      console.error('ERROR: ', err.message)
+      console.error('ERROR: ', err)
       next(err)
    },
 
    catchErr(err, req, res, next){
-      res.status(500).send({error: err})
+      res.status(err.status ? err.status : 404).json(err.message)
    }
 
 }

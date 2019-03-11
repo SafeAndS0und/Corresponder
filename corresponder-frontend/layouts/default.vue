@@ -152,7 +152,7 @@
           border-radius: 50%;
           display: inline-block;
           animation: load .5s infinite alternate ease-out;
-          background-color: #477ffc;
+          background-color: #3b69d7;
         }
 
         .c1 {

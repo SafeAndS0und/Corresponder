@@ -60,6 +60,8 @@ export default {
 
       const rb = req.body
 
+      if(!rb.username) next({message: 'Incorrect Username'})
+
       await User.updateOne(
          {
             username: rb.username
