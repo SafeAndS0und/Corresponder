@@ -38,15 +38,20 @@ export default {
          username: req.body.username, password: req.body.password
       })
 
-      const token = await jwt.sign(
-         {
-            _id: user._id
-         },
-         'superPrivate', // TODO: ekhm
-         {
-            expiresIn: 3600 * 2
-         }
-      )
+     let token
+
+      if(user){
+         token = await jwt.sign(
+            {
+               _id: user._id
+            },
+            'superPrivate', // TODO: ekhm
+            {
+               expiresIn: 3600 * 2
+            }
+         )
+      }
+
       user
          ? res.status(200).send({
             msg: "Logged in",
