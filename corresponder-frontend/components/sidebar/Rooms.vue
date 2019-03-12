@@ -183,7 +183,7 @@
         background-color: $s_articleGrey;
         color: #cecece;
         cursor: pointer;
-        border-bottom: 1px solid #2c2d30;
+        border-bottom: 1px solid #272937;
         transition: 0.15s;
 
         &:hover {
@@ -192,8 +192,8 @@
 
         .room-name {
           font-weight: 300;
-          font-size: 0.78em;
-          letter-spacing: 3px;
+          font-size: 0.82em;
+          letter-spacing: 2px;
         }
 
         .leave {

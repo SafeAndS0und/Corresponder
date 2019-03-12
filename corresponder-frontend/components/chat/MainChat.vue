@@ -53,7 +53,8 @@
         margin-bottom: 5px;
       }
       p {
-        color: #ebebeb;
+        padding-left: 2px;
+        color: #979797;
       }
 
       .messages {
@@ -66,8 +67,9 @@
         -moz-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
         box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
 
+
         transition: 0.5s;
-        max-height: 60vh;
+        max-height: 50vh;
 
       }
 

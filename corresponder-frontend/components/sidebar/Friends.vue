@@ -157,7 +157,7 @@
         background-color: $s_articleGrey;
         color: #cecece;
         cursor: pointer;
-        /*border-bottom: 1px solid #2a2b2e;*/
+        border-bottom: 1px solid #272937;
         transition: 0.15s;
 
         &:hover {
@@ -167,8 +167,8 @@
 
         .friend-name {
           font-weight: 300;
-          font-size: 0.78em;
-          letter-spacing: 3px;
+          font-size: 0.82em;
+          letter-spacing: 2px;
         }
 
         .interact {

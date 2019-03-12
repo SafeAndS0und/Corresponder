@@ -14,7 +14,7 @@
       or Login first!
     </h2>
 
-    <Rooms v-if="loggedIn && !folded" class="rooms"/>
+    <Rooms v-if="loggedIn && !folded" :class="{goUp: pageYOffset > 60}" class="rooms"/>
     <Friends v-if="loggedIn && !folded" class="friends"/>
 
   </section>
@@ -29,8 +29,16 @@
     components: {Rooms, Friends},
     data(){
       return {
-        folded: false
+        folded: false,
+        pageYOffset: null
       }
+    },
+    created(){
+      document.addEventListener('scroll', () =>{
+        this.pageYOffset = window.pageYOffset
+        console.log(this.pageYOffset)
+      })
+
     },
     methods: {
       emitFold(){
@@ -90,7 +98,12 @@
     }
 
     .rooms {
+      transition: 0.5s;
       margin-top: 90px;
+    }
+
+    .goUp{
+      margin-top: 0 !important;
     }
   }
 

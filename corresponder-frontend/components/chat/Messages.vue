@@ -1,14 +1,23 @@
 <template>
   <section>
+
+    <span class="scrollbar"></span> <!-- TODO: I thinks its gonna be outside the Messages.vue -->
+
     <div class="msg-list">
+
       <article v-for="message of messages">
+
         <div class="msg-info">
           <h2>{{message.author}}</h2>
           <p>{{message.at}}</p>
         </div>
+
         <div class="msg-content" v-html="colorizedMsg(message.content)"></div>
+
       </article>
+
     </div>
+
   </section>
 </template>
 
@@ -18,6 +27,31 @@
     data(){
       return {
         messages: [
+          {
+            author: 'Spammer: ',
+            content: 'just spamming, no worries',
+            at: 'Today, 10:30'
+          },
+          {
+            author: 'Spammer: ',
+            content: 'just spamming, no worries',
+            at: 'Today, 10:30'
+          },
+          {
+            author: 'Spammer: ',
+            content: 'just spamming, no worries',
+            at: 'Today, 10:30'
+          },
+          {
+            author: 'Spammer: ',
+            content: 'just spamming, no worries',
+            at: 'Today, 10:30'
+          },
+          {
+            author: 'Spammer: ',
+            content: 'just spamming, no worries',
+            at: 'Today, 10:30'
+          },
           {
             author: 'John Redneck:',
             content: 'My model 3 is coming next week… finally. Cant fucking wait!',
@@ -42,6 +76,27 @@
             content: `I don't doubt it will, @Michael!`,
             at: 'Today, 11:55'
           },
+          {
+            author: 'Josh Meltman:',
+            content: `CONGRATZ John!!!`,
+            at: 'Today, 12:35'
+          },
+          {
+            author: 'John Redneck:',
+            content: 'Aye aye... Thanks @Josh :)',
+            at: 'Today, 12:38'
+          },
+          {
+            author: 'Marry Lamb:',
+            content: ':O',
+            at: 'Today, 15:12'
+          },
+
+          {
+            author: 'John Redneck:',
+            content: ':O xD',
+            at: 'Today, 16:10'
+          },
 
         ]
       }
@@ -58,7 +113,7 @@
             ? msg.indexOf(' ', begins)
             : msg.length
 
-          newStr = msg.substring(0, begins) + '<span style="color: #1d6cdb">' + msg.substring(begins, ends) + '</span>' + msg.substring(ends, msg.length)
+          newStr = msg.substring(0, begins) + '<span class="mention">' + msg.substring(begins, ends) + '</span>' + msg.substring(ends, msg.length)
           return newStr
         }
         else return msg
@@ -72,6 +127,29 @@
 
   section {
     padding: 10px 15px;
+    position: relative;
+
+
+    &::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+    overflow-y: scroll;
+
+    .scrollbar{
+      position: absolute;
+      background-color: #1a1e28;
+      opacity: 0.3;
+      right: 4px;
+      width: 7px;
+      height: 40px;
+      border-radius: 20px;
+      transition: .25s;
+
+      &:hover{
+        opacity: .6;
+      }
+    }
 
     .msg-list {
 
@@ -100,6 +178,10 @@
           font-size: 0.92em;
           font-weight: 400;
           color: #4b4b4b;
+
+          /deep/ .mention{
+            color: #1d6cdb;
+          }
 
           border-bottom: 1px solid #dcdcdc;
 
