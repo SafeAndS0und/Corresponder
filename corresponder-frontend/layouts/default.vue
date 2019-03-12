@@ -79,7 +79,7 @@
   body {
     margin: 0;
     padding: 0;
-    background-color: #f3f3f3;
+    background-color: #f0f0f0;
     transition: background-color 0.5s;
   }
 

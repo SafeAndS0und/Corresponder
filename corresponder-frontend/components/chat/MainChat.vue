@@ -4,9 +4,9 @@
       <h3>{{$store.state.chat.name}}</h3>
       <p>{{$store.state.chat.description}}</p>
 
-      <section class="messages" :class="{dark: $store.state.appThemeColor === 'dark'}">
-        <h4>Here will be your messages</h4>
-      </section>
+      <Messages class="messages" :class="{dark: $store.state.appThemeColor === 'dark'}">
+
+      </Messages>
 
       <CustomTextArea :class="{dark: $store.state.appThemeColor === 'dark'}"
                       placeholder="Type here" class="textArea"/>
@@ -25,10 +25,11 @@
 
 <script>
   import CustomTextArea from '../partials/CustomTextArea.vue'
+  import Messages from './Messages.vue'
 
   export default {
     name: "MainChat",
-    components: {CustomTextArea}
+    components: {CustomTextArea, Messages}
   }
 </script>
 
@@ -52,14 +53,14 @@
         margin-bottom: 5px;
       }
       p {
-        color: #707070;
+        color: #ebebeb;
       }
 
       .messages {
         margin: 15px 0;
         width: 100%;
-        background-color: #e5e5e5;
-        border-radius: 5px;
+        background-color: #e8e8e8;
+        border-radius: 10px;
 
         -webkit-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
         -moz-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
@@ -68,12 +69,6 @@
         transition: 0.5s;
         max-height: 60vh;
 
-        h4 {
-          text-align: center;
-          font-weight: 400;
-          color: #525252;
-          padding: 160px 0;
-        }
       }
 
       .dark {
@@ -103,6 +98,7 @@
         width: 100%;
         height: 120px;
         resize: vertical;
+        border-radius: 3px;
       }
 
       button {
