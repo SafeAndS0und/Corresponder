@@ -181,18 +181,18 @@
         position: relative;
         padding: 10px 15px;
         background-color: $s_articleGrey;
-        color: #e6e6e6;
+        color: #cecece;
         cursor: pointer;
         border-bottom: 1px solid #2c2d30;
         transition: 0.15s;
 
         &:hover {
-          background-color: #26252f;
+          background-color: #1d1f29;
         }
 
         .room-name {
           font-weight: 300;
-          font-size: 0.8em;
+          font-size: 0.78em;
           letter-spacing: 3px;
         }
 
@@ -201,7 +201,7 @@
           right: 24px;
           top: 50%;
           transform: translateY(-50%);
-          color: #72191e;
+          color: #8d1d23;
 
           &:hover {
             color: #d42338;;

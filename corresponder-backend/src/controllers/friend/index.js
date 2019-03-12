@@ -45,8 +45,11 @@ export default {
       res.json({friends})
    },
 
-   async remove(req, res, next){
+   async removeFromTheList(req, res, next){
+      const decoded = jwt.decode(req.headers.authorization)
 
+      await conController.remove(decoded._id, req.body.id, 'friends')
+      res.json(204)
    }
 
 }

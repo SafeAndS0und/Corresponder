@@ -34,7 +34,7 @@
               <v-icon name="video" class="icon video" scale="1"/>
             </div>
           </button>
-          <button>
+          <button @click="removeFromTheList(friend._id)">
             <div>
               <p>Remove Friend</p>
               <v-icon name="times" class="icon times" scale="1"/>
@@ -90,7 +90,17 @@
         this.axios.get('/friends')
           .then(res => this.friends = res.data)
           .catch(err => console.error(err.response))
-      }
+      },
+      removeFromTheList(id){
+        this.axios.delete('/friends/fromList', {
+          id
+        })
+          .then(() => {
+            const index = this.friends.findIndex(friend => friend._id === id)
+            this.friends.splice(index, 1)
+          }) // update the list
+          .catch(err => console.log(err))
+      },
     }
   }
 </script>
@@ -145,18 +155,19 @@
         position: relative;
         padding: 10px 15px;
         background-color: $s_articleGrey;
-        color: #e6e6e6;
+        color: #cecece;
         cursor: pointer;
-        border-bottom: 1px solid #2c2d30;
+        /*border-bottom: 1px solid #2a2b2e;*/
         transition: 0.15s;
 
         &:hover {
-          background-color: #26252f;
+          background-color: #1d1f29;
+          color: white;
         }
 
         .friend-name {
           font-weight: 300;
-          font-size: 0.8em;
+          font-size: 0.78em;
           letter-spacing: 3px;
         }
 
@@ -165,7 +176,7 @@
           right: 20px;
           top: 50%;
           transform: translateY(-50%);
-          color: #595b60;
+          color: #bdc2cd;
 
           &:hover {
             color: white;
@@ -176,7 +187,7 @@
           position: absolute;
           left: 100%;
           top: 0;
-          border: 2px solid #abbacd;
+          border: 2px solid #b3c2d5;
           border-left: none;
 
           -webkit-box-shadow: 3px 2px 7px 0 #aaaaaa;
@@ -205,6 +216,7 @@
 
               .times{
                 color: #9a1617;
+                margin-right: 7px;
               }
               .phone{
                 color: #69c54c;
