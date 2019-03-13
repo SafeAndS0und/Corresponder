@@ -73,7 +73,7 @@
   }
 
   * {
-    font-family: 'Questrial', cursive;
+    font-family: 'Questrial', sans-serif;
   }
 
   body {

@@ -11,14 +11,29 @@
     <Searching forWhat="friends" @addedToList="refreshFriendList" v-if="showSearching"/>
 
     <div class="friends-list" v-if="expandFriendList">
+
       <article v-for="(friend, index) of friends" @click="switchFriend(friend)">
+
+        <UserCard :username="friend.username"
+                  v-if="showCard[friend._id]"
+                  :name="friend.firstname + ' ' + friend.surname"
+                  joined="13.04.2016"
+                  :profile-pic="friend.profilePic"
+                  class="user-popup"
+                  @close="showCard[friend._id] = false"
+        />
+
+        <img :src="friend.profilePic"
+             v-if="friend.profilePic"
+             alt="Profile Pic" class="profile-pic">
+        <span v-if="!friend.profilePic"></span>
         <h3 class="friend-name">{{friend.firstname}} {{friend.surname}}</h3>
-        <v-icon name="ellipsis-h" @click.native="toggleMenu(friend._id)" class="interact" scale="1.3"/>
+        <v-icon name="ellipsis-h" @click.native.stop="toggleMenu(friend._id)" class="interact" scale="1.3"/>
 
         <div class="menu" v-if="showMenu[friend._id]">
-          <button>
+          <button @click.stop="toggleCard(friend._id)">
             <div>
-              <p>Show profile</p>
+              <p>Show profile card</p>
               <v-icon name="user" class="icon" scale="1"/>
             </div>
           </button>
@@ -34,7 +49,7 @@
               <v-icon name="video" class="icon video" scale="1"/>
             </div>
           </button>
-          <button @click="removeFromTheList(friend._id)">
+          <button @click.stop="removeFromTheList(friend._id)">
             <div>
               <p>Remove Friend</p>
               <v-icon name="times" class="icon times" scale="1"/>
@@ -50,17 +65,20 @@
 
 <script>
   import Searching from './Searching.vue'
+  import UserCard from '../popups/UserCard.vue'
 
   export default {
     name: "Friends",
-    components: {Searching},
+    components: {Searching, UserCard},
     data(){
       return {
         expandFriendList: true,
         friends: [],
 
         showSearching: false,
-        showMenu: []
+        showMenu: [],
+        showCard: [],
+
       }
     },
     created(){
@@ -70,11 +88,13 @@
 
           this.friends.forEach((friend, index) =>{
             this.$set(this.showMenu, friend._id, false) // needed to make it reactive
+            this.$set(this.showCard, friend._id, false) // needed to make it reactive
           })
         })
         .catch(err => console.error(err.response))
     },
     methods: {
+
       switchFriend(friend){
         this.$store.dispatch('chat/switchChat', {
           name: friend.firstname + ' ' + friend.surname,
@@ -82,15 +102,23 @@
           chatId: 1
         })
       },
+
       toggleMenu(id){
         this.showMenu[id] = !this.showMenu[id]
       },
+
+      toggleCard(id){
+        this.showMenu[id] = false
+        this.showCard[id] = !this.showCard[id]
+      },
+
       refreshFriendList({inside}){
         if(inside !== 'friends') return
         this.axios.get('/friends')
           .then(res => this.friends = res.data)
           .catch(err => console.error(err.response))
       },
+
       removeFromTheList(id){
         this.axios.delete('/friends/fromList', {
           id
@@ -151,6 +179,16 @@
     }
 
     .friends-list {
+      position: relative;
+
+      .user-popup{
+        position: absolute;
+        left: 105%;
+        top: 0;
+        width: 360px;
+
+      }
+
       article {
         position: relative;
         padding: 10px 15px;
@@ -159,13 +197,24 @@
         cursor: pointer;
         border-bottom: 1px solid #272937;
         transition: 0.15s;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 48px 1fr;
 
         &:hover {
           background-color: #1d1f29;
           color: white;
         }
 
+        .profile-pic{
+          align-self: center;
+          max-height: 35px;
+          max-width: 35px;
+          border-radius: 18px;
+        }
+
         .friend-name {
+          align-self: center;
           font-weight: 300;
           font-size: 0.82em;
           letter-spacing: 2px;
