@@ -8,9 +8,6 @@ import bcrypt from 'bcrypt'
 export default {
 
    async register(req, res, next){
-
-      // TODO: Bcrypt the password
-
       const rb = req.body
 
       const user = await new User({

@@ -64,13 +64,22 @@
           firstname,
           surname
         })
-          .then(res => {
+
+          .then(res =>{
+            return this.axios.post('/user/login', {
+              username: username,
+              password: password
+            })
+          })
+
+          .then(res =>{
+            this.axios.defaults.headers.common['Authorization'] = res.data.token // assign the token to every axios request
             this.$store.dispatch('user/login', {
-              username: this.username,
-              password: this.password
+              username: this.username, token: res.data.token
             })
             this.$router.push('/')
           })
+
           .catch(err =>{
             const errs = err.response.data.errors
 
@@ -81,10 +90,11 @@
 
             this.errors.username = ''
             this.errors.password = ''
-
+            console.log(err.response)
             errs.forEach(err =>{
               this.errors[err.param] = err.msg
             })
+
           })
       }
     }
