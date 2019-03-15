@@ -2,10 +2,10 @@ import mongoose from 'mongoose'
 import User from '../../models/User'
 import conController from '../connection/index'
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 
 export default {
-
 
    async register(req, res, next){
 
@@ -18,7 +18,7 @@ export default {
          username: rb.username,
          firstname: rb.firstname,
          surname: rb.surname,
-         password: rb.password,
+         password: await bcrypt.hash(rb.password, 6),
          profilePic: rb.profilePic = ""
       }).save()
 
@@ -33,14 +33,21 @@ export default {
 
 
    async login(req, res, next){
-
       const user = await User.findOne({
-         username: req.body.username, password: req.body.password
+         username: req.body.username
       })
 
-     let token
+
+
+
+      let token
 
       if(user){
+         const passwordOK = await bcrypt.compare(req.body.password, user.password)
+         if(!passwordOK) {
+            return res.status(400).send('Wrong password')
+         }
+
          token = await jwt.sign(
             {
                _id: user._id

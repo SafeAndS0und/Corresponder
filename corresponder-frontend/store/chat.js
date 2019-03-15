@@ -2,7 +2,8 @@ export const state = () => ({
   name: '',
   description: '',
   chatType: '',
-  chatId: ''
+  chatId: '',
+  pic: '',
 })
 
 export const mutations = {
@@ -10,7 +11,8 @@ export const mutations = {
     state.chatType = payload.chatType
     state.chatId = payload.chatId
     state.name = payload.name
-    state.description = payload.description
+    state.description = payload.description || payload.username
+    state.pic = payload.pic
   }
 }
 

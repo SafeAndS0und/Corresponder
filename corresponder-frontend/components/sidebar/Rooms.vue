@@ -1,7 +1,9 @@
 <template>
   <div class="rooms">
     <header>
-      <h3 class="name" @click="expandRoomList = !expandRoomList">Rooms</h3>
+      <h3 class="name" @click="expandRoomList = !expandRoomList">
+        Rooms <span>({{howManyRooms}})</span>
+      </h3>
 
       <div class="options">
         <v-icon name="plus-square" @click.native="togglePopups('creation')" class="option"/>
@@ -47,6 +49,11 @@
         newRoomName: '',
         newRoomDesc: '',
 
+      }
+    },
+    computed: {
+      howManyRooms(){
+        return this.rooms.length
       }
     },
     created(){
@@ -179,7 +186,7 @@
     .room-list {
       article {
         position: relative;
-        padding: 10px 15px;
+        padding: 15px;
         background-color: $s_articleGrey;
         color: #cecece;
         cursor: pointer;

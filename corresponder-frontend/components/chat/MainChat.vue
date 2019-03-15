@@ -1,8 +1,15 @@
 <template>
   <section class="chat">
     <div class="room-window">
-      <h3>{{$store.state.chat.name}}</h3>
-      <p>{{$store.state.chat.description}}</p>
+
+      <img :src="$store.state.chat.pic" v-if="$store.state.chat.pic"
+           class="pic"
+           alt="Profile picture">
+
+      <div class="name">
+        <h3>{{$store.state.chat.name}}</h3>
+        <p>{{$store.state.chat.description}}</p>
+      </div>
 
       <Messages class="messages" :class="{dark: $store.state.appThemeColor === 'dark'}">
 
@@ -38,23 +45,37 @@
   @import '../../assets/css/variables.scss';
 
   .chat {
-
-    margin: 0 0 80px 0;
+    margin: -20px 0 80px 0;
 
     .room-window {
       margin: 0 120px 0 80px;
       padding: 5px 20px;
       color: #555555;
 
-      h3 {
-        font-size: 26px;
-        font-weight: 400;
-        letter-spacing: 2px;
-        margin-bottom: 5px;
+      .pic {
+        max-height: 60px;
+        max-width: 60px;
+        border-radius: 30px;
+        display: inline-block;
+        position: relative;
+        transform: translateY(15px);
+        margin-right: 20px;
+
       }
-      p {
-        padding-left: 2px;
-        color: #979797;
+
+      .name {
+        display: inline-block;
+        margin-bottom: 15px;
+        h3 {
+          font-size: 26px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          margin-bottom: 5px;
+        }
+        p {
+          padding-left: 2px;
+          color: #979797;
+        }
       }
 
       .messages {
@@ -67,9 +88,8 @@
         -moz-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
         box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
 
-
         transition: 0.5s;
-        max-height: 50vh;
+        max-height: 48vh;
 
       }
 

@@ -1,7 +1,9 @@
 <template>
   <div class="friends">
     <header>
-      <h3 class="name" @click="expandFriendList = !expandFriendList">Friends</h3>
+      <h3 class="name" @click="expandFriendList = !expandFriendList">
+        Friends <span>({{howManyFriends}})</span>
+      </h3>
 
       <div class="options">
         <v-icon name="search" @click.native="showSearching = !showSearching" class="option"/>
@@ -12,7 +14,7 @@
 
     <div class="friends-list" v-if="expandFriendList">
 
-      <article v-for="(friend, index) of friends" @click="switchFriend(friend)">
+      <article v-for="friend of friends" @click="switchFriend(friend)">
 
         <UserCard :username="friend.username"
                   v-if="showCard[friend._id]"
@@ -81,6 +83,11 @@
 
       }
     },
+    computed: {
+      howManyFriends(){
+        return this.friends.length
+      }
+    },
     created(){
       this.axios.get('/friends')
         .then(res =>{
@@ -88,18 +95,19 @@
 
           this.friends.forEach((friend, index) =>{
             this.$set(this.showMenu, friend._id, false) // needed to make it reactive
-            this.$set(this.showCard, friend._id, false) // needed to make it reactive
+            this.$set(this.showCard, friend._id, false)
           })
         })
         .catch(err => console.error(err.response))
     },
     methods: {
-
       switchFriend(friend){
         this.$store.dispatch('chat/switchChat', {
           name: friend.firstname + ' ' + friend.surname,
           chatType: 'friend',
-          chatId: 1
+          chatId: 1,
+          pic: friend.profilePic,
+          description: friend.username
         })
       },
 
@@ -184,7 +192,7 @@
       .user-popup{
         position: absolute;
         left: 105%;
-        top: 0;
+        top: -100px;
         width: 360px;
 
       }

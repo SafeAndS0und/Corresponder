@@ -39,7 +39,10 @@
             })
             console.log('I changed the token')
           })
-          .catch(err => this.err = err)
+          .catch(err => {
+            console.log(err.response)
+            this.err = err.response.data
+          })
       }
     }
   }
