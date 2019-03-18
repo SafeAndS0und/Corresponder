@@ -5,11 +5,11 @@
 
     <div class="msg-list">
 
-      <article v-for="message of messages">
+      <article v-for="message of $store.state.chat.messages">
 
         <div class="msg-info">
-          <h2>{{message.author}}</h2>
-          <p>{{message.at}}</p>
+          <h2>{{message.owner.substring(0, 16)}}</h2>
+          <p>{{message.createdAt}}</p>
         </div>
 
         <div class="msg-content" v-html="colorizedMsg(message.content)"></div>
@@ -26,79 +26,7 @@
     name: "Messages",
     data(){
       return {
-        messages: [
-          {
-            author: 'Spammer: ',
-            content: 'just spamming, no worries',
-            at: 'Today, 10:30'
-          },
-          {
-            author: 'Spammer: ',
-            content: 'just spamming, no worries',
-            at: 'Today, 10:30'
-          },
-          {
-            author: 'Spammer: ',
-            content: 'just spamming, no worries',
-            at: 'Today, 10:30'
-          },
-          {
-            author: 'Spammer: ',
-            content: 'just spamming, no worries',
-            at: 'Today, 10:30'
-          },
-          {
-            author: 'Spammer: ',
-            content: 'just spamming, no worries',
-            at: 'Today, 10:30'
-          },
-          {
-            author: 'John Redneck:',
-            content: 'My model 3 is coming next week… finally. Cant fucking wait!',
-            at: 'Today, 11:32'
-          },
-          {
-            author: 'SweetAnna69:',
-            content: `OMG, I'm so jealous right now… You wouldn't let me take a ride @John, would ya? <3 `,
-            at: 'Today, 11:37'
-          },
-          {author: 'John Redneck:', content: 'Gonna think about it ;) ', at: 'Today, 11:33'},
-
-
-          {
-            author: 'Michael Troyd:',
-            content: `I'm also signing up for that! Love my model X, but I heard a lot of good things about model 3.
-            I may even consider buying one for my wife… If it's gonna be as good as they say. :) `,
-            at: 'Today, 11:51'
-          },
-          {
-            author: 'John Redneck:',
-            content: `I don't doubt it will, @Michael!`,
-            at: 'Today, 11:55'
-          },
-          {
-            author: 'Josh Meltman:',
-            content: `CONGRATZ John!!!`,
-            at: 'Today, 12:35'
-          },
-          {
-            author: 'John Redneck:',
-            content: 'Aye aye... Thanks @Josh :)',
-            at: 'Today, 12:38'
-          },
-          {
-            author: 'Marry Lamb:',
-            content: ':O',
-            at: 'Today, 15:12'
-          },
-
-          {
-            author: 'John Redneck:',
-            content: ':O xD',
-            at: 'Today, 16:10'
-          },
-
-        ]
+        messages: []
       }
     },
     methods: {
@@ -117,7 +45,6 @@
           return newStr
         }
         else return msg
-
       }
     }
   }

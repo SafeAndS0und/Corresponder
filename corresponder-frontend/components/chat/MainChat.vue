@@ -51,7 +51,7 @@
     methods: {
       sendMsg(){
         this.axios.post('/messages', {
-          parent: '5c8931baf9357d3290b035db',
+          parent: this.$store.state.chat.id,
           content: this.content
         })
           .then(res => console.log(res.data))

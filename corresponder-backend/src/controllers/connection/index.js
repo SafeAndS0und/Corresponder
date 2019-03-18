@@ -1,7 +1,5 @@
 import mongoose from 'mongoose'
 import Connection from '../../models/Connection'
-import MessageList from '../messages/messageList'
-
 
 export default {
 
@@ -13,7 +11,7 @@ export default {
          if(err) next(err)
       })
 
-      await MessageList.initMsgList('friend', id, next)
+      // await MessageList.initMsgList(id, next) todo: new collection for user-to-user msgs
    },
 
    async addNewRoom(room, id){

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import Message from '../../models/Message'
 import jwt from 'jsonwebtoken'
-import MLController from './messageList'
+import roomMsgsController from './roomMessages'
 
 export default {
 
@@ -16,7 +16,7 @@ export default {
 
       await message.save()
 
-      await MLController.addMsgToList(req.body.parent, message._id)
+      await roomMsgsController.addMsgToList(req.body.parent, message._id)
 
       res.json({
          msg: "Added",
@@ -26,8 +26,9 @@ export default {
    },
 
    async getList(req, res, next){
-      const {_id} = jwt.decode(req.headers.authorization)
-      
+      const {messageIds} = await roomMsgsController.findById(req.params.id)
+      const messages = await Message.find(messageIds)
+      res.send(messages)
    },
 
    async remove(req, res, next){

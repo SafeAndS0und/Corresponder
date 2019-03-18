@@ -34,9 +34,6 @@ export default {
          username: req.body.username
       })
 
-
-
-
       let token
 
       if(user){

@@ -7,14 +7,14 @@
 
       <div class="options">
         <v-icon name="plus-square" @click.native="togglePopups('creation')" class="option"/>
-        <v-icon name="search"  @click.native="togglePopups" class="option"/>
+        <v-icon name="search" @click.native="togglePopups" class="option"/>
       </div>
     </header>
 
     <div class="creation" v-if="showCreation">
       <h3>Room creation</h3>
       <CustomInput v-model="newRoomName" placeholder="Your room name"/>
-      <CustomInput v-model="newRoomDesc"placeholder="Short description"/>
+      <CustomInput v-model="newRoomDesc" placeholder="Short description"/>
       <CustomButton @click.native="createNewRoom" class="btn">Create</CustomButton>
     </div>
 
@@ -65,13 +65,26 @@
     },
     methods: {
       switchRoom(room){
-        this.$store.dispatch('chat/switchChat', {
-          name: room.name,
-          description: room.description,
-          chatType: 'room',
-          chatId: 1
-        })
+        this.axios.get(`/messages/${room._id}`)
+          .then(res => {
+
+            console.log(res)
+
+            this.$store.dispatch('chat/switchChat', {
+              name: room.name,
+              description: room.description,
+              chatType: 'room',
+              chatId: 1,
+              id: room._id,
+              messages: res.data
+            })
+
+          })
+          .catch(err => console.log(err.response))
+
+
       },
+
       createNewRoom(){
         this.axios.post('/rooms/new', {
           name: this.newRoomName,
@@ -81,26 +94,29 @@
           .then(res => this.rooms.push(res.data.room))
           .catch(err => console.log(err.response))
       },
+
       togglePopups(popupName){
         if(popupName === 'creation'){
           this.showCreation = !this.showCreation
           this.showSearching = false
-        }else{
+        } else{
           this.showSearching = !this.showSearching
           this.showCreation = false
         }
       },
+
       removeFromTheList(id){
         this.axios.delete('/rooms/fromList', {
           id
         })
-          .then(() => {
+          .then(() =>{
             const index = this.rooms.findIndex(room => room._id === id)
             console.log(index)
             this.rooms.splice(index, 1)
           }) // update the list
           .catch(err => console.log(err))
       },
+
       refreshRoomList({inside}){
         if(inside !== 'rooms') return
         this.axios.get('/rooms')
@@ -181,7 +197,6 @@
         font-size: .9em;
       }
     }
-
 
     .room-list {
       article {

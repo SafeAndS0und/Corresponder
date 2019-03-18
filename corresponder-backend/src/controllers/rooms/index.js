@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import Room from '../../models/Room'
 import conController from '../connection/index'
+import RMList from '../messages/roomMessages'
 import jwt from 'jsonwebtoken'
 
 export default {
@@ -24,6 +25,7 @@ export default {
       }).save()
 
       await conController.addNewRoom(room, _id)
+      await RMList.initMsgList(room._id, next)
 
       res.json({
          msg: 'Successfully added new rooms',

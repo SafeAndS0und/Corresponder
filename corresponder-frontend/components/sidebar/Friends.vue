@@ -107,7 +107,8 @@
           chatType: 'friend',
           chatId: 1,
           pic: friend.profilePic,
-          description: friend.username
+          description: friend.username,
+          id: friend._id
         })
       },
 
