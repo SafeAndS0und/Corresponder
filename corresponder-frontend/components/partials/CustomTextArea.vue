@@ -22,11 +22,13 @@
     padding: 10px;
 
     border: none;
-    background-color: #e1e1e1;
+    background-color: #f9f9f9;
     color: #545454;
-    -webkit-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
-    -moz-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
-    box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
+
+    -webkit-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
+    -moz-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
+    box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
+
     font-size: 1em;
     transition: 0.25s;
 

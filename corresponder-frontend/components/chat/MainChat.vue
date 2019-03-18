@@ -2,14 +2,18 @@
   <section class="chat">
     <div class="room-window">
 
-      <img :src="$store.state.chat.pic" v-if="$store.state.chat.pic"
-           class="pic"
-           alt="Profile picture">
+      <header>
 
-      <div class="name">
-        <h3>{{$store.state.chat.name}}</h3>
-        <p>{{$store.state.chat.description}}</p>
-      </div>
+        <img :src="$store.state.chat.pic" v-if="$store.state.chat.pic"
+             class="pic"
+             alt="Profile picture">
+
+        <div class="name">
+          <h3>{{$store.state.chat.name}}</h3>
+          <p>{{$store.state.chat.description}}</p>
+        </div>
+
+      </header>
 
       <Messages class="messages" :class="{dark: $store.state.appThemeColor === 'dark'}">
 
@@ -52,41 +56,51 @@
       padding: 5px 20px;
       color: #555555;
 
-      .pic {
-        max-height: 60px;
-        max-width: 60px;
-        border-radius: 30px;
+      header {
+        background-color: #fafafa;
+        padding: 4px 20px;
+        border-radius: 50px;
         display: inline-block;
-        position: relative;
-        transform: translateY(15px);
-        margin-right: 20px;
+        -webkit-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
+        -moz-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
+        box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
 
-      }
+        .pic {
+          max-height: 60px;
+          max-width: 60px;
+          border-radius: 30px;
+          display: inline-block;
+          position: relative;
+          transform: translateY(10px);
+          margin-right: 20px;
 
-      .name {
-        display: inline-block;
-        margin-bottom: 15px;
-        h3 {
-          font-size: 26px;
-          font-weight: 400;
-          letter-spacing: 2px;
-          margin-bottom: 5px;
         }
-        p {
-          padding-left: 2px;
-          color: #979797;
+        .name {
+          display: inline-block;
+          margin: 12px 0;
+
+          h3 {
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            color: #565656;
+          }
+          p {
+            padding-left: 2px;
+            color: #999999;
+          }
         }
       }
 
       .messages {
         margin: 15px 0;
         width: 100%;
-        background-color: #e8e8e8;
+        background-color: #fafafa; // #e8e8e8;
         border-radius: 10px;
-
-        -webkit-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
-        -moz-box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
-        box-shadow: 3px 3px 5px 0 rgba(173, 173, 173, 1);
+        -webkit-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
+        -moz-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
+        box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
 
         transition: 0.5s;
         max-height: 48vh;

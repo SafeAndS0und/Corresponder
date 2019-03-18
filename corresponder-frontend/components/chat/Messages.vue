@@ -161,14 +161,14 @@
         .msg-info {
 
           h2 {
-            color: #58565a;
+            color: #535255;
             font-size: 1.05em;
             font-weight: 400;
             margin-bottom: 4px;
           }
           p {
             font-size: 0.82em;
-            color: #878388;
+            color: #9a969b;
           }
         }
 
@@ -177,7 +177,7 @@
           padding-bottom: 10px;
           font-size: 0.92em;
           font-weight: 400;
-          color: #4b4b4b;
+          color: #5f5f5f;
 
           /deep/ .mention{
             color: #1d6cdb;
