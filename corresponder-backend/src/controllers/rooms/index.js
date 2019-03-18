@@ -26,7 +26,7 @@ export default {
       await conController.addNewRoom(room, _id)
 
       res.json({
-         msg: 'Successfully added new room',
+         msg: 'Successfully added new rooms',
          room
       })
    },

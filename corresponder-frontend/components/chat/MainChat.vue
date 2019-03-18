@@ -20,10 +20,12 @@
       </Messages>
 
       <CustomTextArea :class="{dark: $store.state.appThemeColor === 'dark'}"
+                      v-model="content"
                       placeholder="Type here" class="textArea"/>
 
       <button
         :class="{darkBtn: $store.state.appThemeColor === 'dark'}"
+        @click="sendMsg"
       >
         Send
         <span>(or just press enter)</span>
@@ -40,7 +42,22 @@
 
   export default {
     name: "MainChat",
-    components: {CustomTextArea, Messages}
+    components: {CustomTextArea, Messages},
+    data(){
+      return {
+        content: ''
+      }
+    },
+    methods: {
+      sendMsg(){
+        this.axios.post('/messages', {
+          parent: '5c8931baf9357d3290b035db',
+          content: this.content
+        })
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err.response.data))
+      }
+    }
   }
 </script>
 
@@ -66,8 +83,8 @@
         box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
 
         .pic {
-          max-height: 60px;
-          max-width: 60px;
+          max-height: 55px;
+          max-width: 55px;
           border-radius: 30px;
           display: inline-block;
           position: relative;
@@ -80,7 +97,7 @@
           margin: 12px 0;
 
           h3 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 400;
             letter-spacing: 2px;
             margin-bottom: 5px;

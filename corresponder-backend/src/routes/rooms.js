@@ -1,4 +1,4 @@
-import roomController from '../controllers/room/index'
+import roomController from '../controllers/rooms/index'
 import {asyncWrapper} from '../middlewares/errorHandler'
 const Router = require('express').Router()
 

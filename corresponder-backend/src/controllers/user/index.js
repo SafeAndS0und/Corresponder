@@ -19,7 +19,7 @@ export default {
          profilePic: rb.profilePic = ""
       }).save()
 
-      await conController.registerUser(user._id)
+      await conController.registerUser(user._id, next)
 
       res.json({
          msg: 'Registered successfully',
