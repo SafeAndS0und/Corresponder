@@ -4,13 +4,13 @@ import RoomMessages from '../../models/RoomMessages'
 export default {
 
    async initMsgList(room, next){
-      const roomMessages = await new RoomMessages({
+      await new RoomMessages({
          _id: new mongoose.Types.ObjectId,
          room
       })
-         .save(err => {
-         if(err) next(err)
-      })
+         .save(err =>{
+            if(err) next(err)
+         })
    },
 
    async addMsgToList(room, msg){

@@ -65,7 +65,7 @@
     },
     methods: {
       switchRoom(room){
-        this.axios.get(`/messages/${room._id}`)
+        this.axios.get(`/messages/room/${room._id}`)
           .then(res => {
 
             console.log(res)

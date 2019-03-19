@@ -1,6 +1,5 @@
 import friendsController from '../controllers/friends/index'
 import {asyncWrapper} from '../middlewares/errorHandler'
-import roomController from "../controllers/rooms"
 const Router = require('express').Router()
 
 

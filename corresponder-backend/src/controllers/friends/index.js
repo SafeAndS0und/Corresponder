@@ -2,20 +2,18 @@ import mongoose from 'mongoose'
 import conController from '../connection/index'
 import User from '../../models/User'
 import jwt from 'jsonwebtoken'
-import Room from "../../models/Room"
+import conversationController from '../messages/conversation'
 
 export default {
 
-   async getOne(req, res, next){
-
-   },
-
    async add(req, res, next){
-      const decoded = jwt.decode(req.headers.authorization) // decoded token to get the id
-      const connection = await conController.findByUserId(decoded._id)
+      const {_id} = jwt.decode(req.headers.authorization) // decoded token to get the id
+      const connection = await conController.findByUserId(_id)
 
       connection.friends.push(new mongoose.Types.ObjectId(req.body.id))
       await connection.save()
+
+      await conversationController.initConversation(_id, req.body.id) // initalize the conversation in database, messages are empty for now
 
       res.sendStatus(204)
    },

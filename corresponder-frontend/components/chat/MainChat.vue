@@ -50,7 +50,7 @@
     },
     methods: {
       sendMsg(){
-        this.axios.post('/messages', {
+        this.axios.post(`/messages/${this.$store.state.chat.chatType}`, {
           parent: this.$store.state.chat.id,
           content: this.content
         })
