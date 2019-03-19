@@ -26,8 +26,8 @@ export default {
    },
 
    async getList(req, res, next){
-      const {messageIds} = await roomMsgsController.findById(req.params.id)
-      const messages = await Message.find(messageIds)
+      const {messages: messageIds} = await roomMsgsController.findById(req.params.id)
+      const messages = await Message.find({_id: messageIds}).populate('owner') // Like joining in SQL
       res.send(messages)
    },
 

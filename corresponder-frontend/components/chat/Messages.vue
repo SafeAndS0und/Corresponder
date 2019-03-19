@@ -8,8 +8,8 @@
       <article v-for="message of $store.state.chat.messages">
 
         <div class="msg-info">
-          <h2>{{message.owner.substring(0, 16)}}</h2>
-          <p>{{message.createdAt}}</p>
+          <h2>{{message.owner.firstname}} {{message.owner.surname}}</h2>
+          <p>{{new Date(message.createdAt).toLocaleString()}}</p>
         </div>
 
         <div class="msg-content" v-html="colorizedMsg(message.content)"></div>
