@@ -102,6 +102,22 @@
     },
     methods: {
       switchFriend(friend){
+        this.axios.get(`/messages/friend/${friend._id}`)
+          .then(res => {
+            console.log(res.data)
+
+            this.$store.dispatch('chat/switchChat', {
+              name: `${friend.firstname} ${friend.surname}`,
+              description: friend.username,
+              chatType: 'friend',
+              id: friend._id,
+              messages: res.data,
+              pic: friend.profilePic
+            })
+          })
+          .catch(err => console.log(err))
+
+
         this.$store.dispatch('chat/switchChat', {
           name: friend.firstname + ' ' + friend.surname,
           chatType: 'friend',

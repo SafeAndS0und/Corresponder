@@ -68,13 +68,10 @@
         this.axios.get(`/messages/room/${room._id}`)
           .then(res => {
 
-            console.log(res)
-
             this.$store.dispatch('chat/switchChat', {
               name: room.name,
               description: room.description,
               chatType: 'room',
-              chatId: 1,
               id: room._id,
               messages: res.data
             })

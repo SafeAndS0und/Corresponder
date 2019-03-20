@@ -49,7 +49,11 @@ export default {
    },
 
    async getFriendMsgs(req, res, next){
-
+      const {_id: userA} = jwt.decode(req.headers.authorization)
+      const userB = req.params.id
+      const {messages: messageIds} = await conversationController.findByUsersIds({userA, userB})
+      const messages = await Message.find({_id: messageIds}).populate('owner') // Like joining in SQL
+      res.send(messages)
    },
 
    async remove(req, res, next){

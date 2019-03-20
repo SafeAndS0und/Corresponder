@@ -11,6 +11,9 @@ Router.post('/', asyncWrapper(friendsController.add))
 
 Router.delete('/', asyncWrapper(friendsController.remove))
 
+// TODO: while adding friends you need to see if the friend wasnt in our friend list before
+// And you shouldn't create another conversation
+// The same with rooms probably
 Router.delete('/fromList', asyncWrapper(friendsController.removeFromTheList))
 
 

@@ -21,6 +21,6 @@ const conversationSchema = new Schema({
    timestamps: false
 })
 
-const Conversation = new mongoose.model('Conversation', conversationSchema, 'conservations')
+const Conversation = new mongoose.model('Conversation', conversationSchema, 'conservations') //todo: conSERvations? lol
 
 export default Conversation

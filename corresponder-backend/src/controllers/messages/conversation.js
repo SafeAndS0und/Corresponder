@@ -15,15 +15,13 @@ export default {
    },
 
    async addMsgToList(userIds, message){
-      const conversationId = await this.findByUsersIds(userIds)
-      const con = await Conversation.findById(conversationId)
-      con.messages.push(message)
-      await con.save()
+      const conversation = await this.findByUsersIds(userIds)
+      conversation.messages.push(message)
+      await conversation.save()
    },
 
    async findByUsersIds({userA, userB}){
-      const conv = await Conversation.findOne({userA, userB})
-      return conv._id
+      return await Conversation.findOne({ $or: [ { userA, userB }, { userA: userB, userB: userA} ] })
    }
 
 

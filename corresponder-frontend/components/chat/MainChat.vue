@@ -15,21 +15,26 @@
 
       </header>
 
+
       <Messages class="messages" :class="{dark: $store.state.appThemeColor === 'dark'}">
 
       </Messages>
 
-      <CustomTextArea :class="{dark: $store.state.appThemeColor === 'dark'}"
-                      v-model="content"
-                      placeholder="Type here" class="textArea"/>
+      <div class="send-container">
+        <CustomTextArea :class="{dark: $store.state.appThemeColor === 'dark'}"
+                        v-model="content"
+                        placeholder="Type here" class="textArea"/>
 
-      <button
-        :class="{darkBtn: $store.state.appThemeColor === 'dark'}"
-        @click="sendMsg"
-      >
-        Send
-        <span>(or just press enter)</span>
-      </button>
+        <button
+          :class="{darkBtn: $store.state.appThemeColor === 'dark'}"
+          @click="sendMsg"
+        >
+          Send
+          <span>(or just press enter)</span>
+        </button>
+
+      </div>
+
     </div>
 
 
@@ -146,33 +151,37 @@
         }
       }
 
-      .textArea {
-        margin-top: 25px;
-        width: 100%;
-        height: 120px;
-        resize: vertical;
-        border-radius: 3px;
-      }
-
-      button {
+      .send-container {
+        display: grid;
+        grid-template-columns: 1fr .3fr;
+        grid-template-rows: 130px;
+        grid-gap: 15px;
         margin-top: 20px;
-        width: 100%;
-        border: none;
-        background-color: $prettyBlue;
-        padding: 20px 0;
-        color: white;
-        font-size: 1em;
-        transition: 0.3s;
-        cursor: pointer;
 
-        &:hover {
-          background-color: #4067cf;
+        .textArea {
+          resize: vertical;
+          border-radius: 3px;
+          display: inline-block;
         }
 
-        span {
-          display: block;
-          font-size: 0.8em;
-          color: #d7d7d7;
+        button {
+          border: none;
+          background-color: $basicLightGreen;
+          color: white;
+          font-size: 1.05em;
+          transition: 0.3s;
+          cursor: pointer;
+          border-radius: 3px;
+
+          &:hover {
+            background-color: $basicMiddleGreen;
+          }
+
+          span {
+            display: block;
+            font-size: 0.85em;
+            color: #e6e6e6;
+          }
         }
       }
     }
