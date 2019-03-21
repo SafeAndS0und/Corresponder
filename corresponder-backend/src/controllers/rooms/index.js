@@ -19,7 +19,8 @@ export default {
          owner: _id,
          password: rb.password,
          themeColor: rb.themeColor,
-         uniqueHref: rb.uniqueHref
+         uniqueHref: rb.uniqueHref,
+         profilePic: rb.profilePic
       }).save()
 
       await conController.addNewRoom(room, _id)
@@ -80,7 +81,8 @@ export default {
             description: rb.description,
             themeColor: rb.themeColor,
             password: rb.password,
-            uniqueHref: rb.uniqueHref
+            uniqueHref: rb.uniqueHref,
+            profilePic: rb.profilePic
          }
       )
 

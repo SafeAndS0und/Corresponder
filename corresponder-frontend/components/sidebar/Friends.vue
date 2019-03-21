@@ -29,6 +29,7 @@
              v-if="friend.profilePic"
              alt="Profile Pic" class="profile-pic">
         <span v-if="!friend.profilePic"></span>
+
         <h3 class="friend-name">{{friend.firstname}} {{friend.surname}}</h3>
         <v-icon name="ellipsis-h" @click.native.stop="toggleMenu(friend._id)" class="interact" scale="1.3"/>
 
@@ -104,8 +105,6 @@
       switchFriend(friend){
         this.axios.get(`/messages/friend/${friend._id}`)
           .then(res => {
-            console.log(res.data)
-
             this.$store.dispatch('chat/switchChat', {
               name: `${friend.firstname} ${friend.surname}`,
               description: friend.username,
@@ -117,15 +116,6 @@
           })
           .catch(err => console.log(err))
 
-
-        this.$store.dispatch('chat/switchChat', {
-          name: friend.firstname + ' ' + friend.surname,
-          chatType: 'friend',
-          chatId: 1,
-          pic: friend.profilePic,
-          description: friend.username,
-          id: friend._id
-        })
       },
 
       toggleMenu(id){

@@ -22,8 +22,15 @@
 
     <div class="room-list" v-if="expandRoomList">
       <article v-for="room of rooms" @click="switchRoom(room)">
+
+        <img :src="room.profilePic"
+             v-if="room.profilePic"
+             alt="Profile Pic" class="profile-pic">
+        <span v-if="!room.profilePic"></span>
+
         <h3 class="room-name">{{room.name}}</h3>
         <v-icon name="times" @click.native="removeFromTheList(room._id)" class="leave" scale="1.4"/>
+
       </article>
     </div>
 
@@ -67,13 +74,13 @@
       switchRoom(room){
         this.axios.get(`/messages/room/${room._id}`)
           .then(res => {
-
             this.$store.dispatch('chat/switchChat', {
               name: room.name,
               description: room.description,
               chatType: 'room',
               id: room._id,
-              messages: res.data
+              messages: res.data,
+              pic: room.profilePic
             })
 
           })
@@ -86,7 +93,8 @@
         this.axios.post('/rooms/new', {
           name: this.newRoomName,
           description: this.newRoomDesc,
-          uniqueHref: this.newRoomName.toLowerCase()
+          uniqueHref: this.newRoomName.toLowerCase(),
+          profilePic: ''
         })
           .then(res => this.rooms.push(res.data.room))
           .catch(err => console.log(err.response))
@@ -196,20 +204,33 @@
     }
 
     .room-list {
+
       article {
         position: relative;
-        padding: 15px;
+        padding: 10px 15px;
         background-color: $s_articleGrey;
         color: #cecece;
         cursor: pointer;
         border-bottom: 1px solid #272937;
         transition: 0.15s;
 
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 48px 1fr;
+
         &:hover {
           background-color: #1d1f29;
         }
 
+        .profile-pic{
+          align-self: center;
+          max-height: 35px;
+          max-width: 35px;
+          border-radius: 18px;
+        }
+
         .room-name {
+          align-self: center;
           font-weight: 300;
           font-size: 0.82em;
           letter-spacing: 2px;

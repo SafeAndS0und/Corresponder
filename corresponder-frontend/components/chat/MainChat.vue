@@ -79,7 +79,7 @@
 
       header {
         background-color: #fafafa;
-        padding: 4px 20px;
+        padding: 4px 16px;
         border-radius: 50px;
         display: inline-block;
         -webkit-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
@@ -114,7 +114,6 @@
         }
       }
 
-
       .messages {
         margin: 15px 0;
         width: 100%;
@@ -125,7 +124,7 @@
         box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
 
         transition: 0.5s;
-        max-height: 48vh;
+        max-height: 54vh;
 
       }
 

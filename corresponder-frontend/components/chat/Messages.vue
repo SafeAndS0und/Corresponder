@@ -3,12 +3,12 @@
 
     <span class="scrollbar"
           :style="{
-          top: scrollPercentage >= 96 ? (94 * proportion) + '%' : scrollPercentageProportion + '%'}"
+          top: scrollPercentage >= 95 ? (95 * proportion) + '%' : scrollPercentageProportion + '%'}"
           :class="{moving: isScrollbarMoving}"
-          v-if="showScrollbar"
+          v-if="showScrollbar && !isEmpty"
     ></span>
 
-    <div class="msg-list">
+    <div class="msg-list" v-if="!isEmpty">
 
       <article v-for="message of $store.state.chat.messages">
 
@@ -21,6 +21,11 @@
 
       </article>
 
+    </div>
+
+    <div v-else class="empty">
+      It's just silence and darkness here : ( <br/>
+      Don't be shy - why don't you start the conversation?
     </div>
 
   </section>
@@ -38,6 +43,12 @@
         proportion: 1,
         isScrollbarMoving: false,
         showScrollbar: false
+      }
+    },
+
+    computed: {
+      isEmpty(){
+        return this.$store.state.chat.messages.length <= 0
       }
     },
 
@@ -60,6 +71,7 @@
 
           this.scrollPercentage = (scrolledFromTop / containerHeight * 100)
           this.scrollPercentageProportion = (scrolledFromTop / containerHeight * 100) * this.proportion
+          console.log(this.scrollPercentageProportion)
 
           if(this.scrollPercentageProportion < 4)
             this.scrollPercentageProportion = 3
@@ -153,6 +165,14 @@
 
         }
       }
+    }
+
+    .empty{
+      padding: 12px 0;
+      font-size: 0.95em;
+      color: #848788;
+      text-align: center;
+      line-height: 18px;
     }
   }
 

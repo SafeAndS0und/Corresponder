@@ -13,6 +13,7 @@ const roomSchema = new Schema({
    owner: String,
    password: String,
    themeColor: String,
+   profilePic: String,
    uniqueHref: {
       type: String,
       unique: true
