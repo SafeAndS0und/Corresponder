@@ -15,7 +15,6 @@
 
       </header>
 
-
       <Messages class="messages" :class="{dark: $store.state.appThemeColor === 'dark'}">
 
       </Messages>
@@ -114,6 +113,7 @@
           }
         }
       }
+
 
       .messages {
         margin: 15px 0;

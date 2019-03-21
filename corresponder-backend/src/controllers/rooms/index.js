@@ -8,8 +8,6 @@ export default {
 
    async createNew(req, res, next){
 
-      //TODO: Hash the password
-
       const rb = req.body
 
       const {_id} = jwt.decode(req.headers.authorization) // decoded token to get the id
@@ -98,7 +96,7 @@ export default {
    },
 
    async removeFromTheList(req, res, next){
-      const decoded = jwt.decode(req.headers.authorization) // decoded token to get the id TODO: EXTRACT IT
+      const decoded = jwt.decode(req.headers.authorization)
 
       await conController.remove(decoded._id, req.body.id, 'rooms')
       res.json(204)

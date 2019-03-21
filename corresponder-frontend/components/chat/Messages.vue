@@ -1,7 +1,12 @@
 <template>
   <section>
 
-    <span class="scrollbar"></span> <!-- TODO: I thinks its gonna be outside the Messages.vue -->
+    <span class="scrollbar"
+          :style="{
+          top: scrollPercentage >= 96 ? (94 * proportion) + '%' : scrollPercentageProportion + '%'}"
+          :class="{moving: isScrollbarMoving}"
+          v-if="showScrollbar"
+    ></span>
 
     <div class="msg-list">
 
@@ -26,8 +31,42 @@
     name: "Messages",
     data(){
       return {
-        messages: []
+        messages: [],
+
+        scrollPercentage: null,
+        scrollPercentageProportion: 3,
+        proportion: 1,
+        isScrollbarMoving: false,
+        showScrollbar: false
       }
+    },
+
+    mounted(){
+      const messages = document.querySelector('.messages')
+      this.showScrollbar = messages.scrollHeight > messages.clientHeight
+
+      messages.addEventListener('wheel', e =>{
+        setTimeout(() =>{
+          this.isScrollbarMoving = true // For toggling .moving class transition
+
+          this.showScrollbar = messages.scrollHeight > messages.clientHeight
+
+          const containerHeight = messages.scrollHeight - messages.clientHeight
+          const scrolledFromTop = messages.scrollTop
+
+          this.proportion = (messages.scrollHeight / messages.clientHeight) > 1
+            ? (messages.scrollHeight / messages.clientHeight)
+            : 1
+
+          this.scrollPercentage = (scrolledFromTop / containerHeight * 100)
+          this.scrollPercentageProportion = (scrolledFromTop / containerHeight * 100) * this.proportion
+
+          if(this.scrollPercentageProportion < 4)
+            this.scrollPercentageProportion = 3
+
+          setTimeout(() => this.isScrollbarMoving = false, 300)
+        }, 180)
+      })
     },
     methods: {
       colorizedMsg(msg){
@@ -56,25 +95,25 @@
     padding: 10px 15px;
     position: relative;
 
-
     &::-webkit-scrollbar {
       width: 0;
       background: transparent;
     }
     overflow-y: scroll;
 
-    .scrollbar{
+    .scrollbar {
       position: absolute;
-      background-color: #1a1e28;
-      opacity: 0.3;
+      background-color: #373737;
+      opacity: .25;
       right: 4px;
       width: 7px;
-      height: 40px;
+      height: 15%;
       border-radius: 20px;
-      transition: .25s;
+      transition: .45s;
+      transition-timing-function: linear;
 
-      &:hover{
-        opacity: .6;
+      &:hover {
+        opacity: .65;
       }
     }
 
@@ -106,7 +145,7 @@
           font-weight: 400;
           color: #5f5f5f;
 
-          /deep/ .mention{
+          /deep/ .mention {
             color: #1d6cdb;
           }
 
@@ -115,7 +154,12 @@
         }
       }
     }
+  }
 
+  /* Transitions */
+
+  .moving {
+    transform: scaleX(0.7) scaleY(1.5);
   }
 
 </style>

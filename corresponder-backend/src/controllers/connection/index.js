@@ -11,7 +11,6 @@ export default {
          if(err) next(err)
       })
 
-      // await MessageList.initMsgList(id, next) todo: new collection for user-to-user msgs
    },
 
    async addNewRoom(room, id){
