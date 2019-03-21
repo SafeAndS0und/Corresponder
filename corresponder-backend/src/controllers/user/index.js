@@ -56,7 +56,8 @@ export default {
       user
          ? res.status(200).send({
             msg: "Logged in",
-            token
+            id: user._id,
+            token,
          })
          : res.status(404).send('Wrong credentials')
    },
@@ -96,6 +97,6 @@ export default {
 
    async verifyToken(req, res, next){
       const decoded = await jwt.verify(req.params.token, 'superPrivate')
-      res.status(200).send({verified: true, expiresAt: decoded.exp})
+      res.status(200).send({verified: true, expiresAt: decoded.exp, id: decoded._id})
    }
 }

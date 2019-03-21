@@ -1,5 +1,6 @@
 export const state = () => ({
   username: '',
+  id: '',
   token: ''
 })
 
@@ -7,14 +8,17 @@ export const mutations = {
   login(state, payload){
     state.username = payload.username
     state.token = payload.token
+    state.id = payload.id
 
     localStorage.setItem('token', state.token)
     localStorage.setItem('username', state.username)
+    localStorage.setItem('id', state.id)
   },
   logout(state){
     localStorage.clear()
     state.username = ''
     state.token = ''
+    state.id = ''
   }
 }
 

@@ -1,7 +1,9 @@
-
+import webRTC from './webRTC/index'
 
 // It runs when the page is refreshed
 export default function(axios, store){
+
+
   const token = localStorage.getItem('token')
 
 
@@ -9,6 +11,8 @@ export default function(axios, store){
     axios.get(`user/token/${token}`) // check if the token's still valid
       .then(res => {
         store.dispatch('switchLoading')
+
+        webRTC.createPeer(res.data.id) // start webRTC peer
 
         // save the data in store
         store.dispatch('user/login', {
@@ -27,7 +31,6 @@ export default function(axios, store){
     setTimeout(() => {
       store.dispatch('switchLoading')
     }, 300)
-
   }
 
 }

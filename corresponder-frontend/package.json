@@ -16,7 +16,6 @@
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
     "nuxt": "^2.4.0",
-    "peerjs": "^0.3.24",
     "vue-awesome": "^3.4.0"
   },
   "devDependencies": {

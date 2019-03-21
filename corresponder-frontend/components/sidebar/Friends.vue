@@ -69,6 +69,7 @@
 <script>
   import Searching from './Searching.vue'
   import UserCard from '../popups/UserCard.vue'
+  import webRTC from '../../assets/js/webRTC/index'
 
   export default {
     name: "Friends",
@@ -103,6 +104,13 @@
     },
     methods: {
       switchFriend(friend){
+
+        webRTC.connectToAnotherPeer(friend._id)
+
+        const {peer, id, connection} = webRTC
+
+        this.$store.dispatch('peer/initPeer', {peer, id, connection})
+
         this.axios.get(`/messages/friend/${friend._id}`)
           .then(res => {
             this.$store.dispatch('chat/switchChat', {

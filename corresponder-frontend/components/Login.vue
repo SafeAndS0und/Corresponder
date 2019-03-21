@@ -35,7 +35,9 @@
             this.axios.defaults.headers.common['Authorization'] = res.data.token // assign the token to every axios request
             this.success = res.data.msg
             this.$store.dispatch('user/login', {
-              username: this.username, token: res.data.token
+              username: this.username,
+              token: res.data.token,
+              id: res.data.id
             })
           })
           .catch(err => {
