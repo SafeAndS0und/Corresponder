@@ -43,6 +43,7 @@
 <script>
   import CustomTextArea from '../partials/CustomTextArea.vue'
   import Messages from './Messages.vue'
+  import webRTC from '../../assets/js/webRTC/index'
 
   export default {
     name: "MainChat",
@@ -54,6 +55,17 @@
     },
     methods: {
       sendMsg(){
+
+        webRTC.sendMessage({
+          content: this.content,
+          owner: {
+            firstname: 'Nikodem',
+            surname: 'Lorenz',
+            _id: this.$store.state.user.id
+          },
+          createdAt: Date.now()
+        })
+
         this.axios.post(`/messages/${this.$store.state.chat.chatType}`, {
           parent: this.$store.state.chat.id,
           content: this.content

@@ -36,7 +36,6 @@
     created(){
       document.addEventListener('scroll', () =>{
         this.pageYOffset = window.pageYOffset
-        console.log(this.pageYOffset)
       })
 
     },

@@ -32,12 +32,12 @@
 </template>
 
 <script>
+  import webRTC from '../../assets/js/webRTC/index'
+
   export default {
     name: "Messages",
     data(){
       return {
-        messages: [],
-
         scrollPercentage: null,
         scrollPercentageProportion: 3,
         proportion: 1,
@@ -71,7 +71,6 @@
 
           this.scrollPercentage = (scrolledFromTop / containerHeight * 100)
           this.scrollPercentageProportion = (scrolledFromTop / containerHeight * 100) * this.proportion
-          console.log(this.scrollPercentageProportion)
 
           if(this.scrollPercentageProportion < 4)
             this.scrollPercentageProportion = 3
@@ -167,7 +166,7 @@
       }
     }
 
-    .empty{
+    .empty {
       padding: 12px 0;
       font-size: 0.95em;
       color: #848788;

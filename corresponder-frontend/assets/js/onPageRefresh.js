@@ -9,18 +9,18 @@ export default function(axios, store){
 
   if(token){
     axios.get(`user/token/${token}`) // check if the token's still valid
-      .then(res => {
+      .then(res =>{
         store.dispatch('switchLoading')
-
-        webRTC.createPeer(res.data.id) // start webRTC peer
 
         // save the data in store
         store.dispatch('user/login', {
-          username: localStorage.getItem('username'), token
+          username: localStorage.getItem('username'),
+          token,
+          id: localStorage.getItem('id')
         })
 
       })
-      .catch(err => {
+      .catch(err =>{
         console.log(err)
         localStorage.clear()
         store.dispatch('switchLoading')
@@ -28,7 +28,7 @@ export default function(axios, store){
   }
   else{
     localStorage.clear()
-    setTimeout(() => {
+    setTimeout(() =>{
       store.dispatch('switchLoading')
     }, 300)
   }

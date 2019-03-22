@@ -107,10 +107,6 @@
 
         webRTC.connectToAnotherPeer(friend._id)
 
-        const {peer, id, connection} = webRTC
-
-        this.$store.dispatch('peer/initPeer', {peer, id, connection})
-
         this.axios.get(`/messages/friend/${friend._id}`)
           .then(res => {
             this.$store.dispatch('chat/switchChat', {

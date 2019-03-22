@@ -34,6 +34,7 @@
 <script>
   import Navbar from '../components/Navbar.vue'
   import Sidebar from '../components/sidebar/Sidebar.vue'
+  import webRTC from '../assets/js/webRTC/index'
 
   export default {
     components: {Navbar, Sidebar},
@@ -41,6 +42,28 @@
       return {
         folded: false
       }
+    },
+    async mounted(){
+      const peer = webRTC.createPeer(localStorage.getItem('id')) // start webRTC peer
+
+      peer.on('open', id => {
+        this.id = id
+
+        peer.on('connection', incomingCon =>{ //When connected
+          console.log('someone connected')
+
+          incomingCon.on('data', msg =>{ // When recieved a messages by connection.send(data)
+            console.log('got msg', msg)
+
+            if(msg.owner._id === this.$store.state.chat.id)
+              this.$store.dispatch('chat/pushMessage', {message: msg})
+          })
+
+        })
+      })
+
+
+
     },
     methods: {
       forwardFold(){

@@ -1,12 +1,12 @@
 export const state = () => ({
-  peer: '',
+  // peer: '',
   id: '',
   connection: ''
 })
 
 export const mutations = {
   initPeer(state, payload){
-    state.peer = payload.peer
+    // state.peer = payload.peer
     state.id = payload.id
     state.connection = payload.connection
   }
