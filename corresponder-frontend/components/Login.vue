@@ -4,7 +4,6 @@
     <CustomInput v-model="username" placeholder="Username"/>
     <CustomInput v-model="password" type="password" placeholder="Password"/>
     <p class="errMsg">{{err}}</p>
-    <p class="success">{{success}}</p>
     <CustomButton @click.native="login" class="btn">Login</CustomButton>
 
   </section>
@@ -22,7 +21,6 @@
         username: '',
         password: '',
         err: '',
-        success: ''
       }
     },
     methods: {
@@ -33,11 +31,13 @@
         })
           .then(res =>{
             this.axios.defaults.headers.common['Authorization'] = res.data.token // assign the token to every axios request
-            this.success = res.data.msg
+
             this.$store.dispatch('user/login', {
               username: this.username,
               token: res.data.token,
-              id: res.data.id
+              id: res.data.id,
+              firstname: res.data.firstname,
+              surname: res.data.surname
             })
           })
           .catch(err => {
@@ -88,8 +88,6 @@
     .errMsg {
       color: #ad0000;
     }
-    .success {
-      color: #3b8239;
-    }
+
   }
 </style>

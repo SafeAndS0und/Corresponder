@@ -17,7 +17,6 @@ export const mutations = {
   },
 
   pushMessage(state, payload){
-
     state.messages.push(payload)
   }
 }

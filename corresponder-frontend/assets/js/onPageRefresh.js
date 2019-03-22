@@ -15,6 +15,8 @@ export default function(axios, store){
         // save the data in store
         store.dispatch('user/login', {
           username: localStorage.getItem('username'),
+          firstname: localStorage.getItem('firstname'),
+          surname: localStorage.getItem('surname'),
           token,
           id: localStorage.getItem('id')
         })

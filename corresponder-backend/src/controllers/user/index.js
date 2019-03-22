@@ -38,7 +38,7 @@ export default {
 
       if(user){
          const passwordOK = await bcrypt.compare(req.body.password, user.password)
-         if(!passwordOK) {
+         if(!passwordOK){
             return res.status(400).send('Wrong password')
          }
 
@@ -58,6 +58,8 @@ export default {
             msg: "Logged in",
             id: user._id,
             token,
+            firstname: user.firstname,
+            surname: user.surname
          })
          : res.status(404).send('Wrong credentials')
    },

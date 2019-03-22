@@ -55,16 +55,18 @@
     },
     methods: {
       sendMsg(){
-
-        webRTC.sendMessage({
+        const msgObj = {
           content: this.content,
           owner: {
-            firstname: 'Nikodem',
-            surname: 'Lorenz',
+            firstname: this.$store.state.user.firstname,
+            surname: this.$store.state.user.surname,
             _id: this.$store.state.user.id
           },
           createdAt: Date.now()
-        })
+        }
+
+        this.$store.dispatch('chat/pushMessage', {message: msgObj}) // update the messages localy
+        webRTC.sendMessage(msgObj) // send it to the peer connected
 
         this.axios.post(`/messages/${this.$store.state.chat.chatType}`, {
           parent: this.$store.state.chat.id,
