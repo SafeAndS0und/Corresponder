@@ -2,7 +2,7 @@
   <section class="chat">
     <div class="room-window">
 
-      <header>
+      <header :class="{dark: $store.state.appThemeColor === 'dark'}">
 
         <img :src="$store.state.chat.pic" v-if="$store.state.chat.pic"
              class="pic"
@@ -50,8 +50,12 @@
     components: {CustomTextArea, Messages},
     data(){
       return {
-        content: ''
+        content: '',
+        msgNode: null
       }
+    },
+    mounted(){
+      this.msgNode = document.querySelector('.messages')
     },
     methods: {
       sendMsg(){
@@ -68,11 +72,19 @@
         this.$store.dispatch('chat/pushMessage', {message: msgObj}) // update the messages localy
         webRTC.sendMessage(msgObj) // send it to the peer connected
 
+
+
         this.axios.post(`/messages/${this.$store.state.chat.chatType}`, {
           parent: this.$store.state.chat.id,
           content: this.content
         })
-          .then(res => console.log(res.data))
+          .then(res => {
+            // scroll to bottom
+            this.msgNode.scrollTo({
+              top: this.msgNode.scrollHeight,
+              behavior: 'smooth'
+            })
+          })
           .catch(err => console.log(err.response.data))
       }
     }
@@ -99,6 +111,7 @@
         -webkit-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
         -moz-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
         box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
+        transition: .5s;
 
         .pic {
           max-height: 55px;
@@ -119,7 +132,7 @@
             font-weight: 400;
             letter-spacing: 2px;
             margin-bottom: 5px;
-            color: #565656;
+            color: #555555;
           }
           p {
             padding-left: 2px;
@@ -143,21 +156,17 @@
       }
 
       .dark {
-        background-color: #28292d !important;
-
-        h4 {
-          color: #9b9b9b !important;
-        }
+        background-color: #1f1f23 !important;
 
         &:active, &:focus {
           color: #cdbdc9;
-          background-color: #24262f !important;
+          background-color: #201f29 !important;
         }
 
       }
 
       .darkBtn {
-        background-color: #24262f !important;
+        background-color: #1e2029 !important;
 
         &:hover {
           background-color: #1c202c !important;

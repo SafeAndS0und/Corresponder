@@ -42,6 +42,7 @@
   import CustomInput from '../partials/CustomInput.vue'
   import CustomButton from '../partials/CustomButton.vue'
   import Searching from './Searching.vue'
+  import webRTC from '../../assets/js/webRTC/index'
 
   export default {
     name: "Rooms",
@@ -71,7 +72,13 @@
         .catch(err => console.log(err.response))
     },
     methods: {
-      switchRoom(room){
+      async switchRoom(room){
+        const roomPeer = await webRTC.createRoom(room._id)
+
+        roomPeer.on('connection', connection => {
+          console.log('SOMEBODY joined the room', connection)
+        })
+
         this.axios.get(`/messages/room/${room._id}`)
           .then(res => {
             this.$store.dispatch('chat/switchChat', {

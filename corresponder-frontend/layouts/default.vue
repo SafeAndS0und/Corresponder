@@ -44,24 +44,30 @@
       }
     },
     async mounted(){
-      const peer = webRTC.createPeer(localStorage.getItem('id')) // start webRTC peer
 
-      peer.on('open', id => {
-        this.id = id
+      const peer = await webRTC.createPeer(localStorage.getItem('id')) // start webRTC peer
 
-        peer.on('connection', incomingCon =>{ //When connected
-          console.log('someone connected')
+      peer.on('connection', incomingCon =>{ //When connected
+        console.log('someone s connected')
 
-          incomingCon.on('data', msg =>{ // When recieved a messages by connection.send(data)
-            console.log('got msg', msg)
+        incomingCon.on('data', async msg =>{ // When recieved a messages by connection.send(data)
+          console.log('got msg', msg)
 
-            if(msg.owner._id === this.$store.state.chat.id)
-              this.$store.dispatch('chat/pushMessage', {message: msg})
-          })
+          if(msg.owner._id === this.$store.state.chat.id){ //if user is in the chat with that person
+            const msgNode = document.querySelector('.messages')
+            await this.$store.dispatch('chat/pushMessage', {message: msg})
 
+            msgNode.scrollTo({ // scroll to bottom
+              top: msgNode.scrollHeight,
+              behavior: 'smooth'
+            })
+          }
+          else{ // if user is outside of the chat that he got message from
+            console.log('NOTIFICATION: you ve got message from ', msg.owner._id) // TODO: Notificate
+          }
         })
-      })
 
+      })
 
 
     },

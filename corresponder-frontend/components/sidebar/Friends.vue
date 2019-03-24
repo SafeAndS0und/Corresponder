@@ -95,7 +95,7 @@
         .then(res =>{
           this.friends = res.data
 
-          this.friends.forEach((friend, index) =>{
+          this.friends.forEach(friend =>{
             this.$set(this.showMenu, friend._id, false) // needed to make it reactive
             this.$set(this.showCard, friend._id, false)
           })

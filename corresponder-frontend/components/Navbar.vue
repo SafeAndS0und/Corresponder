@@ -143,7 +143,7 @@
 </style>
 <style>
   .dark {
-    background-color: #1f2023 !important;
+    background-color: #18181c !important;
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
