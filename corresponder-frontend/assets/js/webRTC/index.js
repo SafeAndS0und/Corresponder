@@ -1,8 +1,9 @@
 export default {
   clientPeer: null,
-  roomPeers: [],
   id: null,
   connection: null,
+
+  roomPeers: [],
 
   createPeer(id){
     return new Promise((resolve, reject) =>{
@@ -43,25 +44,46 @@ export default {
 
       })
 
-      roomPeer.on('open', id =>{
-        this.roomPeers.push(roomPeer)
-        console.log('created a room server', roomPeer)
-        resolve(roomPeer)
+      // this happen only on host
+      roomPeer.on('open', id => {
+        console.log('Created a room server', roomPeer)
+        resolve({roomPeer: roomPeer, roomPeers: this.roomPeers})
       })
     })
 
   },
 
   joinRoom(roomId, resolve){
-    const connection = this.clientPeer.connect(roomId)
-    connection.on('open', () => {
-      resolve(connection)
+    console.log('Room already exists, trying to connect to it')
+    this.connection = this.clientPeer.connect(roomId)
+    this.connection.on('open', () => {
+      resolve({roomPeer: this.connection})
     })
+  },
 
+  broadcast(content){
+    console.log('Broadcasting a message: ' + content + ' to users: ', this.roomPeers)
+
+    this.roomPeers.forEach(connection => {
+      connection.send(content)
+    })
+  },
+
+  sendList(to){
+    console.log('Sending active users list to ', to)
+
+    const connection = this.clientPeer.connect(to)
+
+    connection.on('open', () => {
+      connection.send({roomPeers: this.roomPeers})
+    })
+    connection.on('error', err =>{
+      console.log(err)
+    })
   },
 
   sendMessage(content){
-    console.log('sending a message', content.content)
+    console.log('Sending a message', content)
     this.connection.send(content)
 
   }

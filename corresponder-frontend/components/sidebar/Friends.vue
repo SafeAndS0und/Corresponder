@@ -30,7 +30,10 @@
              alt="Profile Pic" class="profile-pic">
         <span v-if="!friend.profilePic"></span>
 
-        <h3 class="friend-name">{{friend.firstname}} {{friend.surname}}</h3>
+        <h3 class="friend-name">
+          {{friend.firstname}} {{friend.surname}}
+          <v-icon name="envelope" v-if="showNotifications[friend._id]" class="notification" scale="1"/>
+        </h3>
         <v-icon name="ellipsis-h" @click.native.stop="toggleMenu(friend._id)" class="interact" scale="1.3"/>
 
         <div class="menu" v-if="showMenu[friend._id]">
@@ -74,6 +77,7 @@
   export default {
     name: "Friends",
     components: {Searching, UserCard},
+    props: ['notifications'],
     data(){
       return {
         expandFriendList: true,
@@ -82,7 +86,7 @@
         showSearching: false,
         showMenu: [],
         showCard: [],
-
+        showNotifications: []
       }
     },
     computed: {
@@ -91,6 +95,11 @@
       }
     },
     created(){
+
+      this.$nuxt.$on('notification', id => {
+        this.showNotifications[id] = true
+      })
+
       this.axios.get('/friends')
         .then(res =>{
           this.friends = res.data
@@ -98,13 +107,13 @@
           this.friends.forEach(friend =>{
             this.$set(this.showMenu, friend._id, false) // needed to make it reactive
             this.$set(this.showCard, friend._id, false)
+            this.$set(this.showNotifications, friend._id, false)
           })
         })
         .catch(err => console.error(err.response))
     },
     methods: {
       switchFriend(friend){
-
         webRTC.connectToAnotherPeer(friend._id)
 
         this.axios.get(`/messages/friend/${friend._id}`)
@@ -237,6 +246,21 @@
           font-weight: 300;
           font-size: 0.82em;
           letter-spacing: 2px;
+
+          .notification{
+            color: #fcf2ff;
+            margin-left: 7px;
+            animation: 0.6s shake infinite alternate linear;
+          }
+
+          @keyframes shake {
+            from {
+              transform: scale(1) translateY(3px);
+            }
+            to{
+              transform: scale(1.25) translateY(3px);
+            }
+          }
         }
 
         .interact {

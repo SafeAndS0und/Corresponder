@@ -53,6 +53,10 @@
         incomingCon.on('data', async msg =>{ // When recieved a messages by connection.send(data)
           console.log('got msg', msg)
 
+          if(typeof msg === 'object'){
+            webRTC.roomPeers = msg.roomPeers
+          }
+
           if(msg.owner._id === this.$store.state.chat.id){ //if user is in the chat with that person
             const msgNode = document.querySelector('.messages')
             await this.$store.dispatch('chat/pushMessage', {message: msg})
@@ -63,7 +67,7 @@
             })
           }
           else{ // if user is outside of the chat that he got message from
-            console.log('NOTIFICATION: you ve got message from ', msg.owner._id) // TODO: Notificate
+            this.$nuxt.$emit('notification', msg.owner._id);
           }
         })
 

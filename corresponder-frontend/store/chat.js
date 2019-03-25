@@ -4,7 +4,8 @@ export const state = () => ({
   chatType: '',
   pic: '',
   id: '',
-  messages: []
+  messages: [],
+
 })
 
 export const mutations = {
@@ -29,6 +30,7 @@ export const actions = {
 
   pushMessage({commit}, payload){
     commit('pushMessage', payload.message)
-  }
+  },
+
 }
 

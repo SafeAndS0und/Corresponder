@@ -73,14 +73,34 @@
     },
     methods: {
       async switchRoom(room){
-        const roomPeer = await webRTC.createRoom(room._id)
+        const {roomPeer, roomPeers} = await webRTC.createRoom(room._id)
 
-        roomPeer.on('connection', connection => {
-          console.log('SOMEBODY joined the room', connection)
-        })
+        if(roomPeer){
+          if(roomPeer.id === room._id){
+            roomPeer.on('connection', connection =>{
+              console.log('SOMEBODY joined the room', connection)
+
+              // sendList of current room users
+              webRTC.sendList(connection.peer)
+
+              connection.on('data', data =>{
+                console.log('ive got data', data)
+              })
+
+              roomPeers.push(connection)
+            })
+          }
+          else{
+            console.log('im a client so ill just wait on data i guess')
+            roomPeer.on('data', data =>{
+              this.$store.dispatch('chat/pushMessage', {message: data}) // update the messages localy
+            })
+          }
+        }
+
 
         this.axios.get(`/messages/room/${room._id}`)
-          .then(res => {
+          .then(res =>{
             this.$store.dispatch('chat/switchChat', {
               name: room.name,
               description: room.description,
@@ -229,7 +249,7 @@
           background-color: #1d1f29;
         }
 
-        .profile-pic{
+        .profile-pic {
           align-self: center;
           max-height: 35px;
           max-width: 35px;

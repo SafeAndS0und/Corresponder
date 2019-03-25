@@ -70,8 +70,11 @@
         }
 
         this.$store.dispatch('chat/pushMessage', {message: msgObj}) // update the messages localy
-        webRTC.sendMessage(msgObj) // send it to the peer connected
 
+        if(this.$store.state.chat.chatType === 'friend')
+          webRTC.sendMessage(msgObj) // send it to the peer connected
+        else
+          webRTC.broadcast(msgObj)
 
 
         this.axios.post(`/messages/${this.$store.state.chat.chatType}`, {
