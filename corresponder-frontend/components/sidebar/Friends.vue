@@ -32,9 +32,17 @@
 
         <h3 class="friend-name">
           {{friend.firstname}} {{friend.surname}}
-          <v-icon name="envelope" v-if="showNotifications[friend._id]" class="notification" scale="1"/>
         </h3>
+
         <v-icon name="ellipsis-h" @click.native.stop="toggleMenu(friend._id)" class="interact" scale="1.3"/>
+
+        <div class="notification" v-if="notifications[friend._id].show">
+          <v-icon name="envelope" class="notification-icon" scale="1"/>
+          <span class="notification-msg">
+            {{notifications[friend._id].msg.content.substring(0, 25)}}
+            {{notifications[friend._id].msg.content.length > 25 ? "...": ""}}
+          </span>
+        </div>
 
         <div class="menu" v-if="showMenu[friend._id]">
           <button @click.stop="toggleCard(friend._id)">
@@ -77,7 +85,6 @@
   export default {
     name: "Friends",
     components: {Searching, UserCard},
-    props: ['notifications'],
     data(){
       return {
         expandFriendList: true,
@@ -86,7 +93,7 @@
         showSearching: false,
         showMenu: [],
         showCard: [],
-        showNotifications: []
+        notifications: []
       }
     },
     computed: {
@@ -96,8 +103,8 @@
     },
     created(){
 
-      this.$nuxt.$on('notification', id => {
-        this.showNotifications[id] = true
+      this.$nuxt.$on('notification', msg => {
+        this.notifications[msg.owner._id] = {show: true, msg}
       })
 
       this.axios.get('/friends')
@@ -107,7 +114,7 @@
           this.friends.forEach(friend =>{
             this.$set(this.showMenu, friend._id, false) // needed to make it reactive
             this.$set(this.showCard, friend._id, false)
-            this.$set(this.showNotifications, friend._id, false)
+            this.$set(this.notifications, friend._id, false)
           })
         })
         .catch(err => console.error(err.response))
@@ -239,6 +246,7 @@
           max-height: 35px;
           max-width: 35px;
           border-radius: 18px;
+          grid-column: 1;
         }
 
         .friend-name {
@@ -246,12 +254,27 @@
           font-weight: 300;
           font-size: 0.82em;
           letter-spacing: 2px;
+          grid-column: 2;
 
-          .notification{
+          }
+
+        .notification{
+          grid-row: 2;
+          grid-column: 2;
+
+
+          .notification-icon{
             color: #fcf2ff;
-            margin-left: 7px;
             animation: 0.6s shake infinite alternate linear;
           }
+
+          .notification-msg{
+            color: #898691;
+            font-size: 0.85em;
+            padding-left: 5px;
+          }
+
+
 
           @keyframes shake {
             from {

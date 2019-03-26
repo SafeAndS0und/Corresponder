@@ -51,25 +51,40 @@
         console.log('someone s connected')
 
         incomingCon.on('data', async msg =>{ // When recieved a messages by connection.send(data)
-          console.log('got msg', msg)
 
-          if(typeof msg === 'object'){
-            webRTC.roomPeers = msg.roomPeers
+          if(!msg.hasOwnProperty('roomPeers')){ // see if its not the room peers list
+            console.log('I got a message ', msg)
+
+            if(msg.owner && msg.owner._id === this.$store.state.chat.id){ //if user is in the chat with that person
+              const msgNode = document.querySelector('.messages')
+              await this.$store.dispatch('chat/pushMessage', {message: msg})
+
+              msgNode.scrollTo({ // scroll to bottom
+                top: msgNode.scrollHeight,
+                behavior: 'smooth'
+              })
+            }
+            else{ // if user is outside of the chat that he got message from
+              this.$nuxt.$emit('notification', msg);
+            }
           }
+          else{
+            console.log('I got the room peers list ', msg)
+            msg.roomPeers.forEach(id => {
 
-          if(msg.owner._id === this.$store.state.chat.id){ //if user is in the chat with that person
-            const msgNode = document.querySelector('.messages')
-            await this.$store.dispatch('chat/pushMessage', {message: msg})
+              const peer = new Peer()
+              peer.on('open', () => {
+                const connection = peer.connect(id)
+                connection.on('open', () => {
+                  webRTC.roomPeers.push(connection)
+                })
 
-            msgNode.scrollTo({ // scroll to bottom
-              top: msgNode.scrollHeight,
-              behavior: 'smooth'
+              })
             })
-          }
-          else{ // if user is outside of the chat that he got message from
-            this.$nuxt.$emit('notification', msg.owner._id);
+
           }
         })
+
 
       })
 

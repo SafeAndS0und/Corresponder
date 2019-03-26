@@ -77,6 +77,7 @@
 
         if(roomPeer){
           if(roomPeer.id === room._id){
+            console.log('Im a host')
             roomPeer.on('connection', connection =>{
               console.log('SOMEBODY joined the room', connection)
 
@@ -91,8 +92,8 @@
             })
           }
           else{
-            console.log('im a client so ill just wait on data i guess')
             roomPeer.on('data', data =>{
+              console.log('I got a room message ', data)
               this.$store.dispatch('chat/pushMessage', {message: data}) // update the messages localy
             })
           }
