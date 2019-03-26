@@ -1,11 +1,12 @@
 <template>
   <div>
     <transition name="fade">
-      <div class="page" v-if="!isLoading">
+      <div class="page" v-if="!isLoading" v-touch:swipe.right="unfold">
 
         <Navbar class="navbar" :folded="folded"/>
         <Sidebar class="sidebar"
                  :class="{folded}"
+                 v-touch:swipe.left="fold"
                  @fold="forwardFold"/>
 
         <nuxt
@@ -96,7 +97,6 @@
           }
         })
 
-
       })
 
 
@@ -104,6 +104,15 @@
     methods: {
       forwardFold(){
         this.folded = !this.folded
+      },
+      fold(){
+        this.folded = true
+      },
+      unfold(){
+        this.folded = false
+      },
+      swipeHandler(){
+        console.log('swipe')
       }
     },
     computed: {
@@ -117,6 +126,7 @@
 
 <style lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Questrial');
+  @import '../assets/css/variables.scss';
 
   html {
     font-size: 16px;
@@ -171,6 +181,12 @@
         height: 100vh;
         width: 25%;
         transition: 0.5s;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+          width: 0;
+          background: transparent;
+        }
       }
 
       .navbar {
@@ -260,6 +276,48 @@
     opacity: 0;
     transform: translateY(-100px);
   }
+
+
+
+
+  @media screen and (max-width: $tablet) {
+
+    div{
+      .page{
+
+        .content{
+          width: 65%;
+          left: 35%;
+        }
+        .sidebar{
+          width: 35%;
+        }
+      }
+    }
+
+  }
+
+  @media screen and (max-width: $mobile) {
+
+    div{
+      .page{
+
+        .content{
+          width: 0;
+        }
+        .sidebar{
+          width: 100%;
+        }
+      }
+    }
+
+    .folded{
+      width: 35px !important;
+
+    }
+  }
+
+
 
 
 </style>

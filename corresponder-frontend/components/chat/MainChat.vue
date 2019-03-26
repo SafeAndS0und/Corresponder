@@ -29,7 +29,7 @@
           @click="sendMsg"
         >
           Send
-          <span>(or just press enter)</span>
+          <!--<span>(or just press enter)</span>-->
         </button>
 
       </div>
@@ -81,7 +81,7 @@
           parent: this.$store.state.chat.id,
           content: this.content
         })
-          .then(res => {
+          .then(res =>{
             // scroll to bottom
             this.msgNode.scrollTo({
               top: this.msgNode.scrollHeight,
@@ -108,7 +108,7 @@
 
       header {
         background-color: #fafafa;
-        padding: 4px 16px;
+        padding: 4px 20px;
         border-radius: 50px;
         display: inline-block;
         -webkit-box-shadow: 4px 4px 5px 0 rgb(205, 205, 205);
@@ -210,7 +210,92 @@
         }
       }
     }
-
   }
+
+  @media screen and (max-width: $tablet) {
+    .chat {
+
+      .room-window {
+        margin: 0 60px 0 60px;
+        padding: 5px 20px;
+
+        header {
+
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: $mobile) {
+    .chat {
+      padding-top: 40px;
+      height: 87vh;
+
+      .room-window {
+        margin: 0 8px;
+        padding: 0 5px 0 20px;
+        position: relative;
+        height: 87vh;
+
+        header {
+          width: 100%;
+          border-radius: 5px;
+          display: grid;
+          grid-template-columns: 60px 1fr;
+
+          .pic {
+            max-height: 45px;
+            max-width: 45px;
+            border-radius: 25px;
+            display: inline-block;
+            position: relative;
+            transform: translateY(10px);
+            margin-right: 15px;
+
+          }
+          .name {
+            display: inline-block;
+            margin: 12px 0;
+
+            h3 {
+              font-size: 1em;
+              font-weight: 400;
+              letter-spacing: 2px;
+              margin-bottom: 5px;
+              color: #555555;
+            }
+            p {
+              font-size: 0.9em;
+              color: #999999;
+            }
+          }
+        }
+
+        .messages {
+          height: auto;
+          border-radius: 3px;
+        }
+
+        .send-container {
+          position: absolute;
+          bottom: 5px;
+          width: 93%;
+          display: grid;
+          grid-template-columns: 1fr .5fr;
+          grid-template-rows: 80px;
+          grid-gap: 5px;
+          margin-top: 10px;
+
+          .textArea {
+            resize: none;
+            border-radius: 0;
+            display: inline-block;
+          }
+        }
+      }
+
+    }
+  }
+
 
 </style>

@@ -106,4 +106,17 @@
     }
   }
 
+
+  @media screen and (max-width: $mobile) {
+
+    section{
+      .arrow{
+        right: 3px;
+        bottom: 60px;
+        transform: scale(0.75);
+      }
+    }
+
+  }
+
 </style>

@@ -101,6 +101,7 @@
 </script>
 
 <style scoped lang="scss">
+  @import '../../assets/css/variables.scss';
 
   section {
     padding: 10px 15px;
@@ -132,7 +133,8 @@
 
       article {
         display: grid;
-        grid-template-columns: 1fr 4fr;
+        grid-template-columns: auto 4fr;
+        grid-gap: 25px;
         margin: 10px 0 20px 0;
 
         .msg-info {
@@ -179,6 +181,53 @@
 
   .moving {
     transform: scaleX(0.7) scaleY(1.5);
+  }
+
+
+  @media screen and (max-width: $mobile) {
+    section {
+      padding: 6px 8px;
+
+      .msg-list {
+
+        article {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          grid-gap: 12px;
+          margin: 10px 0 12px 0;
+
+          .msg-info {
+
+            h2 {
+              color: #535255;
+              font-size: 0.92em;
+              font-weight: 400;
+              margin-bottom: 4px;
+            }
+            p {
+              font-size: 0.75em;
+              color: #9a969b;
+            }
+          }
+
+          .msg-content {
+            padding-top: 4px;
+            padding-bottom: 10px;
+            font-size: 0.92em;
+            font-weight: 400;
+            color: #5f5f5f;
+
+            /deep/ .mention {
+              color: #1d6cdb;
+            }
+
+            border-bottom: 1px solid #dcdcdc;
+
+          }
+        }
+      }
+
+    }
   }
 
 </style>
