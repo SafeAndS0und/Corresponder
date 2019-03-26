@@ -6,6 +6,7 @@
         <Navbar class="navbar" :folded="folded"/>
         <Sidebar class="sidebar"
                  :class="{folded}"
+                 :folded="folded"
                  v-touch:swipe.left="fold"
                  @fold="forwardFold"/>
 
@@ -312,8 +313,12 @@
     }
 
     .folded{
-      width: 35px !important;
+      width: 0 !important;
+    }
 
+    .fullscreen {
+      width: 100% !important;
+      left: 0 !important;
     }
   }
 

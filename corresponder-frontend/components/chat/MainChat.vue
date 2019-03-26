@@ -228,12 +228,13 @@
 
   @media screen and (max-width: $mobile) {
     .chat {
-      padding-top: 40px;
+      padding-top: 25px;
+      margin-left: 0;
       height: 87vh;
 
       .room-window {
-        margin: 0 8px;
-        padding: 0 5px 0 20px;
+        margin: 0 5px;
+        padding: 0 0;
         position: relative;
         height: 87vh;
 
@@ -277,14 +278,14 @@
         }
 
         .send-container {
-          position: absolute;
+          position: fixed;
           bottom: 5px;
-          width: 93%;
+          width: 95%;
+          left: 2.5%;
           display: grid;
           grid-template-columns: 1fr .5fr;
-          grid-template-rows: 80px;
+          grid-template-rows: 65px;
           grid-gap: 5px;
-          margin-top: 10px;
 
           .textArea {
             resize: none;

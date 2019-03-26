@@ -27,9 +27,11 @@
   export default {
     name: "Sidebar",
     components: {Rooms, Friends},
+    props: {
+      folded: {default: false}
+    },
     data(){
       return {
-        folded: false,
         pageYOffset: null
       }
     },
@@ -101,19 +103,16 @@
       margin-top: 90px;
     }
 
-    .goUp{
+    .goUp {
       margin-top: 0 !important;
     }
   }
 
-
   @media screen and (max-width: $mobile) {
 
-    section{
-      .arrow{
-        right: 3px;
-        bottom: 60px;
-        transform: scale(0.75);
+    section {
+      .arrow {
+        display: none;
       }
     }
 

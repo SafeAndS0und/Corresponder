@@ -17,7 +17,7 @@
 <style scoped lang="scss">
 
   textarea{
-    min-height: 80px;
+    min-height: 60px;
     max-height: 250px;
     padding: 10px;
 

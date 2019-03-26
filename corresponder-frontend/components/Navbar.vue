@@ -140,6 +140,27 @@
     transition: 0.2s !important;
   }
 
+
+
+  @media screen and (max-width: $mobile) {
+
+    nav{
+      a, .logout {
+        top: 8px;
+        right: 8px;
+        padding: 9px 15px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      }
+
+      .moon{
+        left: 85%;
+        top: 50px
+      }
+    }
+  }
+
 </style>
 <style>
   .dark {
