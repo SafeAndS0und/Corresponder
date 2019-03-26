@@ -72,8 +72,10 @@ export default {
     console.log('Broadcasting a message: ' + content + ' to users: ', this.roomPeers)
 
     this.roomPeers.forEach(connection => {
-      if(connection.peer !== this.clientPeer.id) // dont send a message to yourself lol
+      if(connection.peer !== this.clientPeer.id){ // dont send a message to yourself lol
+        content.broadcast = true // inform that its a broadcast and not a normal message
         connection.send(content)
+      }
     })
   },
 

@@ -52,6 +52,17 @@
 
         incomingCon.on('data', async msg =>{ // When recieved a messages by connection.send(data)
 
+          if(msg.broadcast){
+            const msgNode = document.querySelector('.messages')
+            await this.$store.dispatch('chat/pushMessage', {message: msg})
+
+            msgNode.scrollTo({ // scroll to bottom
+              top: msgNode.scrollHeight,
+              behavior: 'smooth'
+            })
+            return
+          }
+
           if(!msg.hasOwnProperty('roomPeers')){ // see if its not the room peers list
             console.log('I got a message ', msg)
 
