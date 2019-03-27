@@ -13,11 +13,11 @@
       <article v-for="message of $store.state.chat.messages">
 
         <div class="msg-info">
-          <h2>{{message.owner.firstname}} {{message.owner.surname}}</h2>
-          <p>{{new Date(message.createdAt).toLocaleString()}}</p>
+          <h2 :class="{darkH2: isDark}">{{message.owner.firstname}} {{message.owner.surname}}</h2>
+          <p :class="{darkP: isDark}">{{new Date(message.createdAt).toLocaleString()}}</p>
         </div>
 
-        <div class="msg-content" v-html="colorizedMsg(message.content)"></div>
+        <div class="msg-content"  :class="{darkContent: isDark}" v-html="colorizedMsg(message.content)"></div>
 
       </article>
 
@@ -49,6 +49,9 @@
     computed: {
       isEmpty(){
         return this.$store.state.chat.messages.length <= 0
+      },
+      isDark(){
+        return this.$store.state.appThemeColor === 'dark'
       }
     },
 
@@ -145,16 +148,25 @@
             font-weight: 400;
             margin-bottom: 4px;
           }
+
+          .darkH2{
+            color: #9d9d9d;
+          }
+
           p {
             font-size: 0.82em;
             color: #9a969b;
+          }
+
+          .darkP{
+            color: #79757a;
           }
         }
 
         .msg-content {
           padding-top: 4px;
           padding-bottom: 10px;
-          font-size: 0.92em;
+          font-size: 0.91em;
           font-weight: 400;
           color: #5f5f5f;
 
@@ -163,7 +175,12 @@
           }
 
           border-bottom: 1px solid #dcdcdc;
+        }
 
+        .darkContent{
+          color: #aeaeae;
+
+          border-color: #3a3a3a;
         }
       }
     }
@@ -201,12 +218,10 @@
             h2 {
               color: #535255;
               font-size: 0.92em;
-              font-weight: 400;
               margin-bottom: 4px;
             }
             p {
               font-size: 0.75em;
-              color: #9a969b;
             }
           }
 
@@ -214,14 +229,6 @@
             padding-top: 4px;
             padding-bottom: 10px;
             font-size: 0.92em;
-            font-weight: 400;
-            color: #5f5f5f;
-
-            /deep/ .mention {
-              color: #1d6cdb;
-            }
-
-            border-bottom: 1px solid #dcdcdc;
 
           }
         }

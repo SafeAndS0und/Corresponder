@@ -37,6 +37,7 @@
   import Navbar from '../components/Navbar.vue'
   import Sidebar from '../components/sidebar/Sidebar.vue'
   import webRTC from '../assets/js/webRTC/index'
+  import Voice from '../assets/js/webRTC/voice'
 
   export default {
     components: {Navbar, Sidebar},
@@ -48,6 +49,8 @@
     async mounted(){
 
       const peer = await webRTC.createPeer(localStorage.getItem('id')) // start webRTC peer
+
+      Voice.answer() // be ready for video/audio calls
 
       peer.on('connection', incomingCon =>{ //When connected
         console.log('someone s connected')
@@ -179,7 +182,9 @@
         height: 100vh;
         width: 25%;
         transition: 0.5s;
-        overflow-y: scroll;
+        /*overflow-y: scroll;*/
+        /*overflow-x: visible;*/
+        // todo need to scroll and show the menu a the same time
 
         &::-webkit-scrollbar {
           width: 0;

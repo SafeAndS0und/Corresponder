@@ -51,7 +51,7 @@
               <v-icon name="user" class="icon" scale="1"/>
             </div>
           </button>
-          <button>
+          <button @click="makeACall(friend._id)">
             <div>
               <p>Make a voice call</p>
               <v-icon name="phone" class="icon phone" scale="1"/>
@@ -81,6 +81,7 @@
   import Searching from './Searching.vue'
   import UserCard from '../popups/UserCard.vue'
   import webRTC from '../../assets/js/webRTC/index'
+  import Voice from '../../assets/js/webRTC/voice'
 
   export default {
     name: "Friends",
@@ -164,6 +165,11 @@
           }) // update the list
           .catch(err => console.log(err))
       },
+
+
+      makeACall(whom){
+        Voice.call(whom)
+      }
     }
   }
 </script>

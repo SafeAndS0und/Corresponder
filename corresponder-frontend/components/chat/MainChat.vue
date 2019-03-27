@@ -2,30 +2,30 @@
   <section class="chat">
     <div class="room-window">
 
-      <header :class="{dark: $store.state.appThemeColor === 'dark'}">
+      <header :class="{dark: isDark}">
 
         <img :src="$store.state.chat.pic" v-if="$store.state.chat.pic"
              class="pic"
              alt="Profile picture">
 
         <div class="name">
-          <h3>{{$store.state.chat.name}}</h3>
+          <h3 :class="{darkH3: isDark}">{{$store.state.chat.name}}</h3>
           <p>{{$store.state.chat.description}}</p>
         </div>
 
       </header>
 
-      <Messages class="messages" :class="{dark: $store.state.appThemeColor === 'dark'}">
+      <Messages class="messages" :class="{dark: isDark}">
 
       </Messages>
 
       <div class="send-container">
-        <CustomTextArea :class="{dark: $store.state.appThemeColor === 'dark'}"
+        <CustomTextArea :class="{dark: isDark}"
                         v-model="content"
                         placeholder="Type here" class="textArea"/>
 
         <button
-          :class="{darkBtn: $store.state.appThemeColor === 'dark'}"
+          :class="{darkBtn: isDark}"
           @click="sendMsg"
         >
           Send
@@ -33,6 +33,8 @@
         </button>
 
       </div>
+
+      <video style="width:250px;height: 250px;background-color: #adb8e2"></video>
 
     </div>
 
@@ -52,6 +54,11 @@
       return {
         content: '',
         msgNode: null
+      }
+    },
+    computed: {
+      isDark(){
+        return this.$store.state.appThemeColor === 'dark'
       }
     },
     mounted(){
@@ -137,9 +144,12 @@
             margin-bottom: 5px;
             color: #555555;
           }
+          .darkH3{
+            color: #d6d3d0;
+          }
           p {
             padding-left: 2px;
-            color: #999999;
+            color: #8e8e8e;
           }
         }
       }
@@ -163,16 +173,16 @@
 
         &:active, &:focus {
           color: #cdbdc9;
-          background-color: #201f29 !important;
+          background-color: #23242f !important;
         }
 
       }
 
       .darkBtn {
-        background-color: #1e2029 !important;
+        background-color: #23242f !important;
 
         &:hover {
-          background-color: #1c202c !important;
+          background-color: #2d2f38 !important;
         }
       }
 

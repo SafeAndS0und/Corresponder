@@ -95,7 +95,7 @@
 
     .moon {
       position: absolute;
-      top: 45px;
+      top: 50px;
       right: 16px;
       color: #69747d;
       cursor: pointer;
