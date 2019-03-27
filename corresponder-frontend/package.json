@@ -1,7 +1,7 @@
 {
-  "name": "correspond-frontend",
+  "name": "Corresponder",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple Real-Time-Communication app",
   "author": "Nikodem Lorenz",
   "private": true,
   "scripts": {

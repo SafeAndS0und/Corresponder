@@ -228,15 +228,13 @@
 
   @media screen and (max-width: $mobile) {
     .chat {
-      padding-top: 25px;
+      padding-top: 0;
       margin-left: 0;
-      height: 87vh;
 
       .room-window {
-        margin: 0 5px;
-        padding: 0 0;
+        margin: 0 6px;
+        padding: 0;
         position: relative;
-        height: 87vh;
 
         header {
           width: 100%;

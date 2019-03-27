@@ -6,6 +6,13 @@
             class="arrow"
             scale="1.9"/>
 
+    <div class="moon" @click="switchThemeColor">
+      <v-icon :class="{invisible: folded}"
+              name="regular/moon"
+              scale="1.6"
+      />
+    </div>
+
     <h2 v-if="!loggedIn && !folded">
       Hi, I will be your navigation sidebar.
       <br/>
@@ -32,8 +39,12 @@
     },
     data(){
       return {
-        pageYOffset: null
+        pageYOffset: null,
+        body: null
       }
+    },
+    beforeMount(){
+      this.body = document.body
     },
     created(){
       document.addEventListener('scroll', () =>{
@@ -44,15 +55,19 @@
     methods: {
       emitFold(){
         this.$emit('fold')
-        this.folded = !this.folded
-      }
+      },
+
+      switchThemeColor(){
+        this.$store.dispatch('switchThemeColor')
+        this.body.classList.toggle('dark')
+      },
     },
     computed: {
       loggedIn(){
         if(process.client){
           return this.$store.getters['user/isLoggedIn']
         }
-      }
+      },
     }
   }
 </script>
@@ -75,6 +90,19 @@
 
       &:hover {
         color: #ccc7cd;
+      }
+    }
+
+    .moon {
+      position: absolute;
+      top: 45px;
+      right: 16px;
+      color: #69747d;
+      cursor: pointer;
+      transition: 1.5s;
+
+      &:hover {
+        color: #fff;
       }
     }
 

@@ -111,9 +111,6 @@
       },
       unfold(){
         this.folded = false
-      },
-      swipeHandler(){
-        console.log('swipe')
       }
     },
     computed: {

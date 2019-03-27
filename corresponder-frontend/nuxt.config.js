@@ -27,10 +27,14 @@ module.exports = {
     ]
   },
 
+  manifest: {
+    theme_color: '#1B1B1D',
+  },
+
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#fdf4ff' },
 
   /*
   ** Global CSS

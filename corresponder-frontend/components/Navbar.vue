@@ -7,12 +7,7 @@
       Simple Real-Time-Communication app
     </p>
 
-    <div class="moon" @click="switchThemeColor">
-      <v-icon :class="{invisible: folded}"
-              name="regular/moon"
-              scale="1.6"
-      />
-    </div>
+
 
     <nuxt-link to="/SignUp"
                v-if="!loggedIn"
@@ -20,7 +15,7 @@
       Sign up
     </nuxt-link>
     <button
-      v-if="loggedIn"
+      v-if="loggedIn && showLogout"
       class="logout"
       @click="logout"
       :class="{dark: $store.state.appThemeColor === 'dark'}">
@@ -35,17 +30,17 @@
     name: "navbar",
     data(){
       return {
-        body: ''
+        body: '',
+        width: null
       }
     },
     beforeMount(){
-      this.body = document.body
+      this.width = document.documentElement.clientWidth
+      window.onresize = () =>{
+        this.width = document.documentElement.clientWidth
+      }
     },
     methods: {
-      switchThemeColor(){
-        this.$store.dispatch('switchThemeColor')
-        this.body.classList.toggle('dark')
-      },
       logout(){
         this.$store.dispatch('user/logout')
       }
@@ -55,6 +50,14 @@
         if(process.client){
           return this.$store.getters['user/isLoggedIn']
         }
+      },
+      showLogout(){
+        if(this.width > 860 && !this.folded)
+          return true
+        else if(!this.folded && this.width < 860)
+          return true
+        else
+          return false
       }
     }
   }
@@ -89,19 +92,6 @@
       font-size: 0.85em;
       color: #bcbcbc;
 
-    }
-
-    .moon {
-      position: absolute;
-      top: 25px;
-      left: 22%;
-      color: #69747d;
-      cursor: pointer;
-      transition: 1.5s;
-
-      &:hover {
-        color: #fff;
-      }
     }
 
     h1, p {
@@ -140,11 +130,9 @@
     transition: 0.2s !important;
   }
 
-
-
   @media screen and (max-width: $mobile) {
 
-    nav{
+    nav {
       a, .logout {
         top: 8px;
         right: 8px;
@@ -152,11 +140,6 @@
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
-      }
-
-      .moon{
-        left: 85%;
-        top: 50px
       }
     }
   }
