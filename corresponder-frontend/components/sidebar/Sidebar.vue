@@ -22,7 +22,7 @@
     </h2>
 
 
-    <div class="collections"  :class="{goUp: pageYOffset > 60}">
+    <div class="collections" :class="{goUp: pageYOffset > 60}">
       <Rooms v-if="loggedIn && !folded"
              ref="rooms"
              class="rooms"/>
@@ -48,7 +48,7 @@
         pageYOffset: null,
         body: null,
 
-        isMovingRooms: false
+        isMoving: {}
       }
     },
     beforeMount(){
@@ -60,48 +60,63 @@
       })
     },
     mounted(){
+      // get the reference to the DOM Elements
       const rooms = this.$refs.rooms
       const friends = this.$refs.friends
-      if(!rooms)
+
+      const collections = [rooms, friends]
+
+      if(!rooms) // if user is not logged in yet, don't do anything
         return
 
       let mouseY = 0
 
-      rooms.$el.addEventListener('mousedown', event =>{
+      collections.forEach(element =>{
+        //establish whats the other element
+        const otherElement = element.$el.className.includes('rooms') ? friends : rooms
 
-        this.isMovingRooms = true
-        rooms.$el.style.boxShadow = '8px 8px 8px 0px rgba(0,0,0,0.75)'
-        rooms.$el.style.zIndex = '66'
+        element.$el.addEventListener('mousedown', event =>{
+          if(event.button !== 0) // if not LMB
+            return
 
-        mouseY = event.y
-      })
+          this.isMoving[element._name] = true
+          element.$el.style.boxShadow = '6px 6px 10px 0px black'
+          element.$el.style.zIndex = '66'
 
+          mouseY = event.y  // where the mouse was when first clicked the element
 
-      let difference
+          let difference
 
-      window.addEventListener('mousemove', event =>{
+          window.addEventListener('mousemove', event =>{
 
-        if(this.isMovingRooms){
-          difference = event.y - mouseY
-          rooms.$el.style.transform = `translateY(${difference}px)`
-        }
+            if(this.isMoving[element._name]){
+              difference = event.y - mouseY // calculate difference to move the element
+              element.$el.style.transform = `translateY(${difference}px)`
+            }
 
-      })
+          })
 
-      window.addEventListener('mouseup', event =>{
-        this.isMovingRooms = false
-        const fromTop = rooms.$el.offsetTop + difference
-        rooms.$el.style.boxShadow = 'none'
-        rooms.$el.style.transform = 'translateY(0)'
+          window.addEventListener('mouseup', event =>{
+            if(event.button !== 0)
+              return
 
-        if(fromTop > friends.$el.offsetTop){
-          rooms.$el.style.gridRow = 2
-          friends.$el.style.gridRow = 1
-        }
-        else{
-          rooms.$el.style.gridRow = 1
-          friends.$el.style.gridRow = 2
-        }
+            this.isMoving[element._name] = false
+            const fromTop = element.$el.offsetTop + difference // sum up the translateY value with the offset it had before
+
+            element.$el.style.boxShadow = 'none'
+            element.$el.style.transform = 'translateY(0)'
+
+            if(fromTop > otherElement.$el.offsetTop){ // move it up or down acc
+              element.$el.style.gridRow = 2
+              otherElement.$el.style.gridRow = 1
+            }
+            else{
+              element.$el.style.gridRow = 1
+              otherElement.$el.style.gridRow = 2
+            }
+
+          })
+        })
 
       })
     },

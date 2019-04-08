@@ -1,7 +1,7 @@
 <template>
   <div class="friends">
     <header>
-      <h3 class="name" @dblclick="expandFriendList = !expandFriendList">
+      <h3 class="name" @contextmenu.prevent="expandFriendList = !expandFriendList">
         Friends <span>({{howManyFriends}})</span>
       </h3>
 

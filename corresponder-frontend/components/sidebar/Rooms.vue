@@ -1,7 +1,7 @@
 <template>
   <div class="rooms">
     <header>
-      <h3 class="name" @dblclick="expandRoomList = !expandRoomList">
+      <h3 class="name" @contextmenu.prevent="expandRoomList = !expandRoomList">
         Rooms <span>({{howManyRooms}})</span>
       </h3>
 
