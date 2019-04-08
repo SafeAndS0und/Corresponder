@@ -34,7 +34,7 @@
 
       </div>
 
-      <video style="width:250px;height: 250px;background-color: #adb8e2"></video>
+      <!--<video style="width:250px;height: 250px;background-color: #adb8e2"></video>-->
 
     </div>
 

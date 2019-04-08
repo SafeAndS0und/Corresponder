@@ -1,7 +1,7 @@
 <template>
   <div class="rooms">
     <header>
-      <h3 class="name" @click="expandRoomList = !expandRoomList">
+      <h3 class="name" @dblclick="expandRoomList = !expandRoomList">
         Rooms <span>({{howManyRooms}})</span>
       </h3>
 

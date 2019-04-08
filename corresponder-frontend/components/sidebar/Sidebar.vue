@@ -21,9 +21,15 @@
       or Login first!
     </h2>
 
-    <Rooms v-if="loggedIn && !folded" :class="{goUp: pageYOffset > 60}" class="rooms"/>
-    <Friends v-if="loggedIn && !folded" class="friends"/>
 
+    <div class="collections"  :class="{goUp: pageYOffset > 60}">
+      <Rooms v-if="loggedIn && !folded"
+             ref="rooms"
+             class="rooms"/>
+      <Friends v-if="loggedIn && !folded"
+               ref="friends"
+               class="friends"/>
+    </div>
   </section>
 </template>
 
@@ -40,7 +46,9 @@
     data(){
       return {
         pageYOffset: null,
-        body: null
+        body: null,
+
+        isMovingRooms: false
       }
     },
     beforeMount(){
@@ -50,7 +58,52 @@
       document.addEventListener('scroll', () =>{
         this.pageYOffset = window.pageYOffset
       })
+    },
+    mounted(){
+      const rooms = this.$refs.rooms
+      const friends = this.$refs.friends
+      if(!rooms)
+        return
 
+      let mouseY = 0
+
+      rooms.$el.addEventListener('mousedown', event =>{
+
+        this.isMovingRooms = true
+        rooms.$el.style.boxShadow = '8px 8px 8px 0px rgba(0,0,0,0.75)'
+        rooms.$el.style.zIndex = '66'
+
+        mouseY = event.y
+      })
+
+
+      let difference
+
+      window.addEventListener('mousemove', event =>{
+
+        if(this.isMovingRooms){
+          difference = event.y - mouseY
+          rooms.$el.style.transform = `translateY(${difference}px)`
+        }
+
+      })
+
+      window.addEventListener('mouseup', event =>{
+        this.isMovingRooms = false
+        const fromTop = rooms.$el.offsetTop + difference
+        rooms.$el.style.boxShadow = 'none'
+        rooms.$el.style.transform = 'translateY(0)'
+
+        if(fromTop > friends.$el.offsetTop){
+          rooms.$el.style.gridRow = 2
+          friends.$el.style.gridRow = 1
+        }
+        else{
+          rooms.$el.style.gridRow = 1
+          friends.$el.style.gridRow = 2
+        }
+
+      })
     },
     methods: {
       emitFold(){
@@ -126,9 +179,19 @@
       }
     }
 
-    .rooms {
-      transition: 0.5s;
+    .collections {
+      display: grid;
       margin-top: 90px;
+
+      .rooms {
+        transition: 0.1s;
+        grid-row: 1;
+      }
+
+      .friends {
+        transition: 0.1s;
+        grid-row: 2;
+      }
     }
 
     .goUp {
