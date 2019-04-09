@@ -36,6 +36,7 @@
 <script>
   import Rooms from './Rooms.vue'
   import Friends from './Friends.vue'
+  import DND from '../../assets/js/drag_n_drop'
 
   export default {
     name: "Sidebar",
@@ -64,61 +65,10 @@
       const rooms = this.$refs.rooms
       const friends = this.$refs.friends
 
-      const collections = [rooms, friends]
+      const elements = [rooms.$el, friends.$el]
 
-      if(!rooms) // if user is not logged in yet, don't do anything
-        return
+      // DND(elements)
 
-      let mouseY = 0
-
-      collections.forEach(element =>{
-        //establish whats the other element
-        const otherElement = element.$el.className.includes('rooms') ? friends : rooms
-
-        element.$el.addEventListener('mousedown', event =>{
-          if(event.button !== 0) // if not LMB
-            return
-
-          this.isMoving[element._name] = true
-          element.$el.style.boxShadow = '6px 6px 10px 0px black'
-          element.$el.style.zIndex = '66'
-
-          mouseY = event.y  // where the mouse was when first clicked the element
-
-          let difference
-
-          window.addEventListener('mousemove', event =>{
-
-            if(this.isMoving[element._name]){
-              difference = event.y - mouseY // calculate difference to move the element
-              element.$el.style.transform = `translateY(${difference}px)`
-            }
-
-          })
-
-          window.addEventListener('mouseup', event =>{
-            if(event.button !== 0)
-              return
-
-            this.isMoving[element._name] = false
-            const fromTop = element.$el.offsetTop + difference // sum up the translateY value with the offset it had before
-
-            element.$el.style.boxShadow = 'none'
-            element.$el.style.transform = 'translateY(0)'
-
-            if(fromTop > otherElement.$el.offsetTop){ // move it up or down acc
-              element.$el.style.gridRow = 2
-              otherElement.$el.style.gridRow = 1
-            }
-            else{
-              element.$el.style.gridRow = 1
-              otherElement.$el.style.gridRow = 2
-            }
-
-          })
-        })
-
-      })
     },
     methods: {
       emitFold(){
@@ -147,6 +97,11 @@
   section {
     background-color: $s_mainGrey;
     position: relative;
+
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 
     .arrow {
       position: absolute;

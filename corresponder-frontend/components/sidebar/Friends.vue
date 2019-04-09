@@ -14,7 +14,7 @@
 
     <div class="friends-list" v-if="expandFriendList">
 
-      <article v-for="friend of friends" @click="switchFriend(friend)">
+      <article v-for="friend of friends" :ref="'friend_' + friend.username" @click="switchFriend(friend)">
 
         <UserCard :username="friend.username"
                   v-if="showCard[friend._id]"
@@ -82,6 +82,7 @@
   import UserCard from '../popups/UserCard.vue'
   import webRTC from '../../assets/js/webRTC/index'
   import Voice from '../../assets/js/webRTC/voice'
+  import DND from '../../assets/js/drag_n_drop'
 
   export default {
     name: "Friends",
@@ -94,7 +95,9 @@
         showSearching: false,
         showMenu: [],
         showCard: [],
-        notifications: []
+        notifications: [],
+
+        resolveFriends: null
       }
     },
     computed: {
@@ -102,8 +105,20 @@
         return this.friends.length
       }
     },
-    created(){
 
+    async mounted(){
+      await this.loadedFriends() // wait for friend list to be loaded
+
+      const friendsElements = []
+      this.friends.forEach(friend => {
+        const str = 'friend_' + friend.username
+        friendsElements.push(this.$refs[str][0])
+      })
+
+      DND(friendsElements)
+    },
+
+    created(){
       this.$nuxt.$on('notification', msg => {
         this.notifications[msg.owner._id] = {show: true, msg}
       })
@@ -111,12 +126,13 @@
       this.axios.get('/friends')
         .then(res =>{
           this.friends = res.data
-
           this.friends.forEach(friend =>{
             this.$set(this.showMenu, friend._id, false) // needed to make it reactive
             this.$set(this.showCard, friend._id, false)
             this.$set(this.notifications, friend._id, false)
           })
+
+          this.resolveFriends()
         })
         .catch(err => console.error(err.response))
     },
@@ -136,11 +152,14 @@
             })
           })
           .catch(err => console.log(err))
-
       },
 
       toggleMenu(id){
         this.showMenu[id] = !this.showMenu[id]
+      },
+
+      loadedFriends(){
+        return new Promise((resolve, reject) => this.resolveFriends = resolve) // Need to resolve outside of the function
       },
 
       toggleCard(id){
