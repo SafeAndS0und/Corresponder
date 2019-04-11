@@ -12,9 +12,9 @@
 
     <Searching forWhat="friends" @addedToList="refreshFriendList" v-if="showSearching"/>
 
-    <div class="friends-list" v-if="expandFriendList">
+    <div class="friends-list" v-if="expandFriendList" ref="friendListParent">
 
-      <article v-for="friend of friends" :ref="'friend_' + friend.username" @click="switchFriend(friend)">
+      <article v-for="friend of friends" @click="switchFriend(friend)">
 
         <UserCard :username="friend.username"
                   v-if="showCard[friend._id]"
@@ -108,14 +108,7 @@
 
     async mounted(){
       await this.loadedFriends() // wait for friend list to be loaded
-
-      const friendsElements = []
-      this.friends.forEach(friend => {
-        const str = 'friend_' + friend.username
-        friendsElements.push(this.$refs[str][0])
-      })
-
-      DND(friendsElements)
+      DND(this.$refs.friendListParent)
     },
 
     created(){
@@ -240,6 +233,7 @@
 
     .friends-list {
       position: relative;
+      display: grid;
 
       .user-popup{
         position: absolute;

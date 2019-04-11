@@ -36,7 +36,6 @@
 <script>
   import Rooms from './Rooms.vue'
   import Friends from './Friends.vue'
-  import DND from '../../assets/js/drag_n_drop'
 
   export default {
     name: "Sidebar",
@@ -59,16 +58,6 @@
       document.addEventListener('scroll', () =>{
         this.pageYOffset = window.pageYOffset
       })
-    },
-    mounted(){
-      // get the reference to the DOM Elements
-      const rooms = this.$refs.rooms
-      const friends = this.$refs.friends
-
-      const elements = [rooms.$el, friends.$el]
-
-      // DND(elements)
-
     },
     methods: {
       emitFold(){

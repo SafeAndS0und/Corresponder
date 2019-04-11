@@ -20,8 +20,8 @@
 
     <Searching forWhat="rooms" @addedToList="refreshRoomList" v-if="showSearching"/>
 
-    <div class="room-list" v-if="expandRoomList">
-      <article v-for="room of rooms" @click="switchRoom(room)">
+    <div class="room-list" v-if="expandRoomList"  ref="roomListParent">
+      <article v-for="room of rooms" :ref="'room_' + room.name" @click="switchRoom(room)">
 
         <img :src="room.profilePic"
              v-if="room.profilePic"
@@ -43,6 +43,7 @@
   import CustomButton from '../partials/CustomButton.vue'
   import Searching from './Searching.vue'
   import webRTC from '../../assets/js/webRTC/index'
+  import DND from '../../assets/js/drag_n_drop'
 
   export default {
     name: "Rooms",
@@ -57,6 +58,8 @@
         newRoomName: '',
         newRoomDesc: '',
 
+        resolveRooms: null
+
       }
     },
     computed: {
@@ -64,14 +67,23 @@
         return this.rooms.length
       }
     },
+    async mounted(){
+      await this.loadedRooms() // wait for friend list to be loaded
+      DND(this.$refs.roomListParent)
+    },
     created(){
       this.axios.get('/rooms')
         .then(res =>{
           this.rooms = res.data.roomList
+          this.resolveRooms()
         })
         .catch(err => console.log(err.response))
     },
     methods: {
+      loadedRooms(){
+        return new Promise((resolve, reject) => this.resolveRooms = resolve) // Need to resolve outside of the function
+      },
+
       async switchRoom(room){
         const {roomPeer, roomPeers} = await webRTC.createRoom(room._id)
 
@@ -232,6 +244,7 @@
     }
 
     .room-list {
+      display: grid;
 
       article {
         position: relative;
