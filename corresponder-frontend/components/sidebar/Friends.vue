@@ -12,7 +12,7 @@
 
     <Searching forWhat="friends" @addedToList="refreshFriendList" v-if="showSearching"/>
 
-    <div class="friends-list" v-if="expandFriendList" ref="friendListParent">
+    <div class="friends-list" v-if="expandFriendList" v-dnd>
 
       <article v-for="friend of friends" @click="switchFriend(friend)">
 
@@ -97,7 +97,6 @@
         showCard: [],
         notifications: [],
 
-        resolveFriends: null
       }
     },
     computed: {
@@ -105,12 +104,6 @@
         return this.friends.length
       }
     },
-
-    async mounted(){
-      await this.loadedFriends() // wait for friend list to be loaded
-      DND(this.$refs.friendListParent)
-    },
-
     created(){
       this.$nuxt.$on('notification', msg => {
         this.notifications[msg.owner._id] = {show: true, msg}
@@ -124,8 +117,6 @@
             this.$set(this.showCard, friend._id, false)
             this.$set(this.notifications, friend._id, false)
           })
-
-          this.resolveFriends()
         })
         .catch(err => console.error(err.response))
     },
@@ -149,10 +140,6 @@
 
       toggleMenu(id){
         this.showMenu[id] = !this.showMenu[id]
-      },
-
-      loadedFriends(){
-        return new Promise((resolve, reject) => this.resolveFriends = resolve) // Need to resolve outside of the function
       },
 
       toggleCard(id){

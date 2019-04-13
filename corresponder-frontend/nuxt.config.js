@@ -49,6 +49,7 @@ module.exports = {
     { src: '~plugins/vue-awesome', ssr: false },
     { src: '~plugins/vue-axios', ssr: false },
     { src: '~plugins/vue-touch', ssr: false },
+    { src: '~plugins/drag_and_drop', ssr: false },
   ],
 
   /*

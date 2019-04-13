@@ -6,7 +6,7 @@ import onPageRefresh from '../assets/js/onPageRefresh'
 export default async({app: {store}}) =>{
 
   const axiosInstance = axios.create({
-    baseURL: 'http://192.168.100.6:3002/'
+    baseURL: 'http://192.168.100.8:3002/'
   })
 
   await onPageRefresh(axiosInstance, store)
