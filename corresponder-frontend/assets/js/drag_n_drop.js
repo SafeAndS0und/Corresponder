@@ -1,4 +1,4 @@
-export default parentElement => {
+export default parentElement =>{
 
   if(!parentElement.children[0]) // if user is not logged in yet, don't do anything
     return
@@ -17,22 +17,23 @@ export default parentElement => {
 
       isMoving[element.attributes[0]] = true
 
-      // TODO: Make the additional css changes a function parameter
-      element.style.boxShadow = '6px 6px 10px 0px #111319'
-      element.style.zIndex = '66'
-      element.style.transform = 'scale(1.05)'
-
       mouseY = event.y  // where the mouse was when first clicked the element
 
       let difference
+
 
       const mouseMoveListener = event =>{
 
         if(isMoving[element.attributes[0]]){
           difference = event.y - mouseY // calculate difference to move the element
-          element.style.transform = `translateY(${difference}px) scale(1.04)`
-        }
 
+          // If its dragged at least 3px
+          if(Math.abs(difference) > 3){
+            element.style.transform = `translateY(${difference}px) scale(1.05)`
+            element.style.boxShadow = '6px 6px 10px 0px #111319'
+            element.style.zIndex = '66'
+          }
+        }
       }
 
       const mouseUpListener = event =>{
@@ -55,18 +56,18 @@ export default parentElement => {
 
         const eSorted = [{offset: fromTop, element}]
 
-        children.forEach(e => {
+        children.forEach(e =>{
           if(e !== element)
-          eSorted.push({offset: e.offsetTop, element: e})
+            eSorted.push({offset: e.offsetTop, element: e})
         })
 
         // sort elements by offsetTop
-        eSorted.sort((a, b) => {
+        eSorted.sort((a, b) =>{
           return a.offset - b.offset
         })
 
         // its sorted so we can change the gridRow value of them
-        eSorted.forEach((e, index) => {
+        eSorted.forEach((e, index) =>{
           e.element.style.gridRow = ++index
         })
 

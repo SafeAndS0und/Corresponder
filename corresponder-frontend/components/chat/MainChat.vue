@@ -138,8 +138,8 @@
           margin: 12px 0;
 
           h3 {
-            font-size: 24px;
-            font-weight: 400;
+            font-size: 22px;
+            font-weight: 300;
             letter-spacing: 2px;
             margin-bottom: 5px;
             color: #555555;

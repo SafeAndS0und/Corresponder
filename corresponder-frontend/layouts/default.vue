@@ -126,7 +126,7 @@
 </script>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css?family=Questrial');
+  @import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
   @import '../assets/css/variables.scss';
 
   html {
@@ -143,7 +143,7 @@
   }
 
   * {
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Oxygen', sans-serif;
   }
 
   body {

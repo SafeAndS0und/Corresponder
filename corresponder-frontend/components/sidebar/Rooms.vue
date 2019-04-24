@@ -239,9 +239,9 @@
         position: relative;
         padding: 10px 15px;
         background-color: $s_articleGrey;
-        color: #cecece;
+        color: #686868;
         cursor: pointer;
-        border-bottom: 1px solid #272937;
+        border-bottom: 1px solid #1c1d21;
         transition: 0.15s;
 
         display: grid;
@@ -249,7 +249,8 @@
         grid-template-columns: 48px 1fr;
 
         &:hover {
-          background-color: #1d1f29;
+          background-color: #1d1e23;
+          color: white;
         }
 
         .profile-pic {
@@ -261,7 +262,7 @@
 
         .room-name {
           align-self: center;
-          font-weight: 300;
+          font-weight: 400;
           font-size: 0.82em;
           letter-spacing: 2px;
         }

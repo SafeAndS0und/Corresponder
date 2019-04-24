@@ -76,7 +76,7 @@
       line-height: 50px;
       padding-left: 15px;
       font-size: 30px;
-      font-weight: 400;
+      font-weight: 700;
       letter-spacing: 2px;
       color: white;
       margin: 0;
@@ -90,6 +90,7 @@
       margin: 0;
       padding: 0 15px;
       font-size: 0.85em;
+      font-weight: 400;
       color: #bcbcbc;
 
     }

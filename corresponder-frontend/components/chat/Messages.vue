@@ -136,7 +136,7 @@
 
       article {
         display: grid;
-        grid-template-columns: auto 4fr;
+        grid-template-columns: auto 1fr;
         grid-gap: 25px;
         margin: 10px 0 20px 0;
 

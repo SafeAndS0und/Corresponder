@@ -14,7 +14,7 @@
 
     <div class="friends-list" v-if="expandFriendList" v-dnd>
 
-      <article v-for="friend of friends" @click="switchFriend(friend)">
+      <article v-for="friend of friends" @click="switchFriend(friend, $event)">
 
         <UserCard :username="friend.username"
                   v-if="showCard[friend._id]"
@@ -121,8 +121,10 @@
         .catch(err => console.error(err.response))
     },
     methods: {
-      switchFriend(friend){
+      switchFriend(friend, e){
         webRTC.connectToAnotherPeer(friend._id)
+
+        console.log(e)
 
         this.axios.get(`/messages/friend/${friend._id}`)
           .then(res => {
@@ -234,18 +236,19 @@
         position: relative;
         padding: 10px 15px;
         background-color: $s_articleGrey;
-        color: #cecece;
+        color: #686868;
         cursor: pointer;
-        border-bottom: 1px solid #272937;
+        border-bottom: 1px solid #1c1d21;
         transition: 0.15s;
         display: grid;
         grid-auto-flow: column;
         grid-template-columns: 48px 1fr;
 
         &:hover {
-          background-color: #1d1f29;
+          background-color: #1d1e23;
           color: white;
         }
+
 
         .profile-pic{
           align-self: center;
@@ -257,7 +260,7 @@
 
         .friend-name {
           align-self: center;
-          font-weight: 300;
+          font-weight: 400;
           font-size: 0.82em;
           letter-spacing: 2px;
           grid-column: 2;
