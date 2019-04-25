@@ -21,6 +21,7 @@
 
       <div class="send-container">
         <CustomTextArea :class="{dark: isDark}"
+                        @keypress.enter.native="sendMsg"
                         v-model="content"
                         placeholder="Type here" class="textArea"/>
 
@@ -90,6 +91,7 @@
         })
           .then(res =>{
             // scroll to bottom
+            this.content = ''
             this.msgNode.scrollTo({
               top: this.msgNode.scrollHeight,
               behavior: 'smooth'

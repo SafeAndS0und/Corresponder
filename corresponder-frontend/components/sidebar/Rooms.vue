@@ -89,7 +89,8 @@
                 console.log('ive got data', data)
               })
 
-              if(!roomPeers.includes(connection))
+              let theSame = roomPeers.filter(({peer}) => peer === connection.peer)
+              if(theSame.length === 0)
                 roomPeers.push(connection)
 
               roomPeers.forEach(({peer}) => {
