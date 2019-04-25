@@ -71,6 +71,7 @@ export default {
   broadcast(content){
     console.log('Broadcasting a message: ' + content + ' to users: ', this.roomPeers)
 
+
     this.roomPeers.forEach(connection => {
       if(connection.peer !== this.clientPeer.id){ // dont send a message to yourself lol
         content.broadcast = true // inform that its a broadcast and not a normal message
@@ -90,7 +91,10 @@ export default {
       const connection = peer.connect(to)
       connection.on('open', () => {
         let peersIds = [this.clientPeer.id] // initialize only with your id, because it wont be in the list
-        this.roomPeers.forEach(peer => peersIds.push(peer.peer)) // we want to send only the IDs, because whole object aint WORKIN' IDK
+        this.roomPeers.forEach(peer => {
+          if(!peersIds.includes(peer.peer))
+            peersIds.push(peer.peer)
+        }) // we want to send only the IDs, because whole object aint WORKIN' IDK
 
         connection.send({roomPeers: peersIds})
       })

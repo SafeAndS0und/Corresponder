@@ -81,18 +81,21 @@
               })
             }
             else{ // if user is outside of the chat that he got message from
-              this.$nuxt.$emit('notification', msg);
+              this.$nuxt.$emit('notification', msg)
             }
           }
           else{
             console.log('I got the room peers list ', msg)
-            msg.roomPeers.forEach(id => {
+            msg.roomPeers.forEach(id =>{
 
               const peer = new Peer()
-              peer.on('open', () => {
+              peer.on('open', () =>{
                 const connection = peer.connect(id)
-                connection.on('open', () => {
-                  webRTC.roomPeers.push(connection)
+                connection.on('open', () =>{
+                  // check if there isnt already this peer on the list
+                  let theSame = webRTC.roomPeers.filter(({peer}) => peer === connection.peer)
+                  if(theSame.length === 0)
+                    webRTC.roomPeers.push(connection)
                 })
 
               })
@@ -130,7 +133,7 @@
   @import '../assets/css/variables.scss';
 
   html {
-    font-size: 16px;
+    font-size: 15px;
     word-spacing: 1px;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
@@ -280,19 +283,16 @@
     transform: translateY(-100px);
   }
 
-
-
-
   @media screen and (max-width: $tablet) {
 
-    div{
-      .page{
+    div {
+      .page {
 
-        .content{
+        .content {
           width: 65%;
           left: 35%;
         }
-        .sidebar{
+        .sidebar {
           width: 35%;
         }
       }
@@ -302,19 +302,19 @@
 
   @media screen and (max-width: $mobile) {
 
-    div{
-      .page{
+    div {
+      .page {
 
-        .content{
+        .content {
           width: 0;
         }
-        .sidebar{
+        .sidebar {
           width: 100%;
         }
       }
     }
 
-    .folded{
+    .folded {
       width: 0 !important;
     }
 
@@ -323,8 +323,6 @@
       left: 0 !important;
     }
   }
-
-
 
 
 </style>

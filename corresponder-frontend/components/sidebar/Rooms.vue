@@ -80,16 +80,21 @@
           if(roomPeer.id === room._id){
             console.log('Im a host')
             roomPeer.on('connection', connection =>{
-              console.log('SOMEBODY joined the room', connection)
+              console.log('some BODY joined the room', connection)
 
               // sendList of current room users
-              webRTC.sendList(connection.peer)
+              // webRTC.sendList(connection.peer)
 
               connection.on('data', data =>{
                 console.log('ive got data', data)
               })
 
-              roomPeers.push(connection)
+              if(!roomPeers.includes(connection))
+                roomPeers.push(connection)
+
+              roomPeers.forEach(({peer}) => {
+                webRTC.sendList(peer)
+              })
             })
           }
           else{
@@ -239,7 +244,7 @@
         position: relative;
         padding: 10px 15px;
         background-color: $s_articleGrey;
-        color: #686868;
+        color: #858585;
         cursor: pointer;
         border-bottom: 1px solid #1c1d21;
         transition: 0.15s;
@@ -263,7 +268,7 @@
         .room-name {
           align-self: center;
           font-weight: 400;
-          font-size: 0.82em;
+          font-size: 0.85em;
           letter-spacing: 2px;
         }
 

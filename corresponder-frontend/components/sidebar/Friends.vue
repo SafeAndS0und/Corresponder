@@ -124,8 +124,6 @@
       switchFriend(friend, e){
         webRTC.connectToAnotherPeer(friend._id)
 
-        console.log(e)
-
         this.axios.get(`/messages/friend/${friend._id}`)
           .then(res => {
             this.$store.dispatch('chat/switchChat', {
@@ -236,7 +234,7 @@
         position: relative;
         padding: 10px 15px;
         background-color: $s_articleGrey;
-        color: #686868;
+        color: #858585;
         cursor: pointer;
         border-bottom: 1px solid #1c1d21;
         transition: 0.15s;
@@ -261,7 +259,7 @@
         .friend-name {
           align-self: center;
           font-weight: 400;
-          font-size: 0.82em;
+          font-size: 0.85em;
           letter-spacing: 2px;
           grid-column: 2;
 
