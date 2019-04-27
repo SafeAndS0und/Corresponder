@@ -1,7 +1,7 @@
 <template>
   <div class="friends">
     <header>
-      <h3 class="name" @contextmenu.prevent="expandFriendList = !expandFriendList">
+      <h3 class="name" @click="expandFriendList = !expandFriendList">
         Friends <span>({{howManyFriends}})</span>
       </h3>
 
@@ -51,13 +51,13 @@
               <v-icon name="user" class="icon" scale="1"/>
             </div>
           </button>
-          <button @click="makeACall(friend._id)">
+          <button @click="makeACall(friend._id)" style="opacity: 0.3">
             <div>
               <p>Make a voice call</p>
               <v-icon name="phone" class="icon phone" scale="1"/>
             </div>
           </button>
-          <button>
+          <button style="opacity: 0.3">
             <div>
               <p>Make a video call</p>
               <v-icon name="video" class="icon video" scale="1"/>
@@ -167,7 +167,7 @@
 
 
       makeACall(whom){
-        Voice.call(whom)
+        // Voice.call(whom)
       }
     }
   }

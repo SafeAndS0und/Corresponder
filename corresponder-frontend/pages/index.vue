@@ -1,9 +1,11 @@
 <template>
   <section class="container">
     <MainChat v-if="loggedIn && $store.state.chat.name"/>
-    <div v-else class="not-chosen">
+
+    <div v-if="loggedIn && !$store.state.chat.name" class="not-chosen">
       Start a conversation with someone :)
     </div>
+
     <Login v-if="!loggedIn"/>
   </section>
 </template>
@@ -31,7 +33,10 @@
     div{
       margin-top: 200px;
       text-align: center;
-      color: #555555;
+      color: #585858;
+      font-size: 23px;
+      letter-spacing: 3px;
+      font-weight: 300;
     }
   }
 

@@ -64,6 +64,7 @@
     },
     mounted(){
       this.msgNode = document.querySelector('.messages')
+      this.msgNode.scrollTop = 0
     },
     methods: {
       sendMsg(){
@@ -79,11 +80,9 @@
 
         this.$store.dispatch('chat/pushMessage', {message: msgObj}) // update the messages localy
 
-        if(this.$store.state.chat.chatType === 'friend')
-          webRTC.sendMessage(msgObj) // send it to the peer connected
-        else
-          webRTC.broadcast(msgObj)
-
+        this.$store.state.chat.chatType === 'friend'
+          ? webRTC.sendMessage(msgObj) // send it to the peer connected
+          : webRTC.broadcast(msgObj)
 
         this.axios.post(`/messages/${this.$store.state.chat.chatType}`, {
           parent: this.$store.state.chat.id,

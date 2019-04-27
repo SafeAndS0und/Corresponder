@@ -112,6 +112,7 @@
       color: #69747d;
       cursor: pointer;
       transition: 1.5s;
+      padding: 2px;
 
       &:hover {
         color: #fff;
