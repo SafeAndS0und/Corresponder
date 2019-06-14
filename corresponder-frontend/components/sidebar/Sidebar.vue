@@ -143,6 +143,7 @@
       display: grid;
       margin-top: 90px;
 
+
       .rooms {
         transition: 0.1s;
         grid-row: 1;
